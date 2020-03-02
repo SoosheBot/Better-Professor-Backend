@@ -1,12 +1,19 @@
 ## Better Professor App BE 
 
+[ ] The BE server link can be accessed here: https://be-better-professor.herokuapp.com/
 
-## DESIGN
+[ ] Project Vision: https://www.notion.so/A-Better-Professor-Product-Vision-710c5f2e4cc346df8f6e4c1a81c16bbd
 
+[ ] Trello Board with Daily Milestones (teams are responsible for maintaining their daily milestones): https://trello.com/b/apD6yvDU/better-professor-app
+
+                    ##########
+
+## DESIGN -- API ENDPOINTS
 |feature|method|url|
 |:--|:--:|:--|
 |register user (professor)|POST|/api/auth/register|
 |login user (professor)|POST|/api/auth/login|
+|log out user (professor)|GET|/api/auth/logout|
 |:--|:--:|:--|
 |list students (this is the professor's dashboard!)|GET|/api/students|
 |list student by id|GET|/api/students/:id|

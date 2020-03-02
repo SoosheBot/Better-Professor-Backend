@@ -5,7 +5,7 @@ module.exports = {
   find,
   findBy,
   findById,
-  findStudentProjects,
+  findTasks,
   add,
   update,
   remove
@@ -27,10 +27,16 @@ function findById(id) {
     .first();
 }
 
-function findStudentProjects(studentId) {
-  return db("projects")
-  .where("student_id", studentId)
-  .then(projects => projects.map(project => mappers.projectToBody(project)));
+function findTasks(id) {
+  return db("tasks as t")
+  .select("s.id as student id",
+  "s.lastname as student lastname",
+  "s.firstname as student firstname",
+  "t.name as task",
+  )
+  .join("s as students", "s.task_id", "=", "t.id")
+  .where("task_id", id)
+  .then(tasks => tasks.map(task => mappers.projectToBody(task)));
 }
 
 function add(student) {

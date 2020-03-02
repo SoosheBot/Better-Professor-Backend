@@ -1,13 +1,14 @@
-exports.up = function(knex,Promise) {
-    return knex.schema.createTable("deadlines", function(deadlines) {
-        deadlines.increments();
+exports.up = function(knex, Promise) {
+  return knex.schema.createTable("deadlines", function(tbl) {
+    tbl.increments();
 
-        deadlines.string("name", 128).unique().notNullable();
-        deadlines.date("due_date").notNullable();
-    });
+    tbl
+      .string("name", 128)
+      .notNullable();
+    tbl.date("due_date").notNullable();
+  });
 };
 
-exports.down = function(knex,Promise) {
-    return knex.schema.dropTableIfExists("deadlines");
-  };
-  
+exports.down = function(knex, Promise) {
+  return knex.schema.dropTableIfExists("deadlines");
+};

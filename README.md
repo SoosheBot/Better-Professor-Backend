@@ -17,16 +17,16 @@
 |:--|:--:|:--|
 |list students (this is the professor's dashboard!)|GET|/api/students|
 |list student by id|GET|/api/students/:id|
-|list student's projects (and deadlines)|GET|/api/students/:id/projects| 
+|list student's tasks (and deadlines)|GET|/api/students/:id/tasks| 
 |list student's messages|GET|/api/students/:id/messages|
 |add student|POST|/api/students|
-|add project and deadline to student profile|POST|/api/students/:id/projects|
+|add project and deadline to student profile|POST|/api/students/:id/tasks|
 |update student|UPDATE|/api/students/:id|
 |delete student|DEL|/api/students/:id|
 |:--|:--:|:--|
-|list projects (with deadlines)|GET|/api/projects|
-|update project|UPDATE|/api/projects/:id|
-|delete completed project|DEL|/api/projects/:id|
+|list tasks (with deadlines)|GET|/api/tasks|
+|update project|UPDATE|/api/tasks/:id|
+|delete completed project|DEL|/api/tasks/:id|
 |:--|:--:|:--|
 |send message to user|POST|/api/messages|
 |send message to student|POST|/api/students/:id/messages|
@@ -35,7 +35,7 @@
 |:--|:--:|:--|
 |STRETCH|STRETCH|STRETCH|
 |add tags to student|POST|/api/students/:id/tags|
-|filter lists by: student name, deadlines, projects, tags|
+|filter lists by: student name, deadlines, tasks, tags|
 
 
 Note -- A message should include a send date, time, and a long text field that enables the message curator the ability to send a custom message.
@@ -54,5 +54,5 @@ Additional design notes:
 --id
 --last name
 --first name
---projects, (with project deadlines)
+--tasks, (with task deadlines)
 --messages

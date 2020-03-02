@@ -19,12 +19,12 @@ router.post("/register", (req, res) => {
     
     Users.add(user)
       .then(saved => {
-        if (user.username && user.password) {
+        if (user.lastname && user.firstname && user.password && user.email) {
           res.status(201).json(saved);
         } else {
           res
             .status(404)
-            .json({ message: "Did you include a username, and password?" });
+            .json({ message: "Missing info. User requires a lastname, firstname, password and email" });
         }
       })
       .catch(err => {
@@ -39,8 +39,8 @@ router.post("/register", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
-  let { username, password } = req.body;
-  Users.findBy({ username })
+  let { lastname, firstname, password, email } = req.body;
+  Users.findBy({ lastname, firstname, email })
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {

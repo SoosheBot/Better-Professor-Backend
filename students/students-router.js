@@ -29,7 +29,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/:id/tasks", validateTaskId, (req, res) => {
-  Students.findStudentProjects(req.params.id)
+  Students.findTasks(req.params.id)
     .then(tasks => {
       res.status(200).json(tasks);
     })
@@ -37,7 +37,7 @@ router.get("/:id/tasks", validateTaskId, (req, res) => {
       console.log(err);
       res
         .status(500)
-        .json({ error: "Could not retrieve projects with this student ID" });
+        .json({ error: "Could not retrieve tasks with this student ID" });
     });
 });
 

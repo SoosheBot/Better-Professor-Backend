@@ -5,7 +5,7 @@ module.exports = {
   find,
   findBy,
   findById,
-  findTaskDeadline,
+  findDeadline,
   add,
   update,
   remove
@@ -27,7 +27,7 @@ function findById(id) {
     .first();
 }
 
-function findTaskDeadline(taskId) {
+function findDeadline(taskId) {
     return db("students")
     .where("task_id", taskId)
     .then(students => students.map(student => mappers.taskToBody(student)));

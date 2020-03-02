@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 const Students = require("./students-model");
+const Tasks = require("../tasks/tasks-model");
 
 router.get("/", (req, res) => {
   Students.find()
@@ -11,9 +12,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-  Students.findById();
-  const { id }= req.params;
-
+  const { id } = req.params;
   if (!id) {
     res.status(404).json({ message: "The student with the specified id does not exist." });
   } else {
@@ -29,10 +28,10 @@ router.get("/:id", (req, res) => {
   }
 });
 
-router.get("/:id/projects", validateProjectId, (req, res) => {
-  Students.getStudentProjects(req.params.id)
-    .then(projects => {
-      res.status(200).json(projects);
+router.get("/:id/tasks", validateTaskId, (req, res) => {
+  Students.findStudentProjects(req.params.id)
+    .then(tasks => {
+      res.status(200).json(tasks);
     })
     .catch(err => {
       console.log(err);
@@ -98,20 +97,20 @@ function validateStudent(req, res, next) {
   }
 }
 
-function validateProjectId(req, res, next) {
-  dbP
-    .get(req.params.id)
+function validateTaskId(req, res, next) {
+  Tasks
+    .findById(req.params.id)
     .then(checkId => {
       if (checkId) {
         req.checkId = checkId;
         next();
       } else {
-        res.status(404).json({ error: "Project ID may not exist." });
+        res.status(404).json({ error: "Task may not exist." });
       }
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ errorMessage: "Could not verify action ID" });
+      res.status(500).json({ errorMessage: "Could not verify task ID" });
     });
 }
 

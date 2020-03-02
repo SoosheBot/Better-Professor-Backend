@@ -5,49 +5,49 @@ module.exports = {
   find,
   findBy,
   findById,
-  findProjectDeadline,
+  findTaskDeadline,
   add,
   update,
   remove
 };
 
 function find() {
-  return db("projects").select("id", "name", "deadline");
+  return db("tasks").select("id", "name", "deadline");
 }
 
 function findBy(filter) {
-  return db("projects")
+  return db("tasks")
     .select("name", "deadline")
     .where(filter);
 }
 
 function findById(id) {
-  return db("projects")
+  return db("tasks")
     .where({ id })
     .first();
 }
 
-function findProjectDeadline(projectId) {
+function findTaskDeadline(taskId) {
     return db("students")
-    .where("project_id", projectId)
-    .then(students => students.map(student => mappers.projectToBody(student)));
+    .where("task_id", taskId)
+    .then(students => students.map(student => mappers.taskToBody(student)));
   }
 
-  function add(project) {
-    return db("projects")
-      .insert(project, "id")
+  function add(task) {
+    return db("tasks")
+      .insert(task, "id")
       .then(([id]) => find(id));
   }
 
 function update(changes, id) {
-  return db("projects", "id")
+  return db("tasks", "id")
     .where({ id })
     .update(changes, "*")
     .then(count => findById(id));
 }
 
 function remove(id) {
-  return db("projects")
+  return db("tasks")
     .where({ id })
     .del();
 }

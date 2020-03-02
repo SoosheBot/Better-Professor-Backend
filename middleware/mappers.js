@@ -1,12 +1,12 @@
 module.exports = {
-    projectToBody,
+    taskToBody
   };
   
   function intToBoolean(int) {
     return int === 1 ? true : false;
   }
   
-  function projectToBody(project) {
+  function taskToBody(project) {
     return {
       ...project,
       completed: intToBoolean(project.completed),

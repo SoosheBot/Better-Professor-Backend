@@ -8,7 +8,7 @@ const authenticate = require("../auth/auth-middleware.js");
 const authRouter = require("../auth/auth-router.js");
 const usersRouter = require("../users/users-router.js");
 const studentsRouter = require("../students/students-router");
-const projectsRouter = require("../projects/projects-router");
+const tasksRouter = require("../tasks/tasks-router");
 
 const server = express();
 
@@ -20,7 +20,7 @@ server.use(logger);
 server.use("/api/auth", authRouter);
 server.use("/api/users", authenticate, usersRouter);
 server.use("/api/students", studentsRouter);
-server.use("/api/projects", projectsRouter);
+server.use("/api/tasks", tasksRouter);
 
 server.get("/", (req, res) => {
   res.send({ api: "Is up and running."});

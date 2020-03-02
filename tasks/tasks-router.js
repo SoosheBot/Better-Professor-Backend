@@ -1,24 +1,24 @@
 const router = require("express").Router();
 
-const Projects = require("./projects-model");
+const Tasks = require("./tasks-model");
 
 router.get("/", (req, res) => {
-  Projects.find()
-    .then(projects => {
-      res.status(200).json(projects);
+  Tasks.find()
+    .then(tasks => {
+      res.status(200).json(tasks);
     })
     .catch(err => res.send(err));
 });
 
 router.get("/:id", (req, res) => {
-  Projects.find();
+  Tasks.find();
   const id = req.params.id;
   if (!id) {
     res
       .status(404)
       .json({ message: "The project with the specified id does not exist." });
   } else {
-    Projects.findById(id)
+    Tasks.findById(id)
       .then(project => {
         res.status(201).json(project);
       })
@@ -31,7 +31,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/:id/deadlines", (req, res) => {
-  Projects.findProjectDeadline(req.params.id)
+  Tasks.findProjectDeadline(req.params.id)
     .then(deadlines => {
       res.status(200).json(deadlines);
     })
@@ -45,7 +45,7 @@ router.get("/:id/deadlines", (req, res) => {
 
 router.post("/", (req, res) => {
   const body = { ...req.body };
-  Projects.add(body)
+  Tasks.add(body)
     .then(project => {
       res.status(201).json(project);
     })
@@ -55,10 +55,10 @@ router.post("/", (req, res) => {
     });
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", validateTaskId, (req, res) => {
   const body = { ...req.body };
   const { id } = req.params;
-  Projects.update(id, body)
+  Tasks.update(id, body)
     .then(updated => {
       res.status(201).json(updated);
     })
@@ -67,9 +67,9 @@ router.put("/:id", (req, res) => {
     });
 });
 
-router.delete("/:id", validateProjectId, (req, res) => {
+router.delete("/:id", validateTaskId, (req, res) => {
   const { id } = req.params;
-  Projects
+  Tasks
     .remove(id)
     .then(project => {
       res
@@ -83,8 +83,8 @@ router.delete("/:id", validateProjectId, (req, res) => {
 });
 
 // custom middleware
-function validateProjectId(req, res, next) {
-  Projects.find(req.params.id)
+function validateTaskId(req, res, next) {
+  Tasks.find(req.params.id)
     .then(checkId => {
       if (checkId) {
         req.checkId = checkId;
@@ -99,7 +99,7 @@ function validateProjectId(req, res, next) {
     });
 }
 
-function validateProject(req, res, next) {
+function validateTask(req, res, next) {
   if (req.body) {
     next();
   } else if (!req.body.name || !req.body.deadline) {

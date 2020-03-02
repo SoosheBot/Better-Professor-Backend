@@ -4,14 +4,26 @@ const Students = require("./students-model");
 
 router.get("/",  (req, res) => {
   Students.find()
-    .then()
-    .catch();
+  .then(students => {
+    res.status(200).json(students);
+  })
+  .catch(err => res.send(err));
 });
 
 router.get("/:id", (req, res) => {
   Students.findById()
-    .then()
-    .catch();
+  const id = req.params.id;
+  if (!id) {
+    res.status(404).json({ message: "The student with the specified id does not exist." });
+  } else {
+    Students.findById(id)
+    .then(student => {
+      res.status(201).json(student)
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'The student information could not be retrieved.' });
+    })
+  }
 });
 
 router.get("/:id/projects", (req, res) => {

@@ -4,7 +4,7 @@ module.exports = {
   find,
   findBy,
   findById,
-  findDeadline,
+//   findDeadline,
   add,
   update,
   remove

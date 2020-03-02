@@ -10,13 +10,12 @@ router.get("/", (req, res) => {
     .catch(err => res.send(err));
 });
 
-router.get("/:id", validateStudent, (req, res) => {
+router.get("/:id", (req, res) => {
   Students.findById();
-  const id = req.params.id;
+  const { id }= req.params;
+
   if (!id) {
-    res
-      .status(404)
-      .json({ message: "The student with the specified id does not exist." });
+    res.status(404).json({ message: "The student with the specified id does not exist." });
   } else {
     Students.findById(id)
       .then(student => {
@@ -30,7 +29,7 @@ router.get("/:id", validateStudent, (req, res) => {
   }
 });
 
-router.get("/:id/actions", validateProjectId, (req, res) => {
+router.get("/:id/projects", validateProjectId, (req, res) => {
   Students.getStudentProjects(req.params.id)
     .then(projects => {
       res.status(200).json(projects);

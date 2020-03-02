@@ -19,8 +19,8 @@ server.use(logger);
 
 server.use("/api/auth", authRouter);
 server.use("/api/users", authenticate, usersRouter);
-server.use("/api/students", authenticate, studentsRouter);
-server.use("/api/projects", authenticate, projectsRouter);
+server.use("/api/students", studentsRouter);
+server.use("/api/projects", projectsRouter);
 
 server.get("/", (req, res) => {
   res.send({ api: "Is up and running."});

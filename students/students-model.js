@@ -12,12 +12,12 @@ module.exports = {
 };
 
 function find() {
-  return db("students").select("username", "projects");
+  return db("students");
 }
 
 function findBy(filter) {
   return db("students")
-    .select("username", "projects")
+    .select("*")
     .where(filter);
 }
 
@@ -35,11 +35,8 @@ function findStudentProjects(studentId) {
 
 function add(student) {
   return db("students")
-    .insert(student)
-    .then(ids => {
-      const [id] = ids;
-      return findById(id);
-    });
+    .insert(student, "id")
+    .then(([id]) => find(id));
 }
 
 function update(changes, id) {

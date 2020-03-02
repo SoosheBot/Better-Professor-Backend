@@ -28,15 +28,11 @@ function findById(id) {
 }
 
 function findTasks(id) {
-  return db("tasks as t")
-  .select("s.id as student id",
-  "s.lastname as student lastname",
-  "s.firstname as student firstname",
-  "t.name as task",
-  )
-  .join("s as students", "s.task_id", "=", "t.id")
+  return db("students as s")
+  .join("tasks as t", "s.task_id", "=", "t.id" )
+  .select("s.lastname", "s.firstname", "t.name", "t.due_date")
   .where("task_id", id)
-  .then(tasks => tasks.map(task => mappers.projectToBody(task)));
+  .then(tasks => tasks.map(task => mappers.taskToBody(task)));
 }
 
 function add(student) {

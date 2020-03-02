@@ -19,10 +19,10 @@ server.use(logger);
 
 server.use("/api/auth", authRouter);
 server.use("/api/users", authenticate, usersRouter);
-// server.use("/api/students", authenticate, studentsRouter);
+server.use("/api/students", authenticate, studentsRouter);
 
 server.get("/", (req, res) => {
-  res.send("It's alive!!");
+  res.send({ api: "Is up and running."});
 });
 
 module.exports = server;

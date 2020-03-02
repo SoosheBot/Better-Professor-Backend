@@ -16,22 +16,22 @@ router.get("/:id", (req, res) => {
   if (!id) {
     res
       .status(404)
-      .json({ message: "The project with the specified id does not exist." });
+      .json({ message: "The task with the specified id does not exist." });
   } else {
     Tasks.findById(id)
-      .then(project => {
-        res.status(201).json(project);
+      .then(task => {
+        res.status(201).json(task);
       })
       .catch(err => {
         res
           .status(500)
-          .json({ message: "The project information could not be retrieved." });
+          .json({ message: "The task information could not be retrieved." });
       });
   }
 });
 
 router.get("/:id/deadlines", (req, res) => {
-  Tasks.findProjectDeadline(req.params.id)
+  Tasks.findDeadline(req.params.id)
     .then(deadlines => {
       res.status(200).json(deadlines);
     })
@@ -39,19 +39,19 @@ router.get("/:id/deadlines", (req, res) => {
       console.log(err);
       res
         .status(500)
-        .json({ error: "Could not retrieve deadlines with this project ID" });
+        .json({ error: "Could not retrieve deadlines with this task ID" });
     });
 });
 
 router.post("/", (req, res) => {
   const body = { ...req.body };
   Tasks.add(body)
-    .then(project => {
-      res.status(201).json(project);
+    .then(task => {
+      res.status(201).json(task);
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ errorMessage: "Error adding project" });
+      res.status(500).json({ errorMessage: "Error adding task" });
     });
 });
 
@@ -63,7 +63,7 @@ router.put("/:id", validateTaskId, (req, res) => {
       res.status(201).json(updated);
     })
     .catch(err => {
-      res.status(500).json({ errorMessage: "Could not update project." });
+      res.status(500).json({ errorMessage: "Could not update task." });
     });
 });
 
@@ -71,14 +71,14 @@ router.delete("/:id", validateTaskId, (req, res) => {
   const { id } = req.params;
   Tasks
     .remove(id)
-    .then(project => {
+    .then(task => {
       res
         .status(200)
-        .json({ message: `Project ${project} at id# ${id} was deleted.` });
+        .json({ message: `Task ${task} at id# ${id} was deleted.` });
     })
     .catch(err => {
       console.log(err);
-      res.status(500).json({ error: "Could not delete project" });
+      res.status(500).json({ error: "Could not delete task" });
     });
 });
 
@@ -90,7 +90,7 @@ function validateTaskId(req, res, next) {
         req.checkId = checkId;
         next();
       } else {
-        res.status(404).json({ error: "Project ID may not exist." });
+        res.status(404).json({ error: "Task ID may not exist." });
       }
     })
     .catch(err => {
@@ -99,16 +99,16 @@ function validateTaskId(req, res, next) {
     });
 }
 
-function validateTask(req, res, next) {
-  if (req.body) {
-    next();
-  } else if (!req.body.name || !req.body.deadline) {
-    res
-      .status(400)
-      .json({ message: "Missing required information--name, description" });
-  } else {
-    res.status(404).json({ message: "Could not validate project." });
-  }
-}
+// function validateTask(req, res, next) {
+//   if (req.body) {
+//     next();
+//   } else if (!req.body.name || !req.body.deadline) {
+//     res
+//       .status(400)
+//       .json({ message: "Missing required information--name, description" });
+//   } else {
+//     res.status(404).json({ message: "Could not validate task." });
+//   }
+// }
 
 module.exports = router;

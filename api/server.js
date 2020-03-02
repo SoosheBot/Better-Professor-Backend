@@ -8,7 +8,7 @@ const authenticate = require("../auth/auth-middleware.js");
 const authRouter = require("../auth/auth-router.js");
 const usersRouter = require("../users/users-router.js");
 const studentsRouter = require("../students/students-router");
-const projectsRouter = require("../students/projects-router");
+const projectsRouter = require("../projects/projects-router");
 
 const server = express();
 

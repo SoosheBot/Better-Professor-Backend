@@ -1,7 +1,4 @@
-module.exports = {
-  validateUser,
-  checkDupe
-};
+const Users = require("./users-model");
 
 function validateUser(user) {
   let errors = [];
@@ -20,20 +17,25 @@ function validateUser(user) {
   };
 }
 
-function checkDupe(req, res, next) {
-  const { username } = req.body;
+// function checkDupe(req, res, next) {
+//   const { username } = req.body;
 
-  Users.findBy({ username })
-    .then(user => {
-      if (user) {
-        res
-          .status(400)
-          .json({
-            message: "Username is already taken, please select another."
-          });
-      } else {
-        next();
-      }
-    })
-    .catch(err => console.log(err));
-}
+//   Users.findBy({ username })
+//     .then(user => {
+//       if (user) {
+//         res
+//           .status(400)
+//           .json({
+//             message: "Username is already taken, please select another."
+//           });
+//       } else {
+//         next();
+//       }
+//     })
+//     .catch(err => console.log(err));
+// }
+
+module.exports = {
+  validateUser
+  // checkDupe
+};

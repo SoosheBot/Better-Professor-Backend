@@ -5,18 +5,19 @@ const jwt = require("jsonwebtoken");
 const { jwtSecret } = require("../config/secrets");
 
 const { validateUser } = require("../users/users-helper");
-const { checkDupe } = require("../users/users-helper");
 
 const Users = require("../users/users-model");
 
-router.post("/register", checkDupe, (req, res) => {
+router.post("/register", (req, res) => {
   let user = req.body;
 
   const validateResult = validateUser(user);
+  
 
-  if (validateResult.isSuccessful === true) {
+  if (validateResult.isSuccessful === true && checkDupe) {
     const hash = bcrypt.hashSync(user.password, 10);
     user.password = hash;
+    
     Users.add(user)
       .then(saved => {
         if (user.username && user.password) {

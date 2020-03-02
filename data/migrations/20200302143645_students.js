@@ -4,14 +4,7 @@ exports.up = function(knex) {
   
       students.string("lastname", 355).notNullable();
       students.string("firstname", 355).notNullable();
-      students
-        .integer("project_id")
-        .unsigned()
-        .notNullable()
-        .references("id")
-        .inTable("projects")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+    
   
       students.string("messages");
     });

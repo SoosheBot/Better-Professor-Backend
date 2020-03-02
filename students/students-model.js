@@ -1,10 +1,11 @@
 const db = require("../data/dbConfig");
+const helpers = require("../middleware/mappers");
 
 module.exports = {
   find,
   findBy,
   findById,
-  // findProjects,
+  findStudentProjects,
   add,
   update,
   remove
@@ -26,10 +27,15 @@ function findById(id) {
     .first();
 }
 
+function findStudentProjects(studentId) {
+  return db("projects")
+  .where("student_id", studentId)
+  .then(projects => projects.map(project => mappers.projectToBody(project)));
+}
 
-function add(user) {
-  return db("users")
-    .insert(user)
+function add(student) {
+  return db("students")
+    .insert(student)
     .then(ids => {
       const [id] = ids;
       return findById(id);

@@ -1,37 +1,39 @@
 ## Better Professor App BE 
 
-- [ ] The BE server link can be accessed here: https://be-better-professor.herokuapp.com/
+- [ ] The BE server link can be accessed here: https://a-better-professor.herokuapp.com/
 
 - [ ] Project Vision: https://www.notion.so/A-Better-Professor-Product-Vision-710c5f2e4cc346df8f6e4c1a81c16bbd
 
 - [ ] Trello Board with Daily Milestones (teams are responsible for maintaining their daily milestones): https://trello.com/b/apD6yvDU/better-professor-app
 
-        ######################################
+#######################################################
 
 ## DESIGN -- API ENDPOINTS
 |feature|method|url|
 |:--|:--:|:--|
-|register user (professor)|POST|/api/auth/register|
-|login user (professor)|POST|/api/auth/login|
-|log out user (professor)|GET|/api/auth/logout|
+|register user |POST|/api/auth/register|
+|login user |POST|/api/auth/login|
+|log out user |GET|/api/auth/logout|
+
 |:--|:--:|:--|
-|list students (this is the professor's dashboard!)|GET|/api/students|
-|list student by id|GET|/api/students/:id|
-|list student's tasks (and deadlines)|GET|/api/students/:id/tasks| 
-|list student's messages|GET|/api/students/:id/messages|
-|add student|POST|/api/students|
+|Professor's Dashboard|
+|list students (only professor can view this!)|GET|/api/students|
+|list student by id|GET|/api/users/:id|
+|list student's tasks (and deadlines)|GET|/api/userss/:id/tasks| 
+|list student's messages|GET|/api/users/:id/messages|
 |add project and deadline to student profile|POST|/api/students/:id/tasks|
-|update student|UPDATE|/api/students/:id|
-|delete student|DEL|/api/students/:id|
+|update student|UPDATE|/api/users/:id|
+|delete student|DEL|/api/users/:id|
 |:--|:--:|:--|
 |list tasks (with deadlines)|GET|/api/tasks|
 |update project|UPDATE|/api/tasks/:id|
 |delete completed project|DEL|/api/tasks/:id|
 |:--|:--:|:--|
-|send message to user|POST|/api/messages|
-|send message to student|POST|/api/students/:id/messages|
+|send message to self|POST|/api/messages|
 |list all user messages|GET|/api/users/:id/messages|
-|list a student's messages|GET|/api/students/:id/messages|
+|:--|:--:|:--|
+|send message to student|POST|/api/users/:id/messages|
+|list a student's messages|GET|/api/users/:id/messages|
 |:--|:--:|:--|
 |STRETCH|STRETCH|STRETCH|
 |add tags to student|POST|/api/students/:id/tags|
@@ -40,19 +42,22 @@
 
 Note -- A message should include a send date, time, and a long text field that enables the message curator the ability to send a custom message.
 
-Additional design notes:
 
-##User (Professor) Profile
---register
---login
---logout
---dashboard (list of students)
+##User Registration:
+[ ] id (user.id), 
+[ ] lastname (user.lastname), 
+[ ] firstname (user.firstname), 
+[ ] username (user.username),
+[ ] email (user.email),
+[ ] tasks,
+[ ] messages
 
+##User Login
+[ ] username
+[ ] password
 
+##Basic User Workflow: 
+register >> login >> view dashboard (professor dashboard) >> logout
 
-##Student Profile
---id
---last name
---first name
---tasks, (with task deadlines)
---messages
+##Dashboard Options
+

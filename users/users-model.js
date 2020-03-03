@@ -33,8 +33,8 @@ async function add(user) {
 function update(changes, id) {
   return db("users")
     .where("id", id)
-    .update(changes)
-    .then(count => (count > 0 ? get(id) : null));
+    .update(changes, "*")
+    .then(count => findById(id));
 }
 
 function remove(id) {

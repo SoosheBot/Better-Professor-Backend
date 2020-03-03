@@ -6,7 +6,7 @@ const Users = require("./users-model.js");
 const { validateUserId, validateRole } = require("./users-helpers");
 
 
-router.get("/", authenticate, validateRole, (req, res) => {
+router.get("/", authenticate, (req, res) => {
   Users.find()
     .then(users => {
         res.status(200).json(users);  

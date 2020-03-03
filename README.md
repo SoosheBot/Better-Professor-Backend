@@ -68,7 +68,7 @@ Note -- A message should include a send date, time, and a long text field that e
 ##User login -- sample:
 {
     "username":"GoldenVoice",
-	"password":"password1",
+	"password":"password1"
 }
 
 ##Basic User Workflow: 
@@ -82,3 +82,12 @@ register >> login >> view dashboard (professor dashboard) >> logout
 [ ] - Student Dashboard
     - [ ] - Tasks (with deadlines and notes) (/api/users/:id)
 
+##Student Dashboard:
+{
+    "username":"Student",
+    "tasks": {
+        "id": 1
+        "name": "Write paper",
+        "due_date": "2020-10-10"
+    }
+}

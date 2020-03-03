@@ -1,11 +1,11 @@
 const db = require("../data/dbConfig.js");
-const mappers = require("../middleware/mappers");
+const helpers = require("./tasks-helpers");
 
 module.exports = {
   find,
   findBy,
   findById,
-  findDeadline,
+  findTaskDeadline,
   add,
   update,
   remove
@@ -31,11 +31,11 @@ function findById(id) {
     .first();
 }
 
-function findDeadline(deadlineId) {
-  return db("tasks")
-    .where("deadline_id", deadlineId)
-    .then(tasks => tasks.map(task => mappers.taskToBody(task)));
-}
+function findTaskDeadline(deadlineId) {
+    return db("actions")
+      .where("project_id", projectId)
+      .then(actions => actions.map(action => helpers.actionToBody(action)));
+  }
 
 function add(task) {
   return db("tasks")

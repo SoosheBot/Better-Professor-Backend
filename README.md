@@ -50,14 +50,31 @@ Note -- A message should include a send date, time, and a long text field that e
 [ ] username (user.username),
 [ ] email (user.email)
 
+## Example of a registered user (not admin):
+{   
+    "id": 4
+	"lastname":"Franklin",
+	"firstname":"Aretha",
+	"username":"GoldenVoice",
+	"password":"password1",
+	"email": "nightingale@email.com"
+}
+
 ##User Login
+[ ] header with `Welcome ${user}!`
 [ ] username
 [ ] password
+
+##User login -- sample:
+{
+    "username":"GoldenVoice",
+	"password":"password1",
+}
 
 ##Basic User Workflow: 
 register >> login >> view dashboard (professor dashboard) >> logout
 
-##Dashboards
+##Dashboards:
 [ ] - Professor Dashboard
     - [ ] - Left column: all student names (/api/users)
     - [ ] - Right column: all upcoming deadlines (/api/deadlines)

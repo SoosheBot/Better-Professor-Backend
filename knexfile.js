@@ -2,7 +2,7 @@ module.exports = {
 
   development: {
     client: 'pg',
-    connection: 'postgres://localhost/betterProfDB',
+    connection: 'postgres://localhost/betterProf',
     migrations: {
       directory: './data/migrations',
     },

@@ -19,7 +19,7 @@
 |Professor's Dashboard|
 |list students (only professor can view this!)|GET|/api/students|
 |list student by id|GET|/api/users/:id|
-|list student's tasks (and deadlines)|GET|/api/userss/:id/tasks| 
+|list student's tasks (and deadlines)|GET|/api/users/:id/tasks| 
 |list student's messages|GET|/api/users/:id/messages|
 |add project and deadline to student profile|POST|/api/students/:id/tasks|
 |update student|UPDATE|/api/users/:id|
@@ -48,9 +48,7 @@ Note -- A message should include a send date, time, and a long text field that e
 [ ] lastname (user.lastname), 
 [ ] firstname (user.firstname), 
 [ ] username (user.username),
-[ ] email (user.email),
-[ ] tasks,
-[ ] messages
+[ ] email (user.email)
 
 ##User Login
 [ ] username
@@ -59,5 +57,11 @@ Note -- A message should include a send date, time, and a long text field that e
 ##Basic User Workflow: 
 register >> login >> view dashboard (professor dashboard) >> logout
 
-##Dashboard Options
+##Dashboards
+[ ] - Professor Dashboard
+    - [ ] - Left column: all student names (/api/users)
+    - [ ] - Right column: all upcoming deadlines (/api/deadlines)
+
+[ ] - Student Dashboard
+    - [ ] - Tasks (with deadlines and notes) (/api/users/:id)
 

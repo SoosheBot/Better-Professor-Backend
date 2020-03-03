@@ -25,7 +25,7 @@ router.get("/:id", authenticate, checkRole("admin"), validateUserId, (req, res) 
     });
 });
 
-router.put("/:id", checkRole(["admin", "user"]), validateUserId, (req, res) => {
+router.put("/:id", validateUserId, (req, res) => {
   const body = { ...req.body };
   const { id } = req.params;
 

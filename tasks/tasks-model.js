@@ -12,7 +12,9 @@ module.exports = {
 };
 
 function find() {
-  return db("tasks");
+  return db("tasks as t")
+  .select("t.name as name", "d.due_date as due date")
+  .join("deadlines as d", "t.deadline_id", "=", "d.id")
 }
 
 function findBy(filter) {

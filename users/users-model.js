@@ -21,21 +21,20 @@ function findBy(filter) {
 }
 
 function findById(id) {
-  return db("student-info as si")
-    .select("u.lastname as lastname", "u.firstname as firstname", "t.name as task_name", "d.due_date as due date")
-    .join("tasks as t", "si.tasks_id", "=", "t.id")
-    .join("deadlines as d", "si.deadline_id", "=", "d.id")
-    .join("users as u", "si.user_id", "=", "u.id")
+  return db("users as u")
+    .select("u.lastname as lastname", "u.firstname as firstname", "t.name as task")
+    .join("tasks as t", "u.task_id", "=", "t.id")
     .where({ id })
     .first();
 }
 
 function findDeadlines(deadlineId) {
   return db("student-info as si")
-    .select("u.lastname as lastname", "u.firstname as firstname", "d.due_date as deadlines")
+    .select("u.lastname as lastname", "u.firstname as firstname", "d.due_date as due date")
     .join("deadlines as d", "d.id", "=", "si.deadline_id")
     .join("users as u", "u.id", "=", "si.user_id")
     .where("deadline_id", deadlineId)
+    .then(users => users.map(user => helpers.actionToBody(user)));
 }
 
 async function add(user) {

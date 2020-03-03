@@ -23,17 +23,23 @@
 
 |:--|:--:|:--|
 |Professor's Dashboard|
-|list students (only professor can view this!)|GET|/api/users|
+|list students (only professor/admin can view the following items!)|GET|/api/users|
 |list student by id|GET|/api/users/:id|
-|list student's tasks (and deadlines)|GET|/api/users/:id/tasks| 
+|list student's tasks|GET|/api/users/:id/tasks| 
 |list student's messages|GET|/api/users/:id/messages|
-|add project and deadline to student profile|POST|/api/students/:id/tasks|
+|add project and deadline to student profile|POST|/api/users/:id/tasks|
 |update student|UPDATE|/api/users/:id|
 |delete student|DEL|/api/users/:id|
+
 |:--|:--:|:--|
 |list tasks (with deadlines)|GET|/api/tasks|
-|update project|UPDATE|/api/tasks/:id|
-|delete completed project|DEL|/api/tasks/:id|
+|update task|UPDATE|/api/tasks/:id|
+|delete task|DEL|/api/tasks/:id|
+|:--|:--:|:--|
+|list deadlines|GET|/api/deadlines|
+|add deadline to specific task|POST|/api/tasks/:id/deadline|
+|update task deadline|PUT|/api/task/:id/deadline|
+|delete deadline|DEL|/api/deadline/:id|
 |:--|:--:|:--|
 |send message to self|POST|/api/messages|
 |list all user messages|GET|/api/users/:id/messages|

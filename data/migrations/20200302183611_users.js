@@ -12,7 +12,7 @@ exports.up = function(knex, Promise) {
       .notNullable()
       .unique();
       
-    tbl.string("role")
+    tbl.string("role").defaultTo("user");
   });
 };
 

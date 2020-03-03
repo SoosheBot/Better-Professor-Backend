@@ -4,17 +4,19 @@ const Users = require("./users-model");
 function validateUser(user) {
   let errors = [];
 
-  if (
-    !user.lastname ||
-    user.lastname.length < 2 ||
-    !user.firstname ||
-    user.firstname.length < 2 ||
-    !user.username ||
-    user.username.length < 2
-  ) {
+  if (!user.lastname || user.lastname.length < 2) {
     errors.push(
-      "Please enter a user last name, firstname, and username. All must contain at least 2 characters"
+      "Please enter a user last name that contains at least 2 characters"
     );
+  }
+
+  if (!user.firstname || user.firstname.length < 2) {
+    errors.push(
+      "Please enter a user first name that contains at least 2 characters"
+    );
+  }
+  if (!user.username || user.username.length < 2) {
+    errors.push("Username must contain at least 4 characters");
   }
 
   if (!user.password || user.password.length < 4) {
@@ -59,17 +61,35 @@ function validateUserId(req, res, next) {
       if (user) {
         next();
       } else {
-        res.status(404).json({ message: "Invalid user id." });
+        res.status(404).json({ message: "User ID not found." });
       }
     })
     .catch(err => res.status(500).json({ err: "Could not get user'" }));
 }
 
-
+function validateRole(req,res,next) {
+  const { role } = req.body;
+  if (role && role === "admin") {
+    next();
+  } else {
+    res.status(403).json({ error: "User does not have permission to view this screen."})
+  }
+  // Users.findBy(role)
+  // .then(user => {
+  //   if (user && user.role === "admin") {
+  //     next();
+  //   } else {
+  //     res.status(403).json({ error: "User does not have permission to view this screen."})
+  //   }
+  // })
+  // .catch(err => {
+  //   res.status(500).json({ err: "Could not verify user role."})
+  // })
+}
 
 module.exports = {
   validateUser,
   checkDuplicates,
   validateUserId,
-  
+  validateRole
 };

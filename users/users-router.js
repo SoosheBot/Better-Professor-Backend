@@ -1,11 +1,12 @@
 const router = require("express").Router();
+const authenticate = require("../auth/auth-middleware.js");
 
 const Users = require("./users-model.js");
 
-const { validateUserId } = require("./users-helpers");
-const { isAdmin } = require("./validate-admin");
+const { validateUserId, validateRole } = require("./users-helpers");
 
-router.get("/", isAdmin, (req, res) => {
+
+router.get("/", authenticate, validateRole, (req, res) => {
   Users.find()
     .then(users => {
         res.status(200).json(users);  
@@ -13,7 +14,7 @@ router.get("/", isAdmin, (req, res) => {
     .catch(err => res.send(err));
 });
 
-router.get("/:id", validateUserId, (req, res) => {
+router.get("/:id", authenticate, validateUserId, (req, res) => {
     const { id } = req.params;
     Users.findById(id)
       .then(user => {
@@ -27,9 +28,10 @@ router.get("/:id", validateUserId, (req, res) => {
   
 });
 
-router.put("/:id", validateUserId,  (req, res) => {
-  const body = { ...req.body };
-  const { id } = req.params;
+router.put("/:id", validateUserId, (req, res) => {
+  const body = req.body;
+  const id  = req.params.id;
+
   Users.update(id, body)
     .then(changed => {
       res.status(201).json(changed);

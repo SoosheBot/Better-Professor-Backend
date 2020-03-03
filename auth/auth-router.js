@@ -4,11 +4,11 @@ const jwt = require("jsonwebtoken");
 
 const { jwtSecret } = require("../config/secrets");
 
-const { validateUser } = require("../users/users-helpers");
+const { checkDuplicates, validateUser } = require("../users/users-helpers");
 
 const Users = require("../users/users-model");
 
-router.post("/register", (req, res) => {
+router.post("/register", checkDuplicates, (req, res) => {
   let user = req.body;
 
   const validateResult = validateUser(user);

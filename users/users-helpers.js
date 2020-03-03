@@ -1,3 +1,5 @@
+const Users = require("./users-model");
+
 //custom middleware
 function validateUser(user) {
     let errors = [];
@@ -20,6 +22,61 @@ function validateUser(user) {
     };
   }
 
+  function checkDuplicates(req, res, next) {
+    const { username, email } = req.body;
+  
+    Users.findBy({username})
+    .then(user => {
+      if (user) {
+        res.status(400).json({ message: "Username is already taken"})
+      } else {
+        Users.findBy({email})
+        .then(user => {
+          if (user) {
+            res.status(400).json({ message: "Email is already taken"})
+          } else {
+            next()
+          }
+        })
+      }
+    })
+    .catch(err => console.log(err))
+  }
+
+  function validateUserId(req, res, next) {
+    const { id } = req.params;
+    
+    Users.findById(id)
+      .then(user => {
+        if (user) {
+          next()
+        } else {
+          res.status(404).json({ message: "Invalid user id."})
+        }
+      })
+      .catch(err => res.status(500).json({ err: "Could not get user'"}))
+  }
+
+  function isAdmin(req,res,next) {
+    const { is_admin } = req.body;
+
+    Users.findBy(is_admin)
+    .then(user => {
+      if (user === true) {
+        next();
+      } else {
+        res.status(403).json({ message: "You do not have the permissions to view this list" });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ err: "Could not verify admin status."})
+    })
+    
+  }
+
   module.exports = {
-    validateUser
+    validateUser,
+    checkDuplicates,
+    validateUserId,
+    isAdmin
   };

@@ -2,6 +2,8 @@ const router = require("express").Router();
 
 const Users = require("./users-model.js");
 
+const { validateUserId, isAdmin } = require("./users-helpers");
+
 router.get("/", isAdmin, (req, res) => {
   Users.find()
     .then(users => {
@@ -10,13 +12,7 @@ router.get("/", isAdmin, (req, res) => {
     .catch(err => res.send(err));
 });
 
-router.get("/:id", isAdmin, (req, res) => {
-  const id = req.params.id;
-  if (!id) {
-    res
-      .status(404)
-      .json({ message: "The user with the specified id does not exist." });
-  } else {
+router.get("/:id", validateUserId, isAdmin, (req, res) => {
     Users.findById(id)
       .then(user => {
         res.status(201).json(user);
@@ -26,22 +22,22 @@ router.get("/:id", isAdmin, (req, res) => {
           .status(500)
           .json({ message: "The user information could not be retrieved." });
       });
-  }
+  
 });
 
-router.post("/", isAdmin, (req, res) => {
-  const body = { ...req.body };
-  Users.add(body)
-    .then(task => {
-      res.status(201).json(task);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ errorMessage: "Error adding task" });
-    });
-});
+// router.post("/", isAdmin, (req, res) => {
+//   const body = { ...req.body };
+//   Users.add(body)
+//     .then(task => {
+//       res.status(201).json(task);
+//     })
+//     .catch(err => {
+//       console.log(err);
+//       res.status(500).json({ errorMessage: "Error adding task" });
+//     });
+// });
 
-router.put("/:id", isAdmin, (req, res) => {
+router.put("/:id", validateUserId,  (req, res) => {
   const body = { ...req.body };
   const { id } = req.params;
   Users.update(id, body)
@@ -69,20 +65,6 @@ router.delete("/:id", isAdmin, (req, res) => {
     });
 });
 
-function isAdmin(req,res,next) {
-  const { is_admin } = req.body
-  Users.findBy({ is_admin })
-  .then(user => {
-    if (user) {
-      next();
-    } else {
-      res.status(403).json({ message: "You do not have the permissions to view this list" });
-    }
-  })
-  .catch(err => {
-    res.status(500).json({ err: "Could not verify admin status."})
-  })
-  
-}
+
 
 module.exports = router;

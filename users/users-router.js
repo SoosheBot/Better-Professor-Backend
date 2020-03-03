@@ -4,15 +4,16 @@ const Users = require("./users-model.js");
 
 const { validateUserId, isAdmin } = require("./users-helpers");
 
-router.get("/", isAdmin, (req, res) => {
+router.get("/", (req, res) => {
   Users.find()
     .then(users => {
-      res.status(200).json(users);
+        res.status(200).json(users);  
     })
     .catch(err => res.send(err));
 });
 
-router.get("/:id", validateUserId, isAdmin, (req, res) => {
+router.get("/:id", validateUserId, (req, res) => {
+    const { id } = req.params;
     Users.findById(id)
       .then(user => {
         res.status(201).json(user);
@@ -24,18 +25,6 @@ router.get("/:id", validateUserId, isAdmin, (req, res) => {
       });
   
 });
-
-// router.post("/", isAdmin, (req, res) => {
-//   const body = { ...req.body };
-//   Users.add(body)
-//     .then(task => {
-//       res.status(201).json(task);
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).json({ errorMessage: "Error adding task" });
-//     });
-// });
 
 router.put("/:id", validateUserId,  (req, res) => {
   const body = { ...req.body };
@@ -49,7 +38,7 @@ router.put("/:id", validateUserId,  (req, res) => {
     });
 });
 
-router.delete("/:id", isAdmin, (req, res) => {
+router.delete("/:id", validateUserId, (req, res) => {
   const id = req.params.id;
   if (!id) {
     res

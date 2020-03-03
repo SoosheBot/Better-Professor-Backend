@@ -2,81 +2,87 @@ const Users = require("./users-model");
 
 //custom middleware
 function validateUser(user) {
-    let errors = [];
-  
-    if (!user.lastname || user.lastname.length < 2 || !user.firstname || user.firstname.length < 2 || !user.username || user.username.length < 2) {
-      errors.push("Please enter a user last name, firstname, and username. All must contain at least 2 characters");
-    }
-  
-    if (!user.password || user.password.length < 4) {
-      errors.push("Password must contain at least 4 characters");
-    }
+  let errors = [];
 
-    if (!user.email || user.email.length < 4) {
-      errors.push("Email must contain at least 4 characters");
-    }
-  
-    return {
-      isSuccessful: errors.length > 0 ? false : true,
-      errors
-    };
+  if (
+    !user.lastname ||
+    user.lastname.length < 2 ||
+    !user.firstname ||
+    user.firstname.length < 2 ||
+    !user.username ||
+    user.username.length < 2
+  ) {
+    errors.push(
+      "Please enter a user last name, firstname, and username. All must contain at least 2 characters"
+    );
   }
 
-  function checkDuplicates(req, res, next) {
-    const { username, email } = req.body;
-  
-    Users.findBy({username})
+  if (!user.password || user.password.length < 4) {
+    errors.push("Password must contain at least 4 characters");
+  }
+
+  if (!user.email || user.email.length < 4) {
+    errors.push("Email must contain at least 4 characters");
+  }
+
+  return {
+    isSuccessful: errors.length > 0 ? false : true,
+    errors
+  };
+}
+
+function checkDuplicates(req, res, next) {
+  const { username, email } = req.body;
+
+  Users.findBy({ username })
     .then(user => {
       if (user) {
-        res.status(400).json({ message: "Username is already taken"})
+        res.status(400).json({ message: "Username is already taken" });
       } else {
-        Users.findBy({email})
-        .then(user => {
+        Users.findBy({ email }).then(user => {
           if (user) {
-            res.status(400).json({ message: "Email is already taken"})
+            res.status(400).json({ message: "Email is already taken" });
           } else {
-            next()
+            next();
           }
-        })
+        });
       }
     })
-    .catch(err => console.log(err))
-  }
+    .catch(err => console.log(err));
+}
 
-  function validateUserId(req, res, next) {
-    const { id } = req.params;
-    
-    Users.findById(id)
-      .then(user => {
-        if (user) {
-          next()
-        } else {
-          res.status(404).json({ message: "Invalid user id."})
-        }
-      })
-      .catch(err => res.status(500).json({ err: "Could not get user'"}))
-  }
+function validateUserId(req, res, next) {
+  const { id } = req.params;
 
-  function isAdmin(req,res,next) {
-    const { is_admin } = req.body;
-
-    Users.findBy(is_admin)
+  Users.findById(id)
     .then(user => {
-      if (user === true) {
+      if (user) {
         next();
       } else {
-        res.status(403).json({ message: "You do not have the permissions to view this list" });
+        res.status(404).json({ message: "Invalid user id." });
       }
     })
-    .catch(err => {
-      res.status(500).json({ err: "Could not verify admin status."})
-    })
-    
-  }
+    .catch(err => res.status(500).json({ err: "Could not get user'" }));
+}
 
-  module.exports = {
-    validateUser,
-    checkDuplicates,
-    validateUserId,
-    isAdmin
-  };
+function isAdmin(req, res, next) {
+  const { user } = req.body;
+    Users.findBy(user)
+    .then(users => {
+      if (users.is_admin === true) {
+        next();
+      } else {
+        res.status(404).json({ error: `User ${users.username} is not an admin, and does not have permission to view this list`})
+      } 
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    })
+}
+
+module.exports = {
+  validateUser,
+  checkDuplicates,
+  validateUserId,
+  isAdmin
+};

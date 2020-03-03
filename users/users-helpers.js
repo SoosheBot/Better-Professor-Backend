@@ -65,24 +65,11 @@ function validateUserId(req, res, next) {
     .catch(err => res.status(500).json({ err: "Could not get user'" }));
 }
 
-function isAdmin(req, res, next) {
-  const { user } = req.body;
-    Users.findBy(user)
-    .then(users => {
-      if (users.is_admin === true) {
-        next();
-      } else {
-        res.status(404).json({ error: `User ${users.username} is not an admin, and does not have permission to view this list`})
-      } 
-    })
-    .catch(err => {
-      res.status(500).json(err);
-    })
-}
+
 
 module.exports = {
   validateUser,
   checkDuplicates,
   validateUserId,
-  isAdmin
+  
 };

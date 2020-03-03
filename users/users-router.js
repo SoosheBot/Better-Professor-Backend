@@ -2,9 +2,10 @@ const router = require("express").Router();
 
 const Users = require("./users-model.js");
 
-const { validateUserId, isAdmin } = require("./users-helpers");
+const { validateUserId } = require("./users-helpers");
+const {isAdmin} = require("./validate-admin");
 
-router.get("/", (req, res) => {
+router.get("/", isAdmin, (req, res) => {
   Users.find()
     .then(users => {
         res.status(200).json(users);  

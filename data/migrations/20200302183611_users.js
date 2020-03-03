@@ -12,7 +12,7 @@ exports.up = function(knex, Promise) {
       .notNullable()
       .unique();
       
-    tbl.boolean("is_admin").defaultTo(false);
+    tbl.string("role")
   });
 };
 

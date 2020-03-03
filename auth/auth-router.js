@@ -19,12 +19,12 @@ router.post("/register", (req, res) => {
     
     Users.add(user)
       .then(saved => {
-        if (user.lastname && user.firstname && user.password && user.email) {
+        if (user.username && user.lastname && user.firstname && user.password && user.email) {
           res.status(201).json(saved);
         } else {
           res
             .status(404)
-            .json({ message: "Missing info. User requires a lastname, firstname, password and email" });
+            .json({ message: "Missing info. User requires a username, lastname, firstname, password and email" });
         }
       })
       .catch(err => {

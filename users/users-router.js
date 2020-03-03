@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 const Users = require("./users-model.js");
 
-router.get("/", is_admin, (req, res) => {
+router.get("/", isAdmin, (req, res) => {
   Users.find()
     .then(users => {
       res.status(200).json(users);
@@ -10,7 +10,7 @@ router.get("/", is_admin, (req, res) => {
     .catch(err => res.send(err));
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", isAdmin, (req, res) => {
   const id = req.params.id;
   if (!id) {
     res
@@ -29,7 +29,7 @@ router.get("/:id", (req, res) => {
   }
 });
 
-router.post("/", (req, res) => {
+router.post("/", isAdmin, (req, res) => {
   const body = { ...req.body };
   Users.add(body)
     .then(task => {
@@ -41,7 +41,7 @@ router.post("/", (req, res) => {
     });
 });
 
-router.put("/:id", (req, res) => {
+router.put("/:id", isAdmin, (req, res) => {
   const body = { ...req.body };
   const { id } = req.params;
   Users.update(id, body)
@@ -53,7 +53,7 @@ router.put("/:id", (req, res) => {
     });
 });
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", isAdmin, (req, res) => {
   const id = req.params.id;
   if (!id) {
     res
@@ -69,17 +69,20 @@ router.delete("/:id", (req, res) => {
     });
 });
 
-function is_admin() {
-  return function(req, res, next) {
-    if (user.is_admin === true) {
+function isAdmin(req,res,next) {
+  const { is_admin } = req.body
+  Users.findBy({ is_admin })
+  .then(user => {
+    if (user) {
       next();
     } else {
-      res
-        .status(403)
-        .json({ message: "You are not authorized to view this list." });
-      return user;
+      res.status(403).json({ message: "You do not have the permissions to view this list" });
     }
-  };
+  })
+  .catch(err => {
+    res.status(500).json({ err: "Could not verify admin status."})
+  })
+  
 }
 
 module.exports = router;

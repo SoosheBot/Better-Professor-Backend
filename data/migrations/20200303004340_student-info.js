@@ -1,8 +1,29 @@
 exports.up = function(knex, Promise) {
     return knex.schema.createTable("student-info", function(tbl) {
       tbl.increments();
-  
-      // this table will house tasks, deadlines, and users
+      tbl.integer("tasks_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("tasks")
+        .onDelete("RESTRICT")
+        .onUpdate("CASCADE");
+      tbl
+        .integer("deadline_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("deadlines")
+        .onDelete("RESTRICT")
+        .onUpdate("CASCADE");
+        tbl
+        .integer("user_id")
+        .unsigned()
+        .notNullable()
+        .references("id")
+        .inTable("users")
+        .onDelete("RESTRICT")
+        .onUpdate("CASCADE");
     });
   };
 

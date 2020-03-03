@@ -1,12 +1,11 @@
 const router = require("express").Router();
-const authenticate = require("../auth/auth-middleware.js");
 
 const Users = require("./users-model.js");
 
-const { validateUserId, validateRole } = require("./users-helpers");
+const { validateUserId } = require("./users-helpers");
 
 
-router.get("/", authenticate, (req, res) => {
+router.get("/", (req, res) => {
   Users.find()
     .then(users => {
         res.status(200).json(users);  
@@ -14,7 +13,7 @@ router.get("/", authenticate, (req, res) => {
     .catch(err => res.send(err));
 });
 
-router.get("/:id", authenticate, validateUserId, (req, res) => {
+router.get("/:id", validateUserId, (req, res) => {
     const { id } = req.params;
     Users.findById(id)
       .then(user => {

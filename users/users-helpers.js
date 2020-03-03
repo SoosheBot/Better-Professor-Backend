@@ -69,7 +69,7 @@ function validateUserId(req, res, next) {
 
 function validateRole(req,res,next) {
   const { role } = req.body;
-  if (role && role === "admin") {
+  if (!role || role !== "admin") {
     next();
   } else {
     res.status(403).json({ error: "User does not have permission to view this screen."})

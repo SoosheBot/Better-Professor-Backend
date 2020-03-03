@@ -81,10 +81,8 @@ function generateToken(user) {
   const payload = {
     userId: user.id,
     username: user.username,
-    lastname: user.lastname,
-    firstname: user.firstname,
-    email: user.email,
-    user: user.password
+    user: user.password,
+    role: user.role || 'user',
   };
 
   const options = {

@@ -1,9 +1,10 @@
 const db = require("../data/dbConfig");
-
+const helpers = require("../tasks/tasks-helpers");
 module.exports = {
   find,
   findBy,
   findById,
+  findDeadlines,
   add,
   update,
   remove
@@ -23,6 +24,15 @@ function findById(id) {
   return db("users")
     .where({ id })
     .first();
+}
+
+function findDeadlines(deadlineId) {
+  return db("student-info as si")
+    .select("u.lastname as lastname", "u.firstname as firstname", "d.due_date as due date")
+    .join("deadlines as d", "d.id", "=", "si.deadline_id")
+    .join("users as u", "u.id", "=", "si.user_id")
+    .where("deadline_id", deadlineId)
+    .then(users => users.map(user => helpers.actionToBody(user)));
 }
 
 async function add(user) {

@@ -1,11 +1,9 @@
 const db = require("../data/dbConfig.js");
-const helpers = require("./tasks-helpers");
 
 module.exports = {
   find,
   findBy,
   findById,
-  findTaskDeadline,
   add,
   update,
   remove
@@ -32,12 +30,6 @@ function findById(id) {
     .where({ id })
     .first();
 }
-
-function findTaskDeadline(deadlineId) {
-    return db("tasks")
-      .where("deadline_id", deadlineId)
-      .then(tasks => tasks.map(task => helpers.actionToBody(task)));
-  }
 
 function add(task) {
   return db("tasks")

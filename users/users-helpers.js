@@ -2,8 +2,8 @@
 function validateUser(user) {
     let errors = [];
   
-    if (!user.lastname || user.lastname.length < 2 || !user.firstname || user.firstname.length < 2) {
-      errors.push("User's last and first names must contain at least 2 characters");
+    if (!user.lastname || user.lastname.length < 2 || !user.firstname || user.firstname.length < 2 || !user.username || user.username.length < 2) {
+      errors.push("Please enter a user last name, firstname, and username. All must contain at least 2 characters");
     }
   
     if (!user.password || user.password.length < 4) {

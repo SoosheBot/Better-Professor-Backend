@@ -10,7 +10,7 @@ module.exports = {
 };
 
 function find() {
-  return db('users').select('id', 'lastname', 'firstname', 'password', 'email');
+  return db('users').select('id', 'username', 'lastname', 'firstname', 'password', 'email');
 }
 
 function findBy(filter) {
@@ -29,10 +29,11 @@ async function add(user) {
   return findById(id);
 }
 
-function update(id, user) {
-  return db('users')
-    .where('id', Number(id))
-    .update(user);
+function update(changes, id) {
+  return db("users", "id")
+  .where({ id })
+  .update(changes, "*")
+  .then(count => findById(id));
 }
 
 function remove(id) {

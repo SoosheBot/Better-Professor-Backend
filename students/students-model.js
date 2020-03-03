@@ -15,10 +15,11 @@ function find() {
   return db("students");
 }
 
-function findBy(filter) {
+function findBy(id) {
   return db("students")
     .select("*")
-    .where(filter);
+    .where({id})
+    .first();
 }
 
 function findById(id) {

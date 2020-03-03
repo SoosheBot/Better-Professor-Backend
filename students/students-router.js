@@ -53,7 +53,7 @@ router.post("/", (req, res) => {
     });
 });
 
-router.put("/:id", validateStudent, validateId, (req, res) => {
+router.put("/:id", validateId, (req, res) => {
   const body = { ...req.body };
   const { id } = req.params;
   Students.update(id, body)

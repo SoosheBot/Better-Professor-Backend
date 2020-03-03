@@ -26,4 +26,5 @@ server.get("/", (req, res) => {
   res.send({ api: "Is up and running."});
 });
 
+
 module.exports = server;

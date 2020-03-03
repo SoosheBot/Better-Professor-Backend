@@ -17,7 +17,7 @@
 
 |:--|:--:|:--|
 |Professor's Dashboard|
-|list students (only professor can view this!)|GET|/api/students|
+|list students (only professor can view this!)|GET|/api/users|
 |list student by id|GET|/api/users/:id|
 |list student's tasks (and deadlines)|GET|/api/users/:id/tasks| 
 |list student's messages|GET|/api/users/:id/messages|

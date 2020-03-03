@@ -19,8 +19,8 @@ server.use(logger);
 
 server.use("/api/auth", authRouter);
 server.use("/api/users", authenticate, checkRole("admin"), usersRouter);
-server.use("/api/tasks", authenticate, tasksRouter);
-server.use("/api/deadlines", authenticate, deadlinesRouter);
+server.use("/api/tasks", tasksRouter);
+server.use("/api/deadlines", deadlinesRouter);
 
 server.get("/", (req, res) => {
   res.send({ api: "Is up and running."});

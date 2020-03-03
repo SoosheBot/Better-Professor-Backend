@@ -1,9 +1,7 @@
 const router = require("express").Router();
 
 const Users = require("./users-model.js");
-
 const { validateUserId } = require("./users-helpers");
-
 
 router.get("/", (req, res) => {
   Users.find()

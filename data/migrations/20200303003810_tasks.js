@@ -1,13 +1,18 @@
 exports.up = function(knex, Promise) {
-    return knex.schema.createTable("tasks", function(tbl) {
-      tbl.increments();
-      tbl
-        .string("name", 128)
-        .unique()
-        .notNullable();
-    });
-  };
-  
-  exports.down = function(knex, Promise) {
-    return knex.schema.dropTableIfExists("tasks");
-  };
+  return knex.schema.createTable("tasks", tbl => {
+    tbl.increments();
+    tbl
+      .integer("deadline_id")
+      .unsigned()
+      .notNullable()
+      .references("id")
+      .inTable("deadlines")
+      .onDelete("RESTRICT")
+      .onUpdate("CASCADE");
+    tbl.text("name", 128).notNullable();
+  });
+};
+
+exports.down = function(knex, Promise) {
+  return knex.schema.dropTableIfExists("tasks");
+};

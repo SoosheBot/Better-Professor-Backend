@@ -8,12 +8,18 @@
 
 #######################################################
 
-## DESIGN -- API ENDPOINTS
+## API ENDPOINTS ##
 |feature|method|url|
 |:--|:--:|:--|
 |register user |POST|/api/auth/register|
 |login user |POST|/api/auth/login|
 |log out user |GET|/api/auth/logout|
+
+## Admin Login:
+{
+    "username":"KiteGuy",
+    "password":"Password1"
+}
 
 |:--|:--:|:--|
 |Professor's Dashboard|
@@ -60,16 +66,11 @@ Note -- A message should include a send date, time, and a long text field that e
 	"email": "nightingale@email.com"
 }
 
-##User Login
+##User Login REACT:
 [ ] header with `Welcome ${user}!`
 [ ] username
 [ ] password
 
-##User login -- sample:
-{
-    "username":"GoldenVoice",
-	"password":"password1"
-}
 
 ##Basic User Workflow: 
 register >> login >> view dashboard (professor dashboard) >> logout
@@ -86,7 +87,6 @@ register >> login >> view dashboard (professor dashboard) >> logout
 {
     "username":"Student",
     "tasks": {
-        "id": 1
         "name": "Write paper",
         "due_date": "2020-10-10"
     }

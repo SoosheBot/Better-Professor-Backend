@@ -11,7 +11,7 @@ module.exports = {
 };
 
 function find() {
-    return db("deadlines");
+    return db("deadlines").then(deadlines => deadlines.map(deadline => helpers.actionToBody(deadline)));;
   }
 
   function add(deadline) {

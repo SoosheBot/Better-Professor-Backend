@@ -31,11 +31,10 @@ function findById(id) {
 
 function findDeadlines(deadlineId) {
   return db("student-info as si")
-    .select("u.lastname as lastname", "u.firstname as firstname", "d.due_date as due date")
+    .select("u.lastname as lastname", "u.firstname as firstname", "d.due_date as deadlines")
     .join("deadlines as d", "d.id", "=", "si.deadline_id")
     .join("users as u", "u.id", "=", "si.user_id")
     .where("deadline_id", deadlineId)
-    .then(users => users.map(user => helpers.actionToBody(user)));
 }
 
 async function add(user) {

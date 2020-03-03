@@ -1,14 +1,11 @@
-function isAdmin() {
-    return function(req,res,next) {
-        if (req.user && req.user.is_admin === true) {
-            next();
-        } else {
-            res.status(403).json({ message: "You are not authorized to access this user list"});
-        }
+const Users = require("./users-model");
+
+module.exports = function isAdmin() {
+    return function(req, res, next) {
+      const user = req.body;
+      if (!user || !user.role === 'admin') {
+        return res.status(403).send({error: { status:403, message:'Access denied.'}});
+      }
+      next();
     }
   }
-
-module.exports = {
-    isAdmin
-}
-

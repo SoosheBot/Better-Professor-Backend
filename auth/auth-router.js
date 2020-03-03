@@ -82,8 +82,7 @@ function generateToken(user) {
     lastname: user.lastname,
     firstname: user.firstname,
     email: user.email,
-    user: user.password,
-    role: user.role
+    user: user.password
   };
 
   const options = {

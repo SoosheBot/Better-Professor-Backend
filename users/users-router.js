@@ -3,7 +3,7 @@ const router = require("express").Router();
 const Users = require("./users-model.js");
 
 const { validateUserId } = require("./users-helpers");
-const {isAdmin} = require("./validate-admin");
+const { isAdmin } = require("./validate-admin");
 
 router.get("/", isAdmin, (req, res) => {
   Users.find()
@@ -54,7 +54,5 @@ router.delete("/:id", validateUserId, (req, res) => {
       res.status(500).json({ message: "The user could not be removed" });
     });
 });
-
-
 
 module.exports = router;

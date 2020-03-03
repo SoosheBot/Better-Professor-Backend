@@ -21,7 +21,10 @@ function findBy(filter) {
 }
 
 function findById(id) {
-  return db("users")
+  return db("student-info as si")
+    .select("u.lastname as lastname", "u.firstname as firstname", "t.name as task_name", "d.due_date as due date")
+    .join("tasks as t", "si.task_id", "=", "t.id")
+    .join("deadlines as d", "si.deadline_id", "=", "d.id")
     .where({ id })
     .first();
 }

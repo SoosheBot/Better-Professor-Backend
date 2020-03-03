@@ -32,9 +32,9 @@ function findById(id) {
 }
 
 function findTaskDeadline(deadlineId) {
-    return db("actions")
-      .where("project_id", projectId)
-      .then(actions => actions.map(action => helpers.actionToBody(action)));
+    return db("tasks")
+      .where("deadline_id", deadlineId)
+      .then(tasks => tasks.map(task => helpers.actionToBody(task)));
   }
 
 function add(task) {

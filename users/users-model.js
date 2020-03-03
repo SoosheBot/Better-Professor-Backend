@@ -30,12 +30,11 @@ async function add(user) {
   return findById(id);
 }
 
-function update(changes, id) {
+function update(id, changes) {
   return db("users")
-    .where("id", id)
-    .update(changes, "*")
-    .then(count => findById(id));
-}
+  .where({ id })
+  .update(changes);
+};
 
 function remove(id) {
   return db("users")

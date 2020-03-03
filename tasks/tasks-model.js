@@ -43,12 +43,11 @@ function add(task) {
     .then(([id]) => find(id));
 }
 
-function update(changes, id) {
-  return db("tasks", "id")
-    .where({ id })
-    .update(changes, "*")
-    .then(count => findById(id));
-}
+function update(id, changes) {
+  return db("tasks")
+  .where({ id })
+  .update(changes);
+};
 
 function remove(id) {
   return db("tasks")

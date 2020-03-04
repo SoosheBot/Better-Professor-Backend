@@ -10,7 +10,7 @@ module.exports = {
 };
 
 function find() {
-  return db("tasks");
+  return db("tasks as t").select("t.task as task", "t.due_date as due date");
 }
 
 function findBy(filter) {

@@ -107,7 +107,7 @@ router.post("/login", (req, res) => {
         token,
         ...user });
       } else {
-        res.status(401).json({ error: "Invalid login credentials, please re-enter username, password, and professor ID to continue" });
+        res.status(401).json({ error: "Invalid login credentials, please re-enter username and password to continue" });
       }
     })
     .catch(err => {
@@ -126,7 +126,7 @@ router.post("/login/student", checkDuplicates, (req, res) => {
         token,
         ...user });
       } else {
-        res.status(401).json({ error: "Invalid login credentials, please re-enter username and password" });
+        res.status(401).json({ error: "Invalid login credentials, please re-enter username, password and professor ID" });
       }
     })
     .catch(err => {

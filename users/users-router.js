@@ -25,23 +25,23 @@ router.get("/:id", authenticate, checkRole("admin"), validateUserId, (req, res) 
     });
 });
 
-router.get("/:id/deadlines", (req, res) => {
-  const { id } = req.params;
-  Users.findDeadlines(id)
-    .then(deadlines => {
-      if (deadlines) {
-        res.status(200).json(deadlines);
-      } else {
-        res
-          .status(400)
-          .json({ errorMessage: "Could not find this student's deadlines" });
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ errorMessage: "Failed to get deadlines." });
-    });
-});
+// router.get("/:id/deadlines", (req, res) => {
+//   const { id } = req.params;
+//   Users.findDeadlines(id)
+//     .then(deadlines => {
+//       if (deadlines) {
+//         res.status(200).json(deadlines);
+//       } else {
+//         res
+//           .status(400)
+//           .json({ errorMessage: "Could not find this student's deadlines" });
+//       }
+//     })
+//     .catch(err => {
+//       console.log(err);
+//       res.status(500).json({ errorMessage: "Failed to get deadlines." });
+//     });
+// });
 
 router.put("/:id", validateUserId, (req, res) => {
   const body = { ...req.body };

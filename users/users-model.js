@@ -4,7 +4,7 @@ module.exports = {
   find,
   findBy,
   findById,
-  findDeadlines,
+  // findDeadlines,
   add,
   update,
   remove
@@ -28,14 +28,14 @@ function findById(id) {
     .first();
 }
 
-function findDeadlines(deadlineId) {
-  return db("users")
-    // .select("u.lastname as lastname", "u.firstname as firstname", "d.due_date as due date")
-    // .join("deadlines as d", "d.id", "=", "si.deadline_id")
-    // .join("users as u", "u.id", "=", "si.user_id")
-    .where("deadline_id", deadlineId)
-    .then(users => users.map(user => helpers.actionToBody(user)));
-}
+// function findDeadlines(deadlineId) {
+//   return db("users")
+//     // .select("u.lastname as lastname", "u.firstname as firstname", "d.due_date as due date")
+//     // .join("deadlines as d", "d.id", "=", "si.deadline_id")
+//     // .join("users as u", "u.id", "=", "si.user_id")
+//     .where("deadline_id", deadlineId)
+//     .then(users => users.map(user => helpers.actionToBody(user)));
+// }
 
 async function add(user) {
   const [id] = await db("users").insert(user, "id");

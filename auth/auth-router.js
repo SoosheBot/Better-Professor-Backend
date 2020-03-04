@@ -67,6 +67,7 @@ router.post("/register/:id", checkDuplicates, (req, res) => {
   if (!user.professor_id) {
     return res.status(400).json({ message: "Professor ID is required." });
   }
+  const validateResult = validateUser(user);
   
   if (validateResult.isSuccessful === true) {
     const hash = bcrypt.hashSync(user.password, 10);

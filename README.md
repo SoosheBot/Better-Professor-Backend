@@ -53,18 +53,77 @@
 |:--|:--:|:--|
 |Professor's Dashboard|
 |list students (only professor/admin can view the following items!)|GET|/api/users|
+
+  [{   
+    "id": 3
+	"lastname":"Franklin",
+	"firstname":"Aretha",
+	"username":"GoldenVoice",
+	"password":"password1",
+	"email": "nightingale@email.com"
+    "role":"user"
+}
+
+    {   
+    "id": 1
+	"lastname":"Franklin",
+	"firstname":"Ben",
+	"username":"KiteGuy",
+	"password":"password1",
+	"email": "pennysaved@email.com"
+    "role":"admin"
+}]
+
 |list student by id|GET|/api/users/:id|
-|list student's tasks|GET|/api/users/:id/tasks| 
+|list student's tasks|GET|/api/users/:id/tasks|
+    {
+        "id": 2,
+        "username":"Student",
+        "task":"Task 1"
+        "task":Task 2"
+    }
 |list student's deadlines|GET|/api/users/:id/deadlines|
+    {
+        "id":2,
+        "username":"Student",
+        "due date":"2020-12-12"
+        "due date":"2020-10-10"
+    }
 |list student's messages|GET|/api/users/:id/messages|
+    {
+        [
+    {
+        "id": 3,
+        "message": "When will you finish this",
+        "task_id": 2,
+        "user_id": 2,
+        "created_at": "2020-03-04T16:56:45.996Z",
+        "updated_at": "2020-03-04T16:56:45.996Z"
+    },
+    {
+        "id": 1,
+        "message": "Plan to complete this in time!",
+        "task_id": 1,
+        "user_id": 2,
+        "created_at": "2020-03-04T16:53:26.245Z",
+        "updated_at": "2020-03-04T16:53:26.245Z"
+    }
+]
+    }
 |add project and deadline to student profile|POST|/api/users/:id/tasks|
-|add student|POST|/api/users|
-|update student|UPDATE|/api/users/:id|
+    {
+	"deadline_id": 2,
+	"task":"Task 2",
+	"user_id": 2
+    }
+|add student|POST|/api/users| (see user registration)
+|update student|PUT|/api/users/:id|
+
 |delete student|DEL|/api/users/:id|
 
 |:--|:--:|:--|
 |list tasks (with deadlines)|GET|/api/tasks|
-|update task|UPDATE|/api/tasks/:id|
+|update task|PUT|/api/tasks/:id|
 |delete task|DEL|/api/tasks/:id|
 |:--|:--:|:--|
 |list deadlines|GET|/api/deadlines|

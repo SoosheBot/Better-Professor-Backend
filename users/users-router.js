@@ -4,7 +4,7 @@ const authenticate = require("../auth/auth-middleware");
 const Users = require("./users-model.js");
 const { validateUserId } = require("./users-helpers");
 
-router.get("/", authenticate, checkRole("admin"), (req, res) => {
+router.get("/", checkRole("admin"), (req, res) => {
   Users.find()
     .then(users => {
       res.status(200).json(users);

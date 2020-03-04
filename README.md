@@ -97,10 +97,15 @@ Returns a Token - Example:
 |delete professor|DEL|/api/users/:id|
 
 
-##STUDENTS Dashboard Endpointss
+##STUDENTS Dashboard Endpoints
 |get student by id|GET|/api/students/:id|
 |get student's tasks|GET|/api/students/:id/tasks|
 |get student's messages|GET|/api/students/:id/messages|
 |update student|PUT|/api/students/:id|
 |delete student|DEL|/api/students/:id|
 
+##TASKS Endpoints
+|get tasks|GET|/api/tasks|
+|get tasks by id|GET|/api/tasks/:id|
+|update tasks|PUT|/api/tasks/:id|
+|delete tasks|GET|/api/tasks/:id|

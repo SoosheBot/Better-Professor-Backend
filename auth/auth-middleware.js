@@ -13,6 +13,6 @@ module.exports = (req, res, next) => {
       }
     });
   } else {
-    res.status(401).json({ message: "Buddy, you're missing the token" });
+    res.status(401).json({ message: "User cannot perform this action without a token. Only admins receive tokens." });
   }
 };

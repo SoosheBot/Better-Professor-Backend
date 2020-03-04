@@ -68,9 +68,9 @@
 |delete task|DEL|/api/tasks/:id|
 |:--|:--:|:--|
 |list deadlines|GET|/api/deadlines|
-|add deadline to specific task|POST|/api/tasks/:id/deadline|
-|update task deadline|PUT|/api/task/:id/deadline|
-|delete deadline|DEL|/api/deadline/:id|
+|add deadline to specific task|POST|/api/tasks/:id/deadlines|
+|update task deadline|PUT|/api/task/:id/deadlines|
+|delete deadline|DEL|/api/deadlines/:id|
 |:--|:--:|:--|
 |send message to self|POST|/api/messages|
 |list all user messages|GET|/api/users/:id/messages|
@@ -86,20 +86,18 @@
 Note -- A message should include a send date, time, and a long text field that enables the message curator the ability to send a custom message.
 
 
-
-
 ##Basic User Workflow: 
-register >> login >> view dashboard (professor dashboard) >> logout
+register >> login >> view dashboard (homepage) >> logout
 
-##Dashboards:
-[ ] - Professor Dashboard
-    - [ ] - Left column: all student names (/api/users)
-    - [ ] - Right column: all upcoming deadlines (/api/deadlines)
+##The Dashboards:
+[ ] - Professor's Dashboard 
+    - [ ] - Left column displays: all student names (/api/users)
+    - [ ] - Right column displays: all upcoming deadlines (/api/deadlines)
 
-[ ] - Student Dashboard
-    - [ ] - Tasks (with deadlines and notes) (/api/users/:id)
+[ ] - Student's Dashboard
+    - [ ] - Displays all of the student's tasks (with deadlines) (/api/users/:id)
 
-##Student Dashboard:
+##Student Dashboard Example:
 {
     "username":"Student",
     "tasks": {

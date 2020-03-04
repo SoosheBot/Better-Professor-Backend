@@ -60,6 +60,8 @@ exports.up = function(knex, Promise) {
         .inTable("users")
         .onDelete("RESTRICT")
         .onUpdate("CASCADE");
+        tbl.timestamp('created_at').defaultTo(knex.fn.now())
+      tbl.timestamp('updated_at').defaultTo(knex.fn.now())
     })
      
 
@@ -92,5 +94,7 @@ exports.down = function(knex, Promise) {
     .dropTableIfExists("messages")
     .dropTableIfExists("tasks")
     .dropTableIfExists("users")
-    .dropTableIfExists("deadlines");
+    .dropTableIfExists("deadlines")
+    .dropTableIfExists('created_at')
+    .dropTableIfExists('updated_at');
 };

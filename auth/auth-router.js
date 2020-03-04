@@ -97,17 +97,17 @@ router.post("/register/:id", checkDuplicates, (req, res) => {
 
 //login professor
 router.post("/login", (req, res) => {
-  let { username, password } = req.body;
+  let { username, password, professor_id } = req.body;
   Users.findBy({ username })
     .first()
     .then(user => {
-      if (user && bcrypt.compareSync(password, user.password)) {
+      if (user && bcrypt.compareSync(password, user.password) && (professor_id, user.professor_id)) {
         const token = generateToken(user);
         res.status(200).json({ message: `Welcome ${user.username}!`,
         token,
         ...user });
       } else {
-        res.status(401).json({ error: "Invalid login credentials, please re-enter username and password" });
+        res.status(401).json({ error: "Invalid login credentials, please re-enter username, password, and professor ID to continue" });
       }
     })
     .catch(err => {
@@ -116,7 +116,7 @@ router.post("/login", (req, res) => {
 });
 
 router.post("/login/student", checkDuplicates, (req, res) => {
-  let { username, password } = req.body;
+  let { username, password, professor_id } = req.body;
   Students.findBy({ username })
     .first()
     .then(user => {

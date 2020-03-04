@@ -11,19 +11,49 @@
 ## API ENDPOINTS ##
 |feature|method|url|
 
-#Registration and Login: Professor Account
-|:--|:--:|:--|
+#Registration and Login: Professor Account: 
 |register professor |POST|/api/auth/register|
-|login professor|POST|/api/auth/login|
-|log out professor |GET|/api/auth/logout|
-
-## Register Professor With the Following: 
 [] -lastname
 [] -firstname
 [] -username
 [] -password
 [] -email
+[] -role: admin <----don't forget this!
 
+Looks like: 
+{   
+	"lastname":"Franklin",
+	"firstname":"Ben",
+	"username":"KiteGuy",
+	"password":"Password1",
+	"email": "nightingale@email.com",
+	"role": "admin"
+}
+
+Returns a token - Example:
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IktpdGVHdXkiLCJ1c2VyIjoiJDJhJDEwJDhnWkJIaGZldEJ0TkRtV0FRSElGUk9KSGNXMjF2N0N6MEQ2L2E5TGxvc1RDMk5UOXpPWUl1Iiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTgzMzU5NzYwLCJleHAiOjE1ODMzNjMzNjB9.YaszdiimzJi5utAY18gLGbXM7zkPnKp4BmVvUV6rjiw",
+    
+    "message": "Welcome KiteGuy"
+}
+
+#Login Professor:
+|login professor|POST|/api/auth/login|
+[] -username
+[] -password
+
+#Looks like: 
+{
+	"username":"KiteGuy",
+	"password":"password1"
+}
+
+Returns a token - Example:
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IktpdGVHdXkiLCJ1c2VyIjoiJDJhJDEwJDhnWkJIaGZldEJ0TkRtV0FRSElGUk9KSGNXMjF2N0N6MEQ2L2E5TGxvc1RDMk5UOXpPWUl1Iiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTgzMzU5NzYwLCJleHAiOjE1ODMzNjMzNjB9.YaszdiimzJi5utAY18gLGbXM7zkPnKp4BmVvUV6rjiw",
+    
+    "message": "Welcome KiteGuy"
+}
 
 ## Register Student With the Following:
 [] -lastname
@@ -31,7 +61,17 @@
 [] -username
 [] -password
 [] -email
-[] -professor_id
+[] -professor_id <----they need this!
+
+{   
+	"lastname":"Singer",
+	"firstname":"Aretha",
+	"username":"GoldenVoice",
+	"password":"password1",
+	"email": "sing@email.com"
+	"professor_id":
+}
+
 
 
 ## Login

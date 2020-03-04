@@ -43,6 +43,17 @@ router.get("/:id", authenticate, checkRole("admin"), validateUserId, (req, res) 
 //     });
 // });
 
+router.post("/", (req,res) => {
+  const users = {...req.body};
+  Users.add(users)
+  .then(user => {
+    res.status(201).json(user);
+  })
+  .catch(err => {
+    res.status(500).json({ errorMessage:"Could not add user."});
+  });
+});
+
 router.put("/:id", validateUserId, (req, res) => {
   const body = { ...req.body };
   const { id } = req.params;

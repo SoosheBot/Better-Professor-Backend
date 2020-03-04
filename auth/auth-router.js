@@ -7,7 +7,9 @@ const { jwtSecret } = require("../config/secrets");
 const { checkDuplicates, validateUser } = require("../users/users-helper");
 
 const Users = require("../users/users-model");
+const Students = require("../students/students-model");
 
+//register professor
 router.post("/register", checkDuplicates, (req, res) => {
   let user = req.body;
 
@@ -40,6 +42,40 @@ router.post("/register", checkDuplicates, (req, res) => {
   }
 });
 
+//register student
+router.post("/register/:id", checkDuplicates, (req, res) => {
+  let student = req.body;
+
+  const validateResult = validateUser(student);
+  
+  if (validateResult.isSuccessful === true) {
+    const hash = bcrypt.hashSync(student.password, 10);
+    user.password = hash;
+    
+    const token = generateToken(student);
+    Students.add(student)
+      .then(saved => {
+        if (student.username && student.lastname && student.firstname && student.password && student.email && student.professor_id) {
+          res.status(201).json({token: token,
+            message: `Welcome ${student.username}`,});
+        } else {
+          res
+            .status(404)
+            .json({ message: "Missing info. User requires a username, lastname, firstname, password, email, and professor id" });
+        }
+      })
+      .catch(err => {
+        res.status(500).json({ error: "Registration error." });
+      });
+  } else {
+    res.status(400).json({
+      message: "Invalid user info, see errors",
+      errors: validateResult.errors
+    });
+  }
+});
+
+//login professor
 router.post("/login", (req, res) => {
   let { username, password } = req.body;
   Users.findBy({ username })
@@ -47,9 +83,30 @@ router.post("/login", (req, res) => {
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
-        res.status(200).json({ token });
+        res.status(200).json({ message: `Welcome ${user.username}!`,
+        token,
+        ...user });
       } else {
-        res.status(401).json({ error: "Invalid credentials, cannot login." });
+        res.status(401).json({ error: "Invalid login credentials, please re-enter username and password" });
+      }
+    })
+    .catch(err => {
+      res.status(500).json({ error: "Login error." });
+    });
+});
+
+router.post("/login/student", checkDuplicates, (req, res) => {
+  let { username, password } = req.body;
+  Students.findBy({ username })
+    .first()
+    .then(user => {
+      if (user && bcrypt.compareSync(password, user.password)) {
+        const token = generateToken(user);
+        res.status(200).json({ message: `Welcome ${user.username}!`,
+        token,
+        ...user });
+      } else {
+        res.status(401).json({ error: "Invalid login credentials, please re-enter username and password" });
       }
     })
     .catch(err => {
@@ -93,3 +150,39 @@ function generateToken(user) {
 }
 
 module.exports = router;
+
+
+
+
+router.post("/login", (req, res) => {
+  let { username, password } = req.body;
+  if (!username) {
+    return res.status(400).json({ message: "Username required" });
+  }
+  if (!password) {
+    return res.status(400).json({ message: "Password required" });
+  }
+  Users.findBy({ username })
+    .first()
+    .then(user => {
+      if (!user) {
+        return res.status(404).json({
+          errorMessage: "username does not exist"
+        });
+      } else {
+        if (user && bcrypt.compareSync(password, user.password)) {
+          const token = generateToken(user);
+          res.status(200).json({
+            message: `Welcome ${user.username}!`,
+            token,
+            ...user
+          });
+        }
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      return res.status(500).json({ errorMessage: "error logging in" });
+    });
+});
+

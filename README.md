@@ -10,12 +10,14 @@
 
 ## API ENDPOINTS ##
 |feature|method|url|
+
+#Registration and Login: Professor
 |:--|:--:|:--|
 |register user |POST|/api/auth/register|
 |login user |POST|/api/auth/login|
 |log out user |GET|/api/auth/logout|
 
-## Admin Registration Example (backend creates this -- front end registration's default is user):
+## Professor Registration Example (backend creates this -- front end registration's default will be the s):
 
 {
     "lastname":"Franklin",
@@ -32,12 +34,13 @@
     "password":"password1"
 };
 
-##User Registration has the following required pieces:
-[ ] id (user.id), 
-[ ] lastname (user.lastname), 
-[ ] firstname (user.firstname), 
-[ ] username (user.username),
-[ ] email (user.email)
+##Student Registration has the following required pieces:
+[ ] id (student.id), 
+[ ] lastname (student.lastname), 
+[ ] firstname (student.firstname), 
+[ ] username (student.username),
+[ ] email (student.email)
+[ ] professor id (student.professor_id)
 
 ## Example of a registered user:
 {   
@@ -47,7 +50,7 @@
 	"username":"GoldenVoice",
 	"password":"password1",
 	"email": "nightingale@email.com",
-    "role":"user"
+    "professor id": 1
 }
 
 |:--|:--:|:--|
@@ -74,21 +77,15 @@
     "role":"admin"
 }]
 
-|list student by id|GET|/api/users/:id|
-|list student's tasks|GET|/api/users/:id/tasks|
+|list student by id|GET|/api/students/:id|
+|list student's tasks|GET|/api/students/:id/tasks|
     {
         "id": 2,
         "username":"Student",
         "task":"Task 1"
         "task":Task 2"
     }
-|list student's deadlines|GET|/api/users/:id/deadlines|
-    {
-        "id":2,
-        "username":"Student",
-        "due date":"2020-12-12"
-        "due date":"2020-10-10"
-    }
+
 |list student's messages|GET|/api/users/:id/messages|
     {
         [
@@ -110,14 +107,14 @@
     }
 ]
     }
-|add project and deadline to student profile|POST|/api/users/:id/tasks|
+|add project and deadline to student profile|POST|/api/students/:id/tasks|
     {
 	"deadline_id": 2,
 	"task":"Task 2",
 	"user_id": 2
     }
-|add student|POST|/api/users| (see user registration)
-|update student|PUT|/api/users/:id|
+|add student|POST|/api/student|
+|update student|PUT|/api/student/:id|
 
 |delete student|DEL|/api/users/:id|
 

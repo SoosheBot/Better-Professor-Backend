@@ -17,13 +17,13 @@ exports.up = function(knex, Promise) {
       tbl.increments();
       tbl.text("task", 128).notNullable();
       tbl
-        .integer("user_id")
+        .integer("professor_id")
         .notNullable()
         .references("id")
         .inTable("users")
         .onDelete("RESTRICT")
         .onUpdate("CASCADE");
-        tbl
+      tbl
         .date("due_date")
         .notNullable()
         .defaultTo("2020-12-12");
@@ -36,26 +36,32 @@ exports.up = function(knex, Promise) {
         .notNullable()
         .unique();
       tbl
-        .integer("task_id")
-        .notNullable()
-        .references("id")
-        .inTable("tasks")
-        .onDelete("RESTRICT")
-        .onUpdate("CASCADE");
-        tbl
-        .integer("user_id")
+        .integer("professor_id")
         .notNullable()
         .references("id")
         .inTable("users")
         .onDelete("RESTRICT")
         .onUpdate("CASCADE");
-        tbl.timestamp('created_at').defaultTo(knex.fn.now())
-      tbl.timestamp('updated_at').defaultTo(knex.fn.now())
+      tbl
+        .integer("task_id")
+        .references("id")
+        .inTable("tasks")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
+      tbl.timestamp("created_at").defaultTo(knex.fn.now());
+      tbl.timestamp("updated_at").defaultTo(knex.fn.now());
     })
-     
 
-    .createTable("info", tbl => {
+    .createTable("students", tbl => {
       tbl.increments();
+      tbl.string("lastname", 128).notNullable();
+      tbl.string("firstname", 128).notNullable();
+      tbl.string("username", 128).notNullable();
+      tbl.string("password", 128).notNullable();
+      tbl
+        .string("email", 128)
+        .notNullable()
+        .unique();
       tbl
         .integer("task_id")
         .references("id")
@@ -63,20 +69,30 @@ exports.up = function(knex, Promise) {
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
       tbl
-        .integer("user_id")
+        .integer("professor_id")
         .references("id")
         .inTable("users")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
+      tbl
+        .integer("professor_message")
+        .references("id")
+        .inTable("messages")
+        // .onDelete("CASCADE")
+        // .onUpdate("CASCADE");
+      tbl
+        .integer("student_message")
+        .references("id")
+        .inTable("messages")
+        // .onDelete("CASCADE")
+        // .onUpdate("CASCADE");
     });
 };
 
 exports.down = function(knex, Promise) {
   return knex.schema
-    .dropTableIfExists("info")
+    .dropTableIfExists("students")
     .dropTableIfExists("messages")
     .dropTableIfExists("tasks")
-    .dropTableIfExists("users")
-    .dropTableIfExists('created_at')
-    .dropTableIfExists('updated_at');
+    .dropTableIfExists("users");
 };

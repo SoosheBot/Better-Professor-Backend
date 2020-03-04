@@ -15,10 +15,39 @@
 |login user |POST|/api/auth/login|
 |log out user |GET|/api/auth/logout|
 
-## Admin Login:
+## Admin Registration Example (backend creates this -- front end registration's default is user):
+
+{
+    "lastname":"Franklin",
+    "firstname": "Ben",
+    "username": "KiteGuy",
+    "password": "Password1",
+    "email": "pennysaved@email.com",
+    "role": "admin"
+};
+
+## Admin Login Example (front end can use this to view admin-only content):
 {
     "username":"KiteGuy",
     "password":"Password1"
+};
+
+##User Registration has the following required pieces:
+[ ] id (user.id), 
+[ ] lastname (user.lastname), 
+[ ] firstname (user.firstname), 
+[ ] username (user.username),
+[ ] email (user.email)
+
+## Example of a registered user:
+{   
+    "id": 4
+	"lastname":"Franklin",
+	"firstname":"Aretha",
+	"username":"GoldenVoice",
+	"password":"password1",
+	"email": "nightingale@email.com"
+    "role":"user"
 }
 
 |:--|:--:|:--|
@@ -26,6 +55,7 @@
 |list students (only professor/admin can view the following items!)|GET|/api/users|
 |list student by id|GET|/api/users/:id|
 |list student's tasks|GET|/api/users/:id/tasks| 
+|list student's deadlines|GET|/api/users/:id/deadlines|
 |list student's messages|GET|/api/users/:id/messages|
 |add project and deadline to student profile|POST|/api/users/:id/tasks|
 |add student|POST|/api/users|
@@ -56,27 +86,6 @@
 Note -- A message should include a send date, time, and a long text field that enables the message curator the ability to send a custom message.
 
 
-##User Registration:
-[ ] id (user.id), 
-[ ] lastname (user.lastname), 
-[ ] firstname (user.firstname), 
-[ ] username (user.username),
-[ ] email (user.email)
-
-## Example of a registered user (not admin):
-{   
-    "id": 4
-	"lastname":"Franklin",
-	"firstname":"Aretha",
-	"username":"GoldenVoice",
-	"password":"password1",
-	"email": "nightingale@email.com"
-}
-
-##User Login REACT:
-[ ] header with `Welcome ${user}!`
-[ ] username
-[ ] password
 
 
 ##Basic User Workflow: 

@@ -51,7 +51,6 @@ function findUserDeadlines(userId) {
     .join("users as u", "t.user_id", "=", "u.id")
     .join("deadlines as d", "t.deadline_id", "=", "d.id")
     .where("user_id", userId)
-    // .then(users => users.map(user => helpers.actionToBody(user)));
 }
 
 function findUserMessages(userId) {

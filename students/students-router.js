@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const Students = require("./studentss-model.js");
+const Students = require("./students-model.js");
 const { validateStudentId } = require("./students-helper");
 
 router.get("/", checkRole("admin"), (req, res) => {

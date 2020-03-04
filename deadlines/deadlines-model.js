@@ -1,4 +1,4 @@
-const db = require("./dbConfig.js/index.js.js.js");
+const db = require("../database/dbConfig");
 const helpers = require("../tasks/tasks-helpers");
 
 module.exports = {

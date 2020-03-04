@@ -4,10 +4,10 @@ module.exports = {
     client: 'pg',
     connection: 'postgres://localhost/bpDB',
     migrations: {
-      directory: './data/migrations',
+      directory: './database/migrations',
     },
     seeds: {
-      directory: './data/seeds',
+      directory: './database/seeds',
     },
     pool: {
       min: 2,
@@ -23,7 +23,7 @@ module.exports = {
       max: 10
     },
     migrations: {
-      directory: "./data/migrations",
+      directory: "./database/migrations",
       tableName: 'knex_migrations'
     }
   },
@@ -32,7 +32,7 @@ module.exports = {
     client: 'pg',
     connection: process.env.DATABASE_URL,
     migrations: {
-      directory: './data/migrations',
+      directory: './database/migrations',
     },
     pool: {
       min: 2,

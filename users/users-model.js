@@ -22,15 +22,7 @@ function findBy(filter) {
 }
 
 function findById(id) {
-  return db("info as i")
-    .select(
-      "u.lastname as lastname",
-      "u.firstname as firstname",
-      "u.email as email",
-      "t.task as task"
-    )
-    .join("users as u", "i.user_id", "=", "u.id")
-    .join("tasks as t", "i.task_id", "=", "t.id")
+  return db("users")
     .where("id", id)
     .first();
 }

@@ -28,6 +28,7 @@
 |list student's tasks|GET|/api/users/:id/tasks| 
 |list student's messages|GET|/api/users/:id/messages|
 |add project and deadline to student profile|POST|/api/users/:id/tasks|
+|add student|POST|/api/users|
 |update student|UPDATE|/api/users/:id|
 |delete student|DEL|/api/users/:id|
 

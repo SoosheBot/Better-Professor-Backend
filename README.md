@@ -56,6 +56,7 @@ Returns a token - Example:
 }
 
 ## Register Student With the Following:
+|register student|POST|/api/auth/register/:id|
 [] -lastname
 [] -firstname
 [] -username
@@ -68,24 +69,22 @@ Returns a token - Example:
 	"firstname":"Aretha",
 	"username":"GoldenVoice",
 	"password":"password1",
-	"email": "sing@email.com"
-	"professor_id":
+	"email": "sing@email.com",
+	"professor_id": 1
 }
 
 
 
-## Login
-
+## Login Student
+|login student|POST|/api/auth/login/student|
 {
-    "username":"KiteGuy",
-    "password":"password1"
+    "username":"GoldenVoice",
+    "password":"password1",
+    "professor_id": 1
 };
 
-#Registration and Login: Professor Account
-|:--|:--:|:--|
-|register professor |POST|/api/auth/register|
-|login professor|POST|/api/auth/login|
-|log out professor |GET|/api/auth/logout|
+Returns a Token - Example:
+
 
 
 |:--|:--:|:--|

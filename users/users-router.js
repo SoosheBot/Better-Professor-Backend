@@ -24,23 +24,42 @@ router.get("/:id", checkRole("admin"), validateUserId, (req, res) => {
     });
 });
 
-// router.get("/:id/deadlines", (req, res) => {
-//   const { id } = req.params;
-//   Users.findDeadlines(id)
-//     .then(deadlines => {
-//       if (deadlines) {
-//         res.status(200).json(deadlines);
-//       } else {
-//         res
-//           .status(400)
-//           .json({ errorMessage: "Could not find this student's deadlines" });
-//       }
-//     })
-//     .catch(err => {
-//       console.log(err);
-//       res.status(500).json({ errorMessage: "Failed to get deadlines." });
-//     });
-// });
+router.get("/:id/deadlines", (req, res) => {
+  const { id } = req.params;
+  Users.findUserDeadlines(id)
+    .then(deadlines => {
+      if (deadlines) {
+        res.status(200).json(deadlines);
+      } else {
+        res
+          .status(400)
+          .json({ errorMessage: "Could not find this student's deadlines" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ errorMessage: "Failed to get deadlines." });
+    });
+});
+
+
+router.get("/:id/messages", (req, res) => {
+  const { id } = req.params;
+  Users.findUserMessages(id)
+    .then(messages => {
+      if (messages) {
+        res.status(200).json(messages);
+      } else {
+        res
+          .status(400)
+          .json({ errorMessage: "Could not find this student's messages" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ errorMessage: "Failed to get messages." });
+    });
+});
 
 router.post("/", (req,res) => {
   const users = {...req.body};

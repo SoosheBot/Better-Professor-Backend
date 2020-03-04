@@ -3,7 +3,7 @@ const router = require("express").Router();
 const Messages = require("./messages-model.js");
 const { validateMessageId } = require("./messages-helper");
 
-router.get("/", checkRole("admin"), (req, res) => {
+router.get("/", (req, res) => {
   Messages.find()
     .then(messages => {
       res.status(200).json(messages);
@@ -11,7 +11,7 @@ router.get("/", checkRole("admin"), (req, res) => {
     .catch(err => res.send(err));
 });
 
-router.get("/:id", checkRole("admin"), validateMessageId, (req, res) => {
+router.get("/:id", (req, res) => {
   const { id } = req.params;
   Messages.findById(id)
     .then(messages => {
@@ -20,18 +20,19 @@ router.get("/:id", checkRole("admin"), validateMessageId, (req, res) => {
     .catch(err => {
       res
         .status(500)
-        .json({ message: "The messages information could not be retrieved." });
+        .json({ message: "No messages found at this ID." });
     });
 });
 
 router.post("/", (req, res) => {
   const messages = { ...req.body };
   Messages.add(messages)
-    .then(message => {
-      res.status(201).json(message);
+    .then(note => {
+      res.status(201).json(note);
     })
     .catch(err => {
-      res.status(500).json({ errorMessage: "Could not add message." });
+      console.log(err)
+      res.status(500).json({ error: "Could not add message." });
     });
 });
 

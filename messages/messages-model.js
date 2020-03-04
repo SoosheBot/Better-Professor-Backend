@@ -31,11 +31,10 @@ function find() {
       .first();
   }
 
-  function update(changes, id) {
-    return db("messages", "id")
+  function update(id, changes) {
+    return db("messages")
       .where({ id })
-      .update(changes, "*")
-      .then(count => findById(id));
+      .update(changes);
   }
 
   function remove(id) {

@@ -5,7 +5,8 @@ module.exports = {
   find,
   findBy,
   findById,
-  // findDeadlines,
+  findUserDeadlines,
+  findUserMessages,
   add,
   update,
   remove
@@ -44,14 +45,21 @@ function findById(id) {
     .first();
 }
 
-// function findDeadlines(deadlineId) {
-//   return db("users")
-//     // .select("u.lastname as lastname", "u.firstname as firstname", "d.due_date as due date")
-//     // .join("deadlines as d", "d.id", "=", "si.deadline_id")
-//     // .join("users as u", "u.id", "=", "si.user_id")
-//     .where("deadline_id", deadlineId)
-//     .then(users => users.map(user => helpers.actionToBody(user)));
-// }
+function findUserDeadlines(userId) {
+  return db("tasks as t")
+    .select("u.lastname as lastname", "u.firstname as firstname", "d.due_date as due date")
+    .join("users as u", "t.user_id", "=", "u.id")
+    .join("deadlines as d", "t.deadline_id", "=", "d.id")
+    .where("user_id", userId)
+    // .then(users => users.map(user => helpers.actionToBody(user)));
+}
+
+function findUserMessages(userId) {
+  return db("users as u")
+  .select("u.username as username", "m.message as message")
+  .join("messages as m", "m.user_id", "=", "u.id")
+  .where("user_id", userId);
+};
 
 async function add(user) {
   const [id] = await db("users").insert(user, "id");

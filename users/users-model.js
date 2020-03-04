@@ -1,5 +1,6 @@
 const db = require("../database/dbConfig");
-const helpers = require("../tasks/tasks-helpers");
+// const helpers = require("../tasks/tasks-helpers");
+
 module.exports = {
   find,
   findBy,
@@ -11,7 +12,14 @@ module.exports = {
 };
 
 function find() {
-  return db("users as u");
+  return db("users as u")
+  .select(
+    "u.lastname as lastname",
+    "u.firstname as firstname",
+    "u.email as email",
+    "t.task as task"
+  )
+  .join("tasks as t", "u.task_id", "=", "t.id");
 }
 
 function findBy(filter) {
@@ -22,8 +30,6 @@ function findBy(filter) {
 
 function findById(id) {
   return db("users")
-  .select("u.lastname as lastname", "u.firstname as firstname", "u.email as email", "t.task as task")
-  .join("tasks as t", "u.task_id", "=", "t.id")
     .where("id", id)
     .first();
 }
@@ -44,9 +50,9 @@ async function add(user) {
 
 function update(id, changes) {
   return db("users")
-  .where({ id })
-  .update(changes);
-};
+    .where({ id })
+    .update(changes);
+}
 
 function remove(id) {
   return db("users")

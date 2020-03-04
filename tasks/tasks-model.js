@@ -10,7 +10,7 @@ module.exports = {
 };
 
 function find() {
-  return db("tasks as t")
+  return db("tasks")
     // .select("t.task as task", "d.due_date as due date")
     // .join("deadlines as d", "t.deadline_id", "=", "d.id");
 }

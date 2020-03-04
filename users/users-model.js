@@ -22,8 +22,8 @@ function findBy(filter) {
 
 function findById(id) {
   return db("users as u")
-    .select("u.lastname as lastname", "u.firstname as firstname", "t.name as task")
-    .join("tasks as t", "u.task_id", "=", "t.id")
+    // .select("u.lastname as lastname", "u.firstname as firstname", "t.name as task")
+    // .join("tasks as t", "u.task_id", "=", "t.id")
     .where({ id })
     .first();
 }

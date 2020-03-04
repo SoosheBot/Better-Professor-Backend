@@ -117,7 +117,7 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.post("/login/student", checkDuplicates, (req, res) => {
+router.post("/login/student", (req, res) => {
   let { username, password, professor_id } = req.body;
   Students.findBy({ username })
     .first()

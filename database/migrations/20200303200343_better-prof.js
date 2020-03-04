@@ -2,12 +2,12 @@ exports.up = function(knex, Promise) {
   return knex.schema
     .createTable("deadlines", tbl => {
       tbl.increments();
-      tbl.date("due_date").notNullable();
+      tbl.date("due_date").notNullable().defaultTo("2020-12-12");
     })
 
     .createTable("tasks", tbl => {
       tbl.increments();
-      tbl.text("name", 128).notNullable();
+      tbl.text("task", 128).notNullable();
       tbl
         .integer("deadline_id")
         .references("id")
@@ -23,8 +23,7 @@ exports.up = function(knex, Promise) {
       tbl.string("username", 128).notNullable();
       tbl.string("password", 128).notNullable();
       tbl
-        .string("email", 128)
-        .notNullable()
+        .string("email", 128).notNullable()
         .unique();
       tbl.string("role").defaultTo("user");
       tbl

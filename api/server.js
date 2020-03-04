@@ -8,7 +8,7 @@ const authRouter = require("../auth/auth-router.js");
 const usersRouter = require("../users/users-router.js");
 const tasksRouter = require("../tasks/tasks-router");
 const deadlinesRouter = require("../deadlines/deadlines-router");
-
+const messagesRouter = require("../messages/messages-router");
 const server = express();
 
 server.use(helmet());
@@ -20,6 +20,7 @@ server.use("/api/auth", authRouter);
 server.use("/api/users", authenticate, usersRouter);
 server.use("/api/tasks", tasksRouter);
 server.use("/api/deadlines", deadlinesRouter);
+server.use("/api/messages", messagesRouter);
 
 server.get("/", (req, res) => {
   res.send({ api: "Is up and running."});

@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 const Messages = require("./messages-model.js");
-const { validateMessagesId } = require("./messages-helper");
+const { validateMessageId } = require("./messages-helper");
 
 router.get("/", checkRole("admin"), (req, res) => {
   Messages.find()
@@ -11,7 +11,7 @@ router.get("/", checkRole("admin"), (req, res) => {
     .catch(err => res.send(err));
 });
 
-router.get("/:id", checkRole("admin"), validateMessagesId, (req, res) => {
+router.get("/:id", checkRole("admin"), validateMessageId, (req, res) => {
   const { id } = req.params;
   Messages.findById(id)
     .then(messages => {
@@ -35,7 +35,7 @@ router.post("/", (req, res) => {
     });
 });
 
-router.put("/:id", validateMessagesId, (req, res) => {
+router.put("/:id", validateMessageId, (req, res) => {
   const body = { ...req.body };
   const { id } = req.params;
 
@@ -48,7 +48,7 @@ router.put("/:id", validateMessagesId, (req, res) => {
     });
 });
 
-router.delete("/:id", validateMessagesId, (req, res) => {
+router.delete("/:id", validateMessageId, (req, res) => {
   const id = req.params.id;
   Messages.remove(id)
     .then(messages => {

@@ -15,10 +15,10 @@ module.exports = {
 function find() {
   const userInfo = {}
   return db("users as u")
-  .select("u.professor_id as id", "u.lastname as lastname", "u.firstname as firstname", "u.email as email", "m.message as message", "s.lastname as student lastname", "s.student_id as student id")
-  .leftJoin("tasks as t", "t.professor_id", "=", "u.professor_id")
+  .select("u.id as id", "u.lastname as lastname", "u.firstname as firstname", "u.email as email", "m.message as message", "s.lastname as student lastname", "s.student_id as student id")
+  .leftJoin("tasks as t", "t.professor_id", "=", "u.id")
   .leftJoin("messages as m", "m.message_id", "=", "u.message_id")
-  .leftJoin("students as s", "s.professor_id", "=", "u.professor_id")
+  .leftJoin("students as s", "s.professor_id", "=", "u.id")
 
   //keep this code!
   // .select("u.username as username", "t.task as task")
@@ -50,14 +50,14 @@ function findById(id) {
 function findUserMessages(userId) {
   return db("users as u")
   .select("u.lastname as lastname", "u.firstname as firstname", "m.message as message")
-  .join("messages as m", "m.professor_id", "=", "u.professor_id")
+  .join("messages as m", "m.professor_id", "=", "u.id")
   .where("professor_id", userId);
 };
 
 function findUserStudents(id) {
   return db("students as s")
-  .select("s.id as student id", "s.lastname as lastname", "s.firstname as firstname", "s.email as email", "u.firstname as professor", "u.professor_id as professor_id")
-  .join("users as u", "s.professor_id", "=", "u.professor_id")
+  .select("s.id as student id", "s.lastname as lastname", "s.firstname as firstname", "s.email as email", "u.firstname as professor", "u.id as professor_id")
+  .join("users as u", "s.professor_id", "=", "u.id")
 };
 
 async function add(user) {

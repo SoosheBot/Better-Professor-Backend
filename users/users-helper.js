@@ -47,10 +47,28 @@ function validateUserId(req, res, next) {
     .catch(err => res.status(500).json({ err: "Could not get user'" }));
 }
 
+function checkDuplicates(req, res, next) {	
+  const { username, email } = req.body;	
+
+  Users.findBy({ username })	
+    .then(user => {	
+      if (user) {	
+        res.status(400).json({ message: "Username is already taken" });	
+      } else {	
+        Users.findBy({ email }).then(user => {	
+          if (user) {	
+            res.status(400).json({ message: "Email is already taken" });	
+          } else {	
+            next();	
+          }	
+        });	
+      }	
+    })	
+    .catch(err => console.log(err));	
+}
 
 module.exports = {
   validateUser,
   checkDuplicates,
-  validateUserId,
-  validateRole
+  validateUserId
 };

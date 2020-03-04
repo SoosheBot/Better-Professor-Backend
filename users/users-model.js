@@ -5,7 +5,6 @@ module.exports = {
   find,
   findBy,
   findById,
-  findUserDeadlines,
   findUserMessages,
   findUserTasks,
   add,
@@ -44,13 +43,6 @@ function findById(id) {
   return db("users")
     .where("id", id)
     .first();
-}
-
-function findUserDeadlines(userId) {
-  return db("tasks as t")
-    .select("u.lastname as lastname", "u.firstname as firstname", "t.due_date as due date")
-    .join("users as u", "t.user_id", "=", "u.id")
-    .where("user_id", userId)
 }
 
 function findUserMessages(userId) {

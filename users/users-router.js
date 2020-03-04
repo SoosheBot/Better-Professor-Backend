@@ -58,11 +58,6 @@ router.put("/:id", validateUserId, (req, res) => {
 
 router.delete("/:id", validateUserId, (req, res) => {
   const id = req.params.id;
-  if (!id) {
-    res
-      .status(404)
-      .json({ message: "The user with the specified ID does not exist." });
-  }
   Users.remove(id)
     .then(user => {
       res.json(user);

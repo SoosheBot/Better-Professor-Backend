@@ -1,13 +1,5 @@
 exports.up = function(knex, Promise) {
   return knex.schema
-    .createTable("deadlines", tbl => {
-      tbl.increments();
-      tbl
-        .date("due_date")
-        .notNullable()
-        .defaultTo("2020-12-12");
-    })
-
     .createTable("users", tbl => {
       tbl.increments();
       tbl.string("lastname", 128).notNullable();
@@ -31,13 +23,10 @@ exports.up = function(knex, Promise) {
         .inTable("users")
         .onDelete("RESTRICT")
         .onUpdate("CASCADE");
-      tbl
-        .integer("deadline_id")
+        tbl
+        .date("due_date")
         .notNullable()
-        .references("id")
-        .inTable("deadlines")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
+        .defaultTo("2020-12-12");
     })
 
     .createTable("messages", tbl => {
@@ -68,12 +57,6 @@ exports.up = function(knex, Promise) {
     .createTable("info", tbl => {
       tbl.increments();
       tbl
-        .integer("deadline_id")
-        .references("id")
-        .inTable("deadlines")
-        .onDelete("CASCADE")
-        .onUpdate("CASCADE");
-      tbl
         .integer("task_id")
         .references("id")
         .inTable("tasks")
@@ -94,7 +77,6 @@ exports.down = function(knex, Promise) {
     .dropTableIfExists("messages")
     .dropTableIfExists("tasks")
     .dropTableIfExists("users")
-    .dropTableIfExists("deadlines")
     .dropTableIfExists('created_at')
     .dropTableIfExists('updated_at');
 };

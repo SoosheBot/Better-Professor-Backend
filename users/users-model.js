@@ -48,9 +48,8 @@ function findById(id) {
 
 function findUserDeadlines(userId) {
   return db("tasks as t")
-    .select("u.lastname as lastname", "u.firstname as firstname", "d.due_date as due date")
+    .select("u.lastname as lastname", "u.firstname as firstname", "t.due_date as due date")
     .join("users as u", "t.user_id", "=", "u.id")
-    .join("deadlines as d", "t.deadline_id", "=", "d.id")
     .where("user_id", userId)
 }
 

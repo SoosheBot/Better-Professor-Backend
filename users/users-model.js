@@ -14,19 +14,21 @@ module.exports = {
 function find() {
   const userInfo = {}
   return db("users as u")
-  .select("u.username as username", "t.task as task")
+  .select("u.id as id", "u.username as username", "t.id as task id", "t.task as task")
   .leftJoin("tasks as t", "t.user_id", "=", "u.id")
-  // .where("1=1")
-  //.options({ nestTables: true, rowMode: 'array' })
-  .then(function(rows) {
-    rows.forEach(row => {
-      if (!userInfo[row.username]) {
-        userInfo[row.username] = {username: row.username, tasks: []}
-      }
-      userInfo[row.username].tasks.push(row.task)
-    })
-    return Object.values(userInfo)
-  })
+
+  //keep this code!
+  // .select("u.username as username", "t.task as task")
+  // .leftJoin("tasks as t", "t.user_id", "=", "u.id")
+  // .then(function(rows) {
+  //   rows.forEach(row => {
+  //     if (!userInfo[row.username]) {
+  //       userInfo[row.username] = {username: row.username, tasks: []}
+  //     }
+  //     userInfo[row.username].tasks.push(row.task)
+  //   })
+  //   return Object.values(userInfo)
+  // })
   
 }
 

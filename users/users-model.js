@@ -22,7 +22,7 @@ function findBy(filter) {
 }
 
 function findById(id) {
-  return db("users")
+  return db("users as u")
     .select(
       "u.lastname as lastname",
       "u.firstname as firstname",

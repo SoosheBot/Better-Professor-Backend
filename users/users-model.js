@@ -12,14 +12,7 @@ module.exports = {
 };
 
 function find() {
-  return db("users as u")
-  .select(
-    "u.lastname as lastname",
-    "u.firstname as firstname",
-    "u.email as email",
-    "t.task as task"
-  )
-  .join("tasks as t", "u.task_id", "=", "t.id");
+  return db("users as u");
 }
 
 function findBy(filter) {
@@ -30,6 +23,13 @@ function findBy(filter) {
 
 function findById(id) {
   return db("users")
+    .select(
+      "u.lastname as lastname",
+      "u.firstname as firstname",
+      "u.email as email",
+      "t.task as task"
+    )
+    .join("tasks as t", "u.task_id", "=", "t.id")
     .where("id", id)
     .first();
 }

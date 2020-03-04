@@ -12,7 +12,7 @@ router.get("/", authenticate, checkRole("admin"), (req, res) => {
     .catch(err => res.send(err));
 });
 
-router.get("/:id", authenticate, checkRole("admin"), validateUserId, (req, res) => {
+router.get("/:id", checkRole("admin"), validateUserId, (req, res) => {
   const { id } = req.params;
   Users.findById(id)
     .then(user => {

@@ -68,13 +68,13 @@ router.post("/register/:id", checkDuplicates, (req, res) => {
     return res.status(400).json({ message: "Professor ID is required." });
   }
   const validateResult = validateUser(user);
-  
+
   if (validateResult.isSuccessful === true) {
     const hash = bcrypt.hashSync(user.password, 10);
     user.password = hash;
     
     const token = generateToken(user);
-    users.add(user)
+    Students.add(user)
       .then(saved => {
         if (user.username && user.lastname && user.firstname && user.password && user.email && user.professor_id) {
           res.status(201).json({token: token,
@@ -86,6 +86,7 @@ router.post("/register/:id", checkDuplicates, (req, res) => {
         }
       })
       .catch(err => {
+        console.log(err);
         res.status(500).json({ error: "Registration error." });
       });
   } else {

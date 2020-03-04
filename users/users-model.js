@@ -15,7 +15,7 @@ module.exports = {
 function find() {
   const userInfo = {}
   return db("users as u")
-  .select("u.id as id", "u.username as username", "t.id as task id", "t.task as task")
+  .select("u.id as id", "u.lastname as lastname", "u.firstname as firstname", "u.email as email", "t.id as task id", "t.task as task", "t.due_date as due date")
   .leftJoin("tasks as t", "t.user_id", "=", "u.id")
 
   //keep this code!

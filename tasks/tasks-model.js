@@ -10,33 +10,19 @@ module.exports = {
 };
 
 function find() {
-  return db("tasks as t")
-    .select(
-      "u.lastname as lastname",
-      "u.firstname as firstname",
-      "u.email as email",
-      "t.id as task id",
-      "t.task as task"
-    )
-    .join("users as u", "u.task_id", "=", "t.id");
+  return db("tasks");
 }
 
 function findBy(filter) {
-  return (
-    "tasks as t"
-      // .select("t.task as task", "d.due_date as due date")
-      // .join("deadlines as d", "t.deadline_id", "=", "d.id")
-      .where(filter)
-  );
+  return db("tasks")
+    .where(filter);
 }
 
 function findById(id) {
   return (
-    db("tasks as t")
-      // .select("t.task as task", "d.due_date as due date")
-      // .join("deadlines as d", "t.deadline_id", "=", "d.id")
+    db("tasks")
       .where({ id })
-      .first()
+      .first();
   );
 }
 

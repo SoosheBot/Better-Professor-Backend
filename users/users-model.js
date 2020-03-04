@@ -12,7 +12,7 @@ module.exports = {
 };
 
 function find() {
-  return db("users as u");
+  return db("users");
 }
 
 function findBy(filter) {

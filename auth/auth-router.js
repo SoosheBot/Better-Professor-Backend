@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 const { jwtSecret } = require("../config/secrets");
 
-const { checkDuplicates, validateUser } = require("../users/users-helpers");
+const { checkDuplicates, validateUser } = require("../users/users-helper");
 
 const Users = require("../users/users-model");
 

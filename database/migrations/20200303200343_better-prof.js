@@ -2,7 +2,10 @@ exports.up = function(knex, Promise) {
   return knex.schema
     .createTable("deadlines", tbl => {
       tbl.increments();
-      tbl.date("due_date").notNullable().defaultTo("2020-12-12");
+      tbl
+        .date("due_date")
+        .notNullable()
+        .defaultTo("2020-12-12");
     })
 
     .createTable("users", tbl => {
@@ -12,7 +15,8 @@ exports.up = function(knex, Promise) {
       tbl.string("username", 128).notNullable();
       tbl.string("password", 128).notNullable();
       tbl
-        .string("email", 128).notNullable()
+        .string("email", 128)
+        .notNullable()
         .unique();
       tbl.string("role").defaultTo("user");
     })
@@ -36,6 +40,28 @@ exports.up = function(knex, Promise) {
         .onUpdate("CASCADE");
     })
 
+    .createTable("messages", tbl => {
+      tbl.increments();
+      tbl
+        .text("message")
+        .notNullable()
+        .unique();
+      tbl
+        .integer("deadline_id")
+        .notNullable()
+        .references("id")
+        .inTable("deadlines")
+        .onDelete("RESTRICT")
+        .onUpdate("CASCADE");
+      tbl
+        .integer("task_id")
+        .notNullable()
+        .references("id")
+        .inTable("tasks")
+        .onDelete("RESTRICT")
+        .onUpdate("CASCADE");
+    })
+    
     .createTable("info", tbl => {
       tbl.increments();
       tbl

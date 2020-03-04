@@ -11,47 +11,42 @@
 ## API ENDPOINTS ##
 |feature|method|url|
 
-#Registration and Login: Professor
+#Registration and Login: Professor Account
 |:--|:--:|:--|
-|register user |POST|/api/auth/register|
-|login user |POST|/api/auth/login|
-|log out user |GET|/api/auth/logout|
+|register professor |POST|/api/auth/register|
+|login professor|POST|/api/auth/login|
+|log out professor |GET|/api/auth/logout|
 
-## Professor Registration Example (backend creates this -- front end registration's default will be the s):
+## Register Professor With the Following: 
+[] -lastname
+[] -firstname
+[] -username
+[] -password
+[] -email
 
-{
-    "lastname":"Franklin",
-    "firstname": "Ben",
-    "username": "KiteGuy",
-    "password": "password1",
-    "email": "pennysaved@email.com",
-    "role": "admin"
-}
 
-## Admin Login Example (front end can use this to view admin-only content):
+## Register Student With the Following:
+[] -lastname
+[] -firstname
+[] -username
+[] -password
+[] -email
+[] -professor_id
+
+
+## Login
+
 {
     "username":"KiteGuy",
     "password":"password1"
 };
 
-##Student Registration has the following required pieces:
-[ ] id (student.id), 
-[ ] lastname (student.lastname), 
-[ ] firstname (student.firstname), 
-[ ] username (student.username),
-[ ] email (student.email)
-[ ] professor id (student.professor_id)
+#Registration and Login: Professor Account
+|:--|:--:|:--|
+|register professor |POST|/api/auth/register|
+|login professor|POST|/api/auth/login|
+|log out professor |GET|/api/auth/logout|
 
-## Example of a registered user:
-{   
-    "id": 4
-	"lastname":"Franklin",
-	"firstname":"Aretha",
-	"username":"GoldenVoice",
-	"password":"password1",
-	"email": "nightingale@email.com",
-    "professor id": 1
-}
 
 |:--|:--:|:--|
 |Professor's Dashboard|

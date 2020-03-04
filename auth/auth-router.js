@@ -44,20 +44,40 @@ router.post("/register", checkDuplicates, (req, res) => {
 
 //register student
 router.post("/register/:id", checkDuplicates, (req, res) => {
-  let student = req.body;
+  let user = req.body;
 
-  const validateResult = validateUser(student);
+  if (!user.lastname || user.lastname.length < 2) {
+    return res.status(400).json({ message: "User lastname of at least two letters is required" });
+  }
+
+  if (!user.firstname || user.firstname.length < 2) {
+    return res.status(400).json({ message: "User firstname of at least two letters is required" });
+  }
+  if (!user.username || user.username.length < 2) {
+    return res.status(400).json({ message: "Username of at least two characters is required" });
+  }
+
+  if (!user.password || user.password.length < 4) {
+    return res.status(400).json({ message: "Password of at least two characters is required" });
+  }
+
+  if (!user.email || user.email.length < 4) {
+    return res.status(400).json({ message: "Email is required of at least four characters" });
+  }
+  if (!user.professor_id) {
+    return res.status(400).json({ message: "Professor ID is required." });
+  }
   
   if (validateResult.isSuccessful === true) {
-    const hash = bcrypt.hashSync(student.password, 10);
+    const hash = bcrypt.hashSync(user.password, 10);
     user.password = hash;
     
-    const token = generateToken(student);
-    Students.add(student)
+    const token = generateToken(user);
+    users.add(user)
       .then(saved => {
-        if (student.username && student.lastname && student.firstname && student.password && student.email && student.professor_id) {
+        if (user.username && user.lastname && user.firstname && user.password && user.email && user.professor_id) {
           res.status(201).json({token: token,
-            message: `Welcome ${student.username}`,});
+            message: `Welcome ${user.username}`,});
         } else {
           res
             .status(404)

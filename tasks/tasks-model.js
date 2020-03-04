@@ -19,11 +19,10 @@ function findBy(filter) {
 }
 
 function findById(id) {
-  return (
-    db("tasks")
+  return db("tasks")
       .where({ id })
       .first();
-  );
+  
 }
 
 function add(task) {

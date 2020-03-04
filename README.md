@@ -24,7 +24,7 @@
     "password": "Password1",
     "email": "pennysaved@email.com",
     "role": "admin"
-};
+}
 
 ## Admin Login Example (front end can use this to view admin-only content):
 {

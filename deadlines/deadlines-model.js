@@ -1,5 +1,4 @@
 const db = require("../database/dbConfig");
-const helpers = require("../tasks/tasks-helpers");
 
 module.exports = {
     find,
@@ -11,7 +10,7 @@ module.exports = {
 };
 
 function find() {
-    return db("deadlines").then(deadlines => deadlines.map(deadline => helpers.actionToBody(deadline)));;
+    return db("deadlines");
   }
 
   function add(deadline) {
@@ -21,10 +20,6 @@ function find() {
   }
 
   function findBy(filter) {
-    // return db("tasks as t")
-    //   .select("t.name as name", "d.due_date as due_date" )
-    //   .join("deadlines as d", "t.deadline_id", "=", "d.id")
-    //   .where(filter);
     return db("deadlines")
       .select("*")
       .where(filter);

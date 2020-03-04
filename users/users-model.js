@@ -12,15 +12,22 @@ module.exports = {
 };
 
 function find() {
+  const userInfo = {}
   return db("users as u")
-  .select(
-    "u.lastname as lastname",
-    "u.firstname as firstname",
-    "u.email as email",
-    "t.task as task"
-  )
-  .join("tasks as t", "u.task_id", "=", "t.id")
-  .first();
+  .select("u.username as username", "t.task as task")
+  .leftJoin("tasks as t", "t.user_id", "=", "u.id")
+  // .where("1=1")
+  //.options({ nestTables: true, rowMode: 'array' })
+  .then(function(rows) {
+    rows.forEach(row => {
+      if (!userInfo[row.username]) {
+        userInfo[row.username] = {username: row.username, tasks: []}
+      }
+      userInfo[row.username].tasks.push(row.task)
+    })
+    return Object.values(userInfo)
+  })
+  
 }
 
 function findBy(filter) {
@@ -30,15 +37,7 @@ function findBy(filter) {
 }
 
 function findById(id) {
-  return db("info as i")
-    .select(
-      "u.lastname as lastname",
-      "u.firstname as firstname",
-      "u.email as email",
-      "t.task as task"
-    )
-    .join("users as u", "i.user_id", "=", "u.id")
-    .join("tasks as t", "i.task_id", "=", "t.id")
+  return db("users")
     .where("id", id)
     .first();
 }

@@ -30,18 +30,6 @@ router.get("/:id", (req, res) => {
   }
 });
 
-router.get("/:id/deadlines", (req, res) => {
-  Tasks.findDeadline(req.params.id)
-    .then(deadlines => {
-      res.status(200).json(deadlines);
-    })
-    .catch(err => {
-      console.log(err);
-      res
-        .status(500)
-        .json({ error: "Could not retrieve deadlines with this task ID" });
-    });
-});
 
 router.post("/", (req, res) => {
   const body = { ...req.body };

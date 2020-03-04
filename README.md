@@ -88,116 +88,19 @@ Returns a Token - Example:
 
 
 |:--|:--:|:--|
-|Professor's Dashboard|
-|list students (only professor/admin can view the following items!)|GET|/api/users|
-
-  [{   
-    "id": 3
-	"lastname":"Franklin",
-	"firstname":"Aretha",
-	"username":"GoldenVoice",
-	"password":"password1",
-	"email": "nightingale@email.com"
-    "role":"user"
-}
-
-    {   
-    "id": 1
-	"lastname":"Franklin",
-	"firstname":"Ben",
-	"username":"KiteGuy",
-	"password":"password1",
-	"email": "pennysaved@email.com"
-    "role":"admin"
-}]
-
-|list student by id|GET|/api/students/:id|
-|list student's tasks|GET|/api/students/:id/tasks|
-    {
-        "id": 2,
-        "username":"Student",
-        "task":"Task 1"
-        "task":Task 2"
-    }
-
-|list student's messages|GET|/api/users/:id/messages|
-    {
-        [
-    {
-        "id": 3,
-        "message": "When will you finish this",
-        "task_id": 2,
-        "user_id": 2,
-        "created_at": "2020-03-04T16:56:45.996Z",
-        "updated_at": "2020-03-04T16:56:45.996Z"
-    },
-    {
-        "id": 1,
-        "message": "Plan to complete this in time!",
-        "task_id": 1,
-        "user_id": 2,
-        "created_at": "2020-03-04T16:53:26.245Z",
-        "updated_at": "2020-03-04T16:53:26.245Z"
-    }
-]
-    }
-|add project and deadline to student profile|POST|/api/students/:id/tasks|
-    {
-	"deadline_id": 2,
-	"task":"Task 2",
-	"user_id": 2
-    }
-|add student|POST|/api/student|
-|update student|PUT|/api/student/:id|
-
-|delete student|DEL|/api/users/:id|
-
-|:--|:--:|:--|
-|list tasks (with deadlines)|GET|/api/tasks|
-|update task|PUT|/api/tasks/:id|
-|delete task|DEL|/api/tasks/:id|
-
-|:--|:--:|:--|
-|send message to self|POST|/api/messages|
-    {
-	"message": "Hey Student, when will you have this done?",
-	"task_id": 4,
-	"user_id": 2
-
-    }
-|list all user messages|GET|/api/users/:id/messages|
-    {
-        "username":"Student",
-        "message": "Hey student, can you get this done?"
-    }
-|:--|:--:|:--|
-|send message to student|POST|/api/users/:id/messages|
-|list a student's messages|GET|/api/users/:id/messages|
-|:--|:--:|:--|
-|STRETCH|STRETCH|STRETCH|
-|add tags to student|POST|/api/students/:id/tags|
-|filter lists by: student name, deadlines, tasks, tags|
+|Professor's Dashboard Endpoints|
+|get a professor's students|GET|/api/user/students/:id|
+|get ALL students|GET|/api/users/all-students/:id|
+|get professor's messages|GET|/api/users/:id/messages|
+|add student|POST|api/users/:id/students|
+|update professor|PUT|/api/users/:id|
+|delete professor|DEL|/api/users/:id|
 
 
-Note -- A message should include a send date, time, and a long text field that enables the message curator the ability to send a custom message.
+##STUDENTS Dashboard Endpointss
+|get student by id|GET|/api/students/:id|
+|get student's tasks|GET|/api/students/:id/tasks|
+|get student's messages|GET|/api/students/:id/messages|
+|update student|PUT|/api/students/:id|
+|delete student|DEL|/api/students/:id|
 
-
-##Basic User Workflow: 
-register >> login >> view dashboard (homepage) >> logout
-
-##The Dashboards:
-[ ] - Professor's Dashboard 
-    - [ ] - Left column displays: all student names (/api/users)
-    - [ ] - Right column displays: all upcoming deadlines (/api/deadlines)
-
-[ ] - Student's Dashboard
-    - [ ] - Displays all of the student's tasks (with deadlines) (/api/users/:id)
-
-##Student Dashboard Example:
-{
-    "username":"Student",
-    "tasks": {
-        "name": "Write paper",
-        "due_date": "2020-10-10"
-    }
-}

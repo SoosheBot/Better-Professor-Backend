@@ -21,7 +21,7 @@
     "lastname":"Franklin",
     "firstname": "Ben",
     "username": "KiteGuy",
-    "password": "Password1",
+    "password": "password1",
     "email": "pennysaved@email.com",
     "role": "admin"
 }
@@ -29,7 +29,7 @@
 ## Admin Login Example (front end can use this to view admin-only content):
 {
     "username":"KiteGuy",
-    "password":"Password1"
+    "password":"password1"
 };
 
 ##User Registration has the following required pieces:
@@ -46,7 +46,7 @@
 	"firstname":"Aretha",
 	"username":"GoldenVoice",
 	"password":"password1",
-	"email": "nightingale@email.com"
+	"email": "nightingale@email.com",
     "role":"user"
 }
 

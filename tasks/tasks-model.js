@@ -10,7 +10,7 @@ module.exports = {
 };
 
 function find() {
-  return db("tasks as t").select("t.task as task", "t.due_date as due date");
+  return db("tasks as t").select("u.firstname as firstname", "t.task as task", "t.due_date as due date").join("users as u", "u.task_id", "=", "t.id");
 }
 
 function findBy(filter) {

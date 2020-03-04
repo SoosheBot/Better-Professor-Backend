@@ -125,11 +125,7 @@
 |list tasks (with deadlines)|GET|/api/tasks|
 |update task|PUT|/api/tasks/:id|
 |delete task|DEL|/api/tasks/:id|
-|:--|:--:|:--|
-|list deadlines|GET|/api/deadlines|
-|add deadline to specific task|POST|/api/tasks/:id/deadlines|
-|update task deadline|PUT|/api/task/:id/deadlines|
-|delete deadline|DEL|/api/deadlines/:id|
+
 |:--|:--:|:--|
 |send message to self|POST|/api/messages|
     {

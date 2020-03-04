@@ -6,7 +6,7 @@ module.exports = {
   findBy,
   findById,
   findUserMessages,
-  findUserTasks,
+  findUserStudents,
   add,
   update,
   remove
@@ -48,16 +48,15 @@ function findById(id) {
 
 function findUserMessages(userId) {
   return db("users as u")
-  .select("u.username as username", "m.message as message")
-  .join("messages as m", "m.user_id", "=", "u.id")
-  .where("user_id", userId);
+  .select("u.lastname as lastname", "u.firstname as firstname", "m.message as message")
+  .join("messages as m", "m.professor_id", "=", "u.professor_id")
+  .where("professor_id", userId);
 };
 
-function findUserTasks(userId) {
-  return db("tasks as t")
-  .select("u.username as username", "t.task as task")
-  .join("users as u", "t.user_id", "=", "u.id")
-  .where("user_id", userId);
+function findUserStudents(id) {
+  return db("students as s")
+  .select("s.id as student id", "s.lastname as lastname", "s.firstname as firstname", "s.email as email", "u.firstname as professor", "u.professor_id as professor_id")
+  .join("users as u", "s.professor_id", "=", "u.professor_id")
 };
 
 async function add(user) {

@@ -1,62 +1,100 @@
 const router = require("express").Router();
 
-const Students = require("./messages-model.js");
-const { validateMessageId } = require("./messages-helper");
+const Students = require("./studentss-model.js");
+const { validateStudentId } = require("./students-helper");
 
-router.get("/", (req, res) => {
-  Messages.find()
-    .then(messages => {
-      res.status(200).json(messages);
+router.get("/", checkRole("admin"), (req, res) => {
+  Students.find()
+    .then(students => {
+      res.status(200).json(students);
     })
     .catch(err => res.send(err));
 });
 
 router.get("/:id", (req, res) => {
   const { id } = req.params;
-  Messages.findById(id)
-    .then(messages => {
-      res.status(201).json(messages);
+  Students.findById(id)
+    .then(students => {
+      res.status(201).json(students);
     })
     .catch(err => {
       res
         .status(500)
-        .json({ message: "No messages found at this ID." });
+        .json({ message: "No student found at this ID." });
     });
+});
+
+router.get("/:id/messages", (req, res) => {
+    const { id } = req.params;
+    Users.findMessages(id)
+      .then(messages => {
+        if (messages) {
+          res.status(200).json(messages);
+        } else {
+          res
+            .status(400)
+            .json({ errorMessage: "Could not find this student's messages" });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ errorMessage: "Failed to get messages." });
+      });
+  });
+
+router.get("/:id/tasks", (req,res) => {
+  const { id } = req.params;
+  Students.findTasks(id)
+  .then(tasks => {
+    if (tasks) {
+      res.status(200).json(tasks);
+    } else {
+      res.status(400).json({ message: "Student does not currently have tasks"})
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({error: "Could not retrieve student tasks"})
+  })
 });
 
 router.post("/", (req, res) => {
-  const messages = { ...req.body };
-  Messages.add(messages)
-    .then(note => {
-      res.status(201).json(note);
+  const students = { ...req.body };
+  Students.add(students)
+    .then(student => {
+      if (!student.professor_id) {
+        res.status(400).json({error:"Must add a professor id"});
+      } else {
+        res.status(201).json(student);
+      }  
     })
     .catch(err => {
       console.log(err)
-      res.status(500).json({ error: "Could not add message." });
+      res.status(500).json({ error: "Could not add a student." });
     });
 });
 
-router.put("/:id", validateMessageId, (req, res) => {
+router.put("/:id", validateStudentId, (req, res) => {
   const body = { ...req.body };
   const { id } = req.params;
 
-  Messages.update(id, body)
+  Students.update(id, body)
     .then(changed => {
       res.status(201).json(changed);
     })
     .catch(err => {
-      res.status(500).json({ error: "Could not update messages at this ID" });
+      res.status(500).json({ error: "Could not update students at this ID" });
     });
 });
 
-router.delete("/:id", validateMessageId, (req, res) => {
+router.delete("/:id", validateStudentId, (req, res) => {
   const id = req.params.id;
-  Messages.remove(id)
-    .then(messages => {
-      res.json(`Message ${messages} has been deleted`);
+  Students.remove(id)
+    .then(students => {
+      res.json(`Student ${students} has been deleted`);
     })
     .catch(err => {
-      res.status(500).json({ message: "The message could not be removed" });
+      res.status(500).json({ message: "The student could not be removed" });
     });
 });
 

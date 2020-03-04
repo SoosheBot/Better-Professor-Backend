@@ -24,25 +24,6 @@ router.get("/:id", checkRole("admin"), validateUserId, (req, res) => {
     });
 });
 
-router.get("/:id/deadlines", (req, res) => {
-  const { id } = req.params;
-  Users.findUserDeadlines(id)
-    .then(deadlines => {
-      if (deadlines) {
-        res.status(200).json(deadlines);
-      } else {
-        res
-          .status(400)
-          .json({ errorMessage: "Could not find this student's deadlines" });
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ errorMessage: "Failed to get deadlines." });
-    });
-});
-
-
 router.get("/:id/messages", (req, res) => {
   const { id } = req.params;
   Users.findUserMessages(id)
@@ -61,21 +42,40 @@ router.get("/:id/messages", (req, res) => {
     });
 });
 
-router.get("/:id/tasks", (req, res) => {
+router.get("/students/:id", validateUserId, (req,res) => {
   const { id } = req.params;
-  Users.findUserTasks(id)
-    .then(tasks => {
-      if (tasks) {
-        res.status(200).json(tasks);
+  Users.findById(id)
+  .then()
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({error: "Could not find students of this professor by that ID"})
+  })
+});
+
+router.get("/all-students/:id", (req, res) => {
+  if (!req.params.id) {
+    return res.status(404).json({
+      errorMessage: "Id does not exist"
+    });
+  }
+  Users.findById(req.params.id)
+    .then(user => {
+      if (!user) {
+        return res.status(404).json({
+          errorMessage: "Professor by that Id does not exist"
+        });
       } else {
-        res
-          .status(400)
-          .json({ errorMessage: "Could not find this student's tasks" });
+        Users.findUserStudents(req.params.id)
+        .then(student => {
+          return res.status(200).json({ user, student });
+        });
       }
     })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ errorMessage: "Failed to get tasks." });
+    .catch(error => {
+      console.log(error);
+      return res.status(500).json({
+        errorMessage: "Could not get professor from database"
+      });
     });
 });
 
@@ -86,7 +86,18 @@ router.post("/", (req,res) => {
     res.status(201).json(user);
   })
   .catch(err => {
-    res.status(500).json({ errorMessage:"Could not add user."});
+    res.status(500).json({ errorMessage:"Could not add professor."});
+  });
+});
+
+router.post("/:id/students", (req,res) => {
+  const students = {...req.body};
+  Users.add(students)
+  .then(user => {
+    res.status(201).json(students);
+  })
+  .catch(err => {
+    res.status(500).json({ errorMessage:"Could not add student."});
   });
 });
 

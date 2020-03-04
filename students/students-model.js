@@ -5,8 +5,8 @@ module.exports = {
   find,
   findBy,
   findById,
-  findUserMessages,
-  findUserTasks,
+  findMessages,
+  findTasks,
   add,
   update,
   remove
@@ -15,8 +15,9 @@ module.exports = {
 function find() {
   const userInfo = {}
   return db("students as s")
-  .select("u.id as id", "u.lastname as lastname", "u.firstname as firstname", "u.email as email", "t.id as task id", "t.task as task", "t.due_date as due date", "t.message as message")
+  .select("s.id as id", "s.lastname as lastname", "s.firstname as firstname", "s.email as email", "t.id as task id", "t.task as task", "t.due_date as due date", "m.message as message from professor")
   .leftJoin("tasks as t", "t.user_id", "=", "u.id")
+  .leftJoin("messages as m", "s.professor_message", "=", "m.id")
 
   //keep this code!
   // .select("u.username as ssername", "t.task as task")
@@ -45,18 +46,19 @@ function findById(id) {
     .first();
 }
 
-function findStudentMessages(studentId) {
+function findMessages(studentId) {
   return db("students as s")
-  .select("u.id as id", "u.lastname as lastname", "u.firstname as firstname", "t.message as message")
-  .join("tasks as t", "t.user_id", "=", "u.id")
+  .select("s.id as id", "s.lastname as lastname", "s.firstname as firstname", "m.message as message")
+  .join("messages as m", "s.professor_message", "=", "m.id")
   .where("user_id", studentId);
 };
 
-function findStudentTasks(studentId) {
+
+function findTasks(taskId) {
   return db("tasks as t")
-  .select("u.id as id", "u.lastname as lastname", "u.firstname as firstname", "t.task as task")
-  .join("students as s", "t.user_id", "=", "u.id")
-  .where("user_id", userId);
+  .select("s.id as id", "s.lastname as lastname", "s.firstname as firstname", "t.task as task", "t.due_date as due date")
+  .join("students as s", "s.task_id", "=", "t.task_id")
+  .where("task_id", taskId);
 };
 
 async function add(student) {

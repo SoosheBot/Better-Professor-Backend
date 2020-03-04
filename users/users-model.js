@@ -7,6 +7,7 @@ module.exports = {
   findById,
   findUserDeadlines,
   findUserMessages,
+  findUserTasks,
   add,
   update,
   remove
@@ -57,6 +58,13 @@ function findUserMessages(userId) {
   return db("users as u")
   .select("u.username as username", "m.message as message")
   .join("messages as m", "m.user_id", "=", "u.id")
+  .where("user_id", userId);
+};
+
+function findUserTasks(userId) {
+  return db("tasks as t")
+  .select("u.username as username", "t.task as task")
+  .join("users as u", "t.user_id", "=", "u.id")
   .where("user_id", userId);
 };
 

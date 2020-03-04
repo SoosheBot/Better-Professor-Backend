@@ -61,6 +61,24 @@ router.get("/:id/messages", (req, res) => {
     });
 });
 
+router.get("/:id/tasks", (req, res) => {
+  const { id } = req.params;
+  Users.findUserTasks(id)
+    .then(tasks => {
+      if (tasks) {
+        res.status(200).json(tasks);
+      } else {
+        res
+          .status(400)
+          .json({ errorMessage: "Could not find this student's tasks" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ errorMessage: "Failed to get tasks." });
+    });
+});
+
 router.post("/", (req,res) => {
   const users = {...req.body};
   Users.add(users)

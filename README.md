@@ -73,7 +73,17 @@
 |delete deadline|DEL|/api/deadlines/:id|
 |:--|:--:|:--|
 |send message to self|POST|/api/messages|
+    {
+	"message": "Hey Student, when will you have this done?",
+	"task_id": 4,
+	"user_id": 2
+
+    }
 |list all user messages|GET|/api/users/:id/messages|
+    {
+        "username":"Student",
+        "message": "Hey student, can you get this done?"
+    }
 |:--|:--:|:--|
 |send message to student|POST|/api/users/:id/messages|
 |list a student's messages|GET|/api/users/:id/messages|

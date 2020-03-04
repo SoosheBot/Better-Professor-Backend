@@ -11,7 +11,9 @@ module.exports = {
 };
 
 function find() {
-  return db("users");
+  return db("users as u")
+  .select("u.lastname as lastname", "u.firstname as firstname", "u.email as email", "t.task as task")
+  .join("tasks as t", "u.task_id", "=", "t.id");
 }
 
 function findBy(filter) {

@@ -47,21 +47,22 @@ exports.up = function(knex, Promise) {
         .notNullable()
         .unique();
       tbl
-        .integer("deadline_id")
-        .notNullable()
-        .references("id")
-        .inTable("deadlines")
-        .onDelete("RESTRICT")
-        .onUpdate("CASCADE");
-      tbl
         .integer("task_id")
         .notNullable()
         .references("id")
         .inTable("tasks")
         .onDelete("RESTRICT")
         .onUpdate("CASCADE");
+        tbl
+        .integer("user_id")
+        .notNullable()
+        .references("id")
+        .inTable("users")
+        .onDelete("RESTRICT")
+        .onUpdate("CASCADE");
     })
-    
+     
+
     .createTable("info", tbl => {
       tbl.increments();
       tbl
@@ -88,6 +89,7 @@ exports.up = function(knex, Promise) {
 exports.down = function(knex, Promise) {
   return knex.schema
     .dropTableIfExists("info")
+    .dropTableIfExists("messages")
     .dropTableIfExists("tasks")
     .dropTableIfExists("users")
     .dropTableIfExists("deadlines");

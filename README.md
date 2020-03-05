@@ -22,7 +22,8 @@
 |------------|------------|-----------|
 |register professor (this is different from student registration)|POST|/api/auth/register|
 
--[ ] Items needed to register
+-[ ] Items needed to Register
+
 |NAME|TYPE|REQUIRED|DESCRIPTION|
 |------------|------------|-----------|
 |lastname|string|yes|last name|

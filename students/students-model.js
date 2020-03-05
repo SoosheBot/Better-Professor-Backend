@@ -53,7 +53,7 @@ function findMessages(profMessage) {
   return db("messages as m")
     .select("s.id as id",
     "s.firstname as firstname",
-    "m.message as message from prof")
+    "m.message as message from prof", "m.created_at as message sent", "m.updated_at as message updated")
     .join("students as s", "m.student_id", "=", "s.id")
     .where("student_id", profMessage);
 }

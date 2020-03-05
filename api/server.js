@@ -19,7 +19,7 @@ server.use(logger);
 
 server.use("/api/auth", authRouter);
 server.use("/api/users", authenticate, usersRouter);
-server.use("api/students", authenticate, studentsRouter);
+server.use("/api/students", authenticate, studentsRouter);
 server.use("/api/tasks", tasksRouter);
 server.use("/api/deadlines", deadlinesRouter);
 server.use("/api/messages", messagesRouter);

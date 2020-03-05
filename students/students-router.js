@@ -8,7 +8,10 @@ router.get("/", checkRole("admin"), (req, res) => {
     .then(students => {
       res.status(200).json(students);
     })
-    .catch(err => res.send(err));
+    .catch(err => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 router.get("/:id", (req, res) => {
@@ -18,44 +21,44 @@ router.get("/:id", (req, res) => {
       res.status(201).json(students);
     })
     .catch(err => {
-      res
-        .status(500)
-        .json({ message: "No student found at this ID." });
+      res.status(500).json({ message: "No student found at this ID." });
     });
 });
 
 router.get("/:id/messages", (req, res) => {
-    const { id } = req.params;
-    Students.findMessages(id)
-      .then(messages => {
-        if (messages) {
-          res.status(200).json(messages);
-        } else {
-          res
-            .status(400)
-            .json({ errorMessage: "Could not find this student's messages" });
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({ errorMessage: "Failed to get messages." });
-      });
-  });
+  const { id } = req.params;
+  Students.findMessages(id)
+    .then(messages => {
+      if (messages) {
+        res.status(200).json(messages);
+      } else {
+        res
+          .status(400)
+          .json({ errorMessage: "Could not find this student's messages" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ errorMessage: "Failed to get messages." });
+    });
+});
 
-router.get("/:id/tasks", (req,res) => {
+router.get("/:id/tasks", (req, res) => {
   const { id } = req.params;
   Students.findTasks(id)
-  .then(tasks => {
-    if (tasks) {
-      res.status(200).json(tasks);
-    } else {
-      res.status(400).json({ message: "Student does not currently have tasks"})
-    }
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json({error: "Could not retrieve student tasks"})
-  })
+    .then(tasks => {
+      if (tasks) {
+        res.status(200).json(tasks);
+      } else {
+        res
+          .status(400)
+          .json({ message: "Student does not currently have tasks" });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ error: "Could not retrieve student tasks" });
+    });
 });
 
 router.post("/", (req, res) => {
@@ -63,13 +66,13 @@ router.post("/", (req, res) => {
   Students.add(students)
     .then(student => {
       if (!student.professor_id) {
-        res.status(400).json({error:"Must add a professor id"});
+        res.status(400).json({ error: "Must add a professor id" });
       } else {
         res.status(201).json(student);
-      }  
+      }
     })
     .catch(err => {
-      console.log(err)
+      console.log(err);
       res.status(500).json({ error: "Could not add a student." });
     });
 });

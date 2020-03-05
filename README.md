@@ -54,6 +54,7 @@
 		"ETC"
 	}
 
+
 #### If you already have a Professor set up, you can go straight to login: ####
 
 ## PROFESSOR LOGIN ENDPOINT ##
@@ -74,7 +75,9 @@
 		"token": "giant string of letters and numbers",  
 		"message": "Welcome KiteGuy"
 	}
-|----------|----------|----------|----------|----------|
+
+
+
 
 ### STUDENT REGISTRATION ENDPOINT ###
 

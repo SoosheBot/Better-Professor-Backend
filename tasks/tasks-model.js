@@ -15,9 +15,9 @@ function find() {
   .select(
         "s.lastname as lastname",
         "s.firstname as firstname",
-        "t.id as task id",
+        "t.id as task_id",
         "t.task as task",
-        "t.due_date as due date")
+        "t.due_date as due_date")
     .leftJoin("tasks as t", "t.student_id", "=", "s.id")
     // .then(function(rows) {
     //   rows.map(row => {

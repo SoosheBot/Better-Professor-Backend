@@ -15,7 +15,7 @@ module.exports = {
 function find() {
   const userInfo = {}
   return db("users as u")
-  .select("u.id as id", "u.lastname as lastname", "u.firstname as firstname", "u.email as email", "s.lastname as student lastname", "s.id as student id")
+  .select("u.id as id", "u.lastname as lastname", "u.firstname as firstname", "u.email as email", "s.lastname as student lastname", "s.id as student_id")
   .leftJoin("tasks as t", "t.professor_id", "=", "u.id")
   .leftJoin("messages as m", "m.message_id", "=", "u.id")
   .leftJoin("students as s", "s.professor_id", "=", "u.id")
@@ -46,7 +46,7 @@ function findById(id) {
 function findUserMessages(userId) {
   // const userInfo = {}
   return db("users as u")
-  .select("u.lastname as lastname", "u.firstname as firstname", "m.message as message", "m.created_at as message sent", "m.updated_at as message updated", "m.student_id as message sent to student id")
+  .select("u.lastname as lastname", "u.firstname as firstname", "m.message as message", "m.created_at as message sent", "m.updated_at as message updated", "m.student_id as message sent to student_id")
   .join("messages as m", "m.professor_id", "=", "u.id")
   .where("professor_id", userId);
   // .leftJoin("tasks as t", "t.student_id", "=", "s.id")
@@ -64,7 +64,7 @@ function findUserMessages(userId) {
 function findUserInfo(userId) {
   // const userInfo = {}
   return db("students as s")
-  .select("s.lastname as lastname", "s.firstname as firstname", "s.email as email", "s.id as student id")
+  .select("s.lastname as lastname", "s.firstname as firstname", "s.email as email", "s.id as student_id")
   .join("users as u", "s.professor_id", "=", "u.id")
   .where("s.professor_id", userId)
   // .leftJoin("tasks as t", "t.student_id", "=", "s.id")

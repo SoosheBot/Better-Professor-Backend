@@ -15,20 +15,7 @@ module.exports = {
 function find() {
   const userInfo = {}
   return db("users as u")
-  .select("u.id as id", "u.lastname as lastname", "u.firstname as firstname", "u.email as email", "s.lastname as student lastname", "s.id as student_id")
-  .leftJoin("tasks as t", "t.professor_id", "=", "u.id")
-  .leftJoin("messages as m", "m.message_id", "=", "u.id")
-  .leftJoin("students as s", "s.professor_id", "=", "u.id")
-  // .then(function(rows) {
-  //   rows.forEach(row => {
-  //     if (!userInfo[row.s.id]) {
-  //       userInfo[row.id] = {id: row.id, tasks: []}
-  //     }
-  //     userInfo[row.id].tasks.push(row.task)
-  //   })
-  //   return Object.values(userInfo)
-  // })
-  
+  .select("u.id as id", "u.lastname as lastname", "u.firstname as firstname", "u.email as email")
 }
 
 function findBy(filter) {

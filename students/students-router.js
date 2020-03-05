@@ -2,6 +2,7 @@ const router = require("express").Router();
 
 const Students = require("./students-model.js");
 const { validateStudentId } = require("./students-helper");
+const { checkRole } = require("../middleware/role-validation");
 
 router.get("/", checkRole("admin"), (req, res) => {
   Students.find()
@@ -14,7 +15,7 @@ router.get("/", checkRole("admin"), (req, res) => {
     });
 });
 
-router.get("/:id", (req, res) => {
+router.get("/:id", checkRole("admin"), validateStudentId, (req, res) => {
   const { id } = req.params;
   Students.findById(id)
     .then(students => {
@@ -118,18 +119,5 @@ router.delete("/:id", validateStudentId, (req, res) => {
       res.status(500).json({ message: "The student could not be removed" });
     });
 });
-
-function checkRole(role) {
-  return (req, res, next) => {
-    if (req.decodedToken && req.decodedToken.role === role) {
-      next();
-    } else {
-      res.status(403).json({
-        error:
-          "Admin access only. You do not have permission to view this page."
-      });
-    }
-  };
-}
 
 module.exports = router;

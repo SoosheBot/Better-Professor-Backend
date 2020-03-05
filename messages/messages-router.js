@@ -2,8 +2,9 @@ const router = require("express").Router();
 
 const Messages = require("./messages-model.js");
 const { validateMessageId } = require("./messages-helper");
+const { checkRole } = require("../middleware/role-validation");
 
-router.get("/", (req, res) => {
+router.get("/", checkRole("admin"), (req, res) => {
   Messages.find()
     .then(messages => {
       res.status(200).json(messages);
@@ -37,7 +38,7 @@ router.post("/", (req, res) => {
     });
 });
 
-router.put("/:id", validateMessageId, (req, res) => {
+router.put("/:id", checkRole("admin"), validateMessageId, (req, res) => {
   const body = { ...req.body };
   const { id } = req.params;
 
@@ -60,18 +61,5 @@ router.delete("/:id", validateMessageId, (req, res) => {
       res.status(500).json({ message: "The message could not be removed" });
     });
 });
-
-function checkRole(role) {
-  return (req, res, next) => {
-    if (req.decodedToken && req.decodedToken.role === role) {
-      next();
-    } else {
-      res.status(403).json({
-        error:
-          "Admin access only. You do not have permission to view this page."
-      });
-    }
-  };
-}
 
 module.exports = router;

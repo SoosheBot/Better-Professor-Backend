@@ -1,6 +1,5 @@
 const Users = require("./users-model");
 
-//custom middleware
 function validateUser(user) {
   let errors = [];
 

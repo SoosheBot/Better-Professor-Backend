@@ -2,6 +2,7 @@ const router = require("express").Router();
 
 const Users = require("./users-model.js");
 const { validateUserId } = require("./users-helper");
+const { checkRole } = require("../middleware/role-validation");
 
 router.get("/", checkRole("admin"), (req, res) => {
   Users.find()
@@ -42,7 +43,7 @@ router.get("/:id/messages", (req, res) => {
     });
 });
 
-router.get("/:id/students", validateUserId, (req, res) => {
+router.get("/:id/students", checkRole("admin"), validateUserId, (req, res) => {
   const { id } = req.params;
   Users.findById(id)
     .then(professor => {
@@ -58,7 +59,7 @@ router.get("/:id/students", validateUserId, (req, res) => {
             res
               .status(500)
               .json({
-                error: "Could not find students of this professor by that ID"
+                error: "Could not find students of professor with this ID."
               });
           });
       }
@@ -71,7 +72,7 @@ router.get("/:id/students", validateUserId, (req, res) => {
     });
 });
 
-router.get("/all-students/:id", (req, res) => {
+router.get("/all-students/:id", checkRole("admin"), (req, res) => {
   if (!req.params.id) {
     res.status(404).json({
       errorMessage: "This ID does not exist"
@@ -153,18 +154,5 @@ router.delete("/:id", validateUserId, (req, res) => {
       res.status(500).json({ message: "The user could not be removed" });
     });
 });
-
-function checkRole(role) {
-  return (req, res, next) => {
-    if (req.decodedToken && req.decodedToken.role === role) {
-      next();
-    } else {
-      res.status(403).json({
-        error:
-          "Admin access only. You do not have permission to view this page."
-      });
-    }
-  };
-}
 
 module.exports = router;

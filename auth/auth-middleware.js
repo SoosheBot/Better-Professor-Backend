@@ -6,7 +6,7 @@ module.exports = (req, res, next) => {
   if (authorization) {
     jwt.verify(authorization, jwtSecret, (err, decodedToken) => {
       if (err) {
-        res.status(401).json({ you: "shall not pass!" });
+        res.status(401).json({ error: "Authorization failed, cannot provide admin access." });
       } else {
         req.decodedToken = decodedToken;
         next();

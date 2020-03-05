@@ -27,59 +27,72 @@ router.get("/:id", (req, res) => {
 
 router.get("/:id/messages", (req, res) => {
   const { id } = req.params;
-  Students.findMessages(id)
-    .then(messages => {
-      if (messages) {
-        res.status(200).json(messages);
-      } else {
-        res
-          .status(400)
-          .json({ errorMessage: "Could not find this student's messages" });
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ errorMessage: "Failed to get messages." });
-    });
-});
-
-router.get("/:id/tasks", (req, res) => {
-  const { id } = req.params;
-  if (!req.params.id) {
+  if (!id) {
     res.status(404).json({
       errorMessage: "This ID does not exist"
     });
   }
-  Students.findById(id)
-    .then(student => {
-      if (!student) {
-        res.status(404).json({ err: "No student with this id" });
-      } else {
-        Students.findTasks(id).then(tasks => {
-          res.status(200).json({ student, tasks });
+  Students.findById(id).then(student => {
+    if (!student) {
+      res.status(404).json({
+        errorMessage: "Student does not exist."
+      });
+    } else {
+      Students.findMessages(id)
+        .then(messages => {
+          if (messages) {
+            res.status(200).json({ student, messages });
+          } else {
+            res
+              .status(400)
+              .json({ errorMessage: "Could not find this student's messages" });
+          }
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({ errorMessage: "Failed to get messages." });
         });
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: "Could not retrieve student tasks" });
-    });
-});
+    }
+  });
 
-router.post("/", (req, res) => {
-  const students = { ...req.body };
-  Students.add(students)
-    .then(student => {
-      if (!student.professor_id) {
-        res.status(400).json({ error: "Must add a professor id" });
-      } else {
-        res.status(201).json(student);
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ error: "Could not add a student." });
-    });
+  router.get("/:id/tasks", (req, res) => {
+    const { id } = req.params;
+    if (!req.params.id) {
+      res.status(404).json({
+        errorMessage: "This ID does not exist"
+      });
+    }
+    Students.findById(id)
+      .then(student => {
+        if (!student) {
+          res.status(404).json({ err: "No student with this id" });
+        } else {
+          Students.findTasks(id).then(tasks => {
+            res.status(200).json({ student, tasks });
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: "Could not retrieve student tasks" });
+      });
+  });
+
+  router.post("/", (req, res) => {
+    const students = { ...req.body };
+    Students.add(students)
+      .then(student => {
+        if (!student.professor_id) {
+          res.status(400).json({ error: "Must add a professor id" });
+        } else {
+          res.status(201).json(student);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({ error: "Could not add a student." });
+      });
+  });
 });
 
 router.put("/:id", validateStudentId, (req, res) => {

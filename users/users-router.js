@@ -42,77 +42,92 @@ router.get("/:id/messages", (req, res) => {
     });
 });
 
-
-router.get("/:id/students", validateUserId, (req,res) => {
+router.get("/:id/students", validateUserId, (req, res) => {
   const { id } = req.params;
-   Users.findUserInfo(id)
-   .then(students => {
-     res.status(201).json(students)
-   })
-   .catch(err => {
-         console.log(err);
-         res.status(500).json({error: "Could not find students of this professor by that ID"})
-       })
+  Users.findById(id)
+    .then(professor => {
+      if (!professor) {
+        res.status(400).json({ error: "This ID does not exist." });
+      } else {
+        Users.findUserInfo(id)
+          .then(students => {
+            res.status(201).json(students);
+          })
+          .catch(err => {
+            console.log(err);
+            res
+              .status(500)
+              .json({
+                error: "Could not find students of this professor by that ID"
+              });
+          });
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res
+        .status(500)
+        .json({ error: "Could not retrieve this student's messages." });
+    });
 });
 
 router.get("/all-students/:id", (req, res) => {
   if (!req.params.id) {
-     res.status(404).json({
+    res.status(404).json({
       errorMessage: "This ID does not exist"
     });
   }
   Users.findById(req.params.id)
     .then(professor => {
       if (!professor) {
-        return res.status(404).json({
-          errorMessage: "User does not exist"
+        res.status(404).json({
+          errorMessage: "ID does not exist."
         });
       } else {
-        Users.findUserInfo(req.params.id)
-        .then(student => {
-          return res.status(200).json({ professor, student });
+        Users.findUserInfo(req.params.id).then(student => {
+          res.status(200).json({ professor, student });
         });
       }
     })
     .catch(error => {
       console.log(error);
       return res.status(500).json({
-        errorMessage: "Could not get professor from database"
+        errorMessage: "Could not get professor from database, cannot find students."
       });
     });
 });
 
-router.post("/", (req,res) => {
-  const users = {...req.body};
+router.post("/", (req, res) => {
+  const users = { ...req.body };
   Users.add(users)
-  .then(user => {
-    res.status(201).json(user);
-  })
-  .catch(err => {
-    res.status(500).json({ errorMessage:"Could not add professor."});
-  });
+    .then(user => {
+      res.status(201).json(user);
+    })
+    .catch(err => {
+      res.status(500).json({ errorMessage: "Could not add professor." });
+    });
 });
 
-router.post("/:id/messages", (req,res) => {
-  const messages = {...req.body};
+router.post("/:id/messages", (req, res) => {
+  const messages = { ...req.body };
   Users.add(messages)
-  .then(user => {
-    res.status(201).json(messages);
-  })
-  .catch(err => {
-    res.status(500).json({ errorMessage:"Could not add message."});
-  });
+    .then(user => {
+      res.status(201).json(messages);
+    })
+    .catch(err => {
+      res.status(500).json({ errorMessage: "Could not add message." });
+    });
 });
 
-router.post("/:id/students", (req,res) => {
-  const students = {...req.body};
+router.post("/:id/students", (req, res) => {
+  const students = { ...req.body };
   Users.add(students)
-  .then(student => {
-    res.status(201).json(students);
-  })
-  .catch(err => {
-    res.status(500).json({ errorMessage:"Could not add student."});
-  });
+    .then(student => {
+      res.status(201).json(students);
+    })
+    .catch(err => {
+      res.status(500).json({ errorMessage: "Could not add student." });
+    });
 });
 
 router.put("/:id", validateUserId, (req, res) => {
@@ -144,12 +159,10 @@ function checkRole(role) {
     if (req.decodedToken && req.decodedToken.role === role) {
       next();
     } else {
-      res
-        .status(403)
-        .json({
-          error:
-            "Admin access only. You do not have permission to view this page."
-        });
+      res.status(403).json({
+        error:
+          "Admin access only. You do not have permission to view this page."
+      });
     }
   };
 }

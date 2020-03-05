@@ -66,7 +66,7 @@ router.get("/all-students/:id", (req, res) => {
           errorMessage: "Professor with that Id does not exist"
         });
       } else {
-        Users.findUserStudents(req.params.id)
+        Users.findUserInfo(req.params.id)
         .then(student => {
           return res.status(200).json({ user, student });
         });

@@ -110,7 +110,7 @@
 
 |DESCRIPTION|TYPE|ENDPOINT|
 |------------|------------|-----------|
-|login student|POST|/api/auth/login/student|
+|login student|POST|/api/auth/login/students|
 
 ### Items needed to login ###
 

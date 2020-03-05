@@ -25,7 +25,9 @@ function find() {
       "t.id as task id",
       "t.due_date as due date"
     )
-    .leftJoin("tasks as t", "t.student_id", "=", "s.id")
+    .join("tasks as t", "t.student_id", "=", "s.id")
+
+    // .leftJoin("tasks as t", "t.student_id", "=", "s.id")
     // .then(function(rows) {
     //   rows.forEach(row => {
     //     if (!userInfo[row.lastname]) {

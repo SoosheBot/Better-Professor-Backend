@@ -116,7 +116,7 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.post("/login/student", (req, res) => {
+router.post("/login/students", (req, res) => {
   let { username, password, professor_id } = req.body;
   Students.findBy({ username })
     .first()

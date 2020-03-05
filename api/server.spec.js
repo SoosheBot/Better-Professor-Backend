@@ -1,7 +1,7 @@
 require("dotenv").config();
 const request = require("supertest");
 const server = require("./server");
-const authenticate = require("../auth/authenticate-middleware");
+// const authenticate = require("../auth/authenticate-middleware");
 
 describe("server", function() {
   describe("environment", function() {

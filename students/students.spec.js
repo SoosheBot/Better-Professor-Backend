@@ -1,16 +1,14 @@
 const request = require("supertest");
 const server = require("../api/server.js");
 
-const Tasks = require("./tasks-model");
 const db = require("../database/dbConfig");
 
-describe('tasks router', function() {
-    it('should return status 200', function() {
+describe('students router', function() {
+    it('should return status 401 without admin login', function() {
         return request(server)
-            .get('/api/tasks')
+            .get('/api/students')
             .then(res => {
-                expect(res.status).toBe(200);
+                expect(res.status).toBe(401);
             })
     })
 })
-

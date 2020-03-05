@@ -55,11 +55,10 @@ function findUserMessages(userId) {
 };
 
 function findUserInfo(userId) {
-  return db("info as i")
+  return db("students as s")
   .select("s.id as student id", "s.lastname as lastname", "s.firstname as firstname", "s.email as email", "u.lastname as professor lastname", "u.firstname as professor firstname", "u.id as professor id")
-  .join("students as s", "i.student_id", "=", "s.id")
-  .join("users as u", "i.professor_id", "=", "u.id")
-  .where("i.professor_id", userId)
+  .join("users as u", "s.professor_id", "=", "u.id")
+  .where("s.professor_id", userId)
 };
 
 async function add(user) {

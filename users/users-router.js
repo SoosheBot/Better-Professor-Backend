@@ -63,7 +63,7 @@ router.get("/all-students/:id", (req, res) => {
     .then(user => {
       if (!user) {
         return res.status(404).json({
-          errorMessage: "Professor with that Id does not exist"
+          errorMessage: "User does not exist"
         });
       } else {
         Users.findUserInfo(req.params.id)

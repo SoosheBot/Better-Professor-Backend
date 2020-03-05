@@ -41,7 +41,7 @@ router.get("/:id/messages", (req, res) => {
       res.status(500).json({ errorMessage: "Failed to get messages." });
     });
 });
-router.get("/students/:id", validateUserId, (req,res) => {
+router.get("/:id/students", validateUserId, (req,res) => {
   const { id } = req.params;
    Users.findUserStudents(id)
    .then(students => {

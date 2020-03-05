@@ -89,7 +89,7 @@ Returns a Token - Example:
 
 |:--|:--:|:--|
 |Professor's Dashboard Endpoints|
-|get a professor's students|GET|/api/user/students/:id|
+|get a professor's students|GET|/api/user/:id/students|
 |get ALL students|GET|/api/users/all-students/:id|
 |get professor's messages|GET|/api/users/:id/messages|
 |add student|POST|api/users/:id/students|

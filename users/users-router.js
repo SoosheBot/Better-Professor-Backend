@@ -41,16 +41,31 @@ router.get("/:id/messages", (req, res) => {
       res.status(500).json({ errorMessage: "Failed to get messages." });
     });
 });
-
-router.get("/students/:id", (req,res) => {
+router.get("/students/:id", validateUserId, (req,res) => {
   const { id } = req.params;
-  Users.findById(id)
-  .then()
-  .catch(err => {
-    console.log(err);
-    res.status(500).json({error: "Could not find students of this professor by that ID"})
-  })
+   Users.findUserStudents(id)
+   .then()
+   .catch(err => {
+         console.log(err);
+         res.status(500).json({error: "Could not find students of this professor by that ID"})
+       })
 });
+// router.get("/students/:id", validateUserId, (req,res) => {
+//   const { id } = req.params;
+//   Users.findUserStudents(id)
+//           .then(students => {
+//             res.status(200).json(students);
+//           })
+//           .catch(error => {
+//             console.log(error);
+//             res.status(500).json({
+//               errorMessage: "Problem getting children from database"
+//             })
+//   .catch(err => {
+//     console.log(err);
+//     res.status(500).json({error: "Could not find students of this professor by that ID"})
+//   })
+// });
 
 router.get("/all-students/:id", (req, res) => {
   if (!req.params.id) {

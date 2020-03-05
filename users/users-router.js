@@ -44,28 +44,14 @@ router.get("/:id/messages", (req, res) => {
 router.get("/students/:id", validateUserId, (req,res) => {
   const { id } = req.params;
    Users.findUserStudents(id)
-   .then()
+   .then(students => {
+     res.status(201).json(students)
+   })
    .catch(err => {
          console.log(err);
          res.status(500).json({error: "Could not find students of this professor by that ID"})
        })
 });
-// router.get("/students/:id", validateUserId, (req,res) => {
-//   const { id } = req.params;
-//   Users.findUserStudents(id)
-//           .then(students => {
-//             res.status(200).json(students);
-//           })
-//           .catch(error => {
-//             console.log(error);
-//             res.status(500).json({
-//               errorMessage: "Problem getting children from database"
-//             })
-//   .catch(err => {
-//     console.log(err);
-//     res.status(500).json({error: "Could not find students of this professor by that ID"})
-//   })
-// });
 
 router.get("/all-students/:id", (req, res) => {
   if (!req.params.id) {

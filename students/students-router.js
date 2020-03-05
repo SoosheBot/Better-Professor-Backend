@@ -110,7 +110,7 @@ router.put("/:id", validateStudentId, (req, res) => {
     });
 });
 
-router.delete("/:id", validateStudentId, (req, res) => {
+router.delete("/:id", (req, res) => {
   const id = req.params.id;
   Students.remove(id)
     .then(students => {

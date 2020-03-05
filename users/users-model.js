@@ -13,7 +13,6 @@ module.exports = {
 };
 
 function find() {
-  const userInfo = {}
   return db("users as u")
   .select("u.id as id", "u.lastname as lastname", "u.firstname as firstname", "u.email as email")
 }

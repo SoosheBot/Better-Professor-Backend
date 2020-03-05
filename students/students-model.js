@@ -66,7 +66,7 @@ function findTasks(studentId) {
       "s.id as student_id",
       "s.lastname as lastname",
       "s.firstname as firstname",
-      "t.task_id as task_id",
+      "t.id as task_id",
       "t.task as task",
       "t.due_date as due_date"
     )

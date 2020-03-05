@@ -4,6 +4,8 @@ const Users = require("./users-model.js");
 const { validateUserId } = require("./users-helper");
 const { checkRole } = require("../middleware/role-validation");
 
+const Students = require("../students/students-model");
+
 router.get("/", checkRole("admin"), (req, res) => {
   Users.find()
     .then(users => {
@@ -56,11 +58,9 @@ router.get("/:id/students", checkRole("admin"), validateUserId, (req, res) => {
           })
           .catch(err => {
             console.log(err);
-            res
-              .status(500)
-              .json({
-                error: "Could not find students of professor with this ID."
-              });
+            res.status(500).json({
+              error: "Could not find students of professor with this ID."
+            });
           });
       }
     })
@@ -93,7 +93,8 @@ router.get("/all-students/:id", checkRole("admin"), (req, res) => {
     .catch(error => {
       console.log(error);
       return res.status(500).json({
-        errorMessage: "Could not get professor from database, cannot find students."
+        errorMessage:
+          "Could not get professor from database, cannot find students."
       });
     });
 });
@@ -152,6 +153,34 @@ router.delete("/:id", validateUserId, (req, res) => {
     })
     .catch(err => {
       res.status(500).json({ message: "The user could not be removed" });
+    });
+});
+
+router.delete("/students/:id", checkRole("admin"), (req, res) => {
+  const { id } = req.params;
+  if (!id) {
+    res.status(404).json({
+      errorMessage: "This ID does not exist"
+    });
+  }
+  Students.findById(id)
+    .then(remove => {
+      if (!remove) {
+        res.status(404).json({ message: "ID does not exist" });
+      } else {
+        Students.remove(id)
+          .then(students => {
+            res.json(`Student ${students} has been deleted`);
+          })
+          .catch(err => {
+            res
+              .status(500)
+              .json({ message: "The student could not be removed" });
+          });
+      }
+    })
+    .catch(err => {
+      res.status(500).json(err);
     });
 });
 

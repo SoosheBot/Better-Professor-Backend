@@ -90,7 +90,7 @@ exports.up = function(knex, Promise) {
         .notNullable()
         .references("id")
         .inTable("students")
-        .onDelete("RESTRICT")
+        .onDelete("CASCADE")
         .onUpdate("CASCADE");
       tbl
         .integer("task_id")
@@ -103,20 +103,20 @@ exports.up = function(knex, Promise) {
         .notNullable()
         .references("id")
         .inTable("users")
-        .onDelete("CASCADE")
+        .onDelete("RESTRICT")
         .onUpdate("CASCADE");
       tbl
         .integer("professor_message")
         .references("id")
-        .inTable("messages");
-      // .onDelete("CASCADE")
-      // .onUpdate("CASCADE");
+        .inTable("messages")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
       tbl
         .integer("student_message")
         .references("id")
-        .inTable("messages");
-      // .onDelete("CASCADE")
-      // .onUpdate("CASCADE");
+        .inTable("messages")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
     });
 };
 

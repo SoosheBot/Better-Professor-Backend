@@ -90,7 +90,7 @@ Returns a Token - Example:
 |:--|:--:|:--|
 |Professor's Dashboard Endpoints|
 |get a professor's students|GET|/api/user/:id/students|
-|get ALL students|GET|/api/users/all-students/:id|
+|get a professor's students (nested under the professor -- looks a bit cleaner, yields the same result as the other GET)|GET|/api/users/all-students/:id|
 |get professor's messages|GET|/api/users/:id/messages|
 |add student|POST|api/users/:id/students|
 |update professor|PUT|/api/users/:id|

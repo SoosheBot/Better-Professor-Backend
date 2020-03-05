@@ -19,10 +19,12 @@
 
 ## PROFESSOR REGISTRATION ## 
 |DESCRIPTION|TYPE|ENDPOINT|
+|------------|------------|-----------|
 |register professor (this is different from student registration)|POST|/api/auth/register|
 
 -[ ] Items needed to register
 |NAME|TYPE|REQUIRED|DESCRIPTION|
+|------------|------------|-----------|
 |lastname|string|yes|last name|
 |firstname|string|yes|first name|
 |username|string|yes|username (required for login, cannot be duplicate)|
@@ -55,10 +57,12 @@
 
 ## PROFESSOR LOGIN ##
 |DESCRIPTION|TYPE|ENDPOINT|
+|------------|------------|-----------|
 |login professor (this is different from student login)|POST|/api/login|
 
 -[ ] Items needed to login:
 |NAME|TYPE|REQUIRED|DESCRIPTION|
+|------------|------------|-----------|
 |username|string|yes|username - must match registration|
 |password|string|yes|password - must match registration|
 
@@ -73,12 +77,14 @@
 
 # STUDENT REGISTRATION #
 |DESCRIPTION|TYPE|ENDPOINT|
+|------------|------------|-----------|
 |register student|POST|/api/auth/register/:id| 
 
 ###Note -- it would be nice if the id you use here is the same as the professor id, but it's not necessary. Just use 1 if you don't want to think about it.
 
 [] Items needed to register
 |NAME|TYPE|REQUIRED|DESCRIPTION|
+|------------|------------|-----------|
 |lastname|string|yes|last name|
 |firstname|string|yes|first name|
 |username|string|yes|username (required for login, cannot be duplicate)|
@@ -98,10 +104,12 @@
 
 -[ ] Items needed to login
 |DESCRIPTION|TYPE|ENDPOINT|
+|------------|------------|-----------|
 |login student|POST|/api/auth/login/student|
 
 -[ ] Items needed to login
 |NAME|TYPE|REQUIRED|DESCRIPTION|
+|------------|------------|-----------|
 |username|string|yes|username - must match registration|
 |password|string|yes|password - must match registration|
 |professor_id|number|yes|professor the student belongs to, use 1, if you don't have/know one|
@@ -116,6 +124,7 @@
 
 ## PROFESSOR'S ENDPOINTS ##
 |DESCRIPTION|TYPE|ENDPOINT|
+|-----------------------|------------|-----------|
 |get a professor's students|GET|/api/user/:id/students|
 |get a professor's students, but fancy (nested under the professor -- looks a bit cleaner, yields the same result as the other GET)|GET|/api/users/all-students/:id|
 |get professor's messages|GET|/api/users/:id/messages|
@@ -127,6 +136,7 @@
 
 ## STUDENTS ENDPOINTS ##
 |TYPE|REQUIRED|DESCRIPTION|
+|---------------------|------------|-----------|
 |get all students in database (note -- will not use this, since professors can get their specific students)|GET|/api/students|
 |get all student by id||/api/students/:id|
 |get student's tasks|GET|/api/students/:id/tasks|
@@ -138,6 +148,7 @@
 
 ## TASKS ENDPOINTS ##
 |TYPE|REQUIRED|DESCRIPTION|
+|------------|------------|-----------|
 |get tasks|GET|/api/tasks|
 |get tasks by id|GET|/api/tasks/:id|
 |add task|POST|/api/tasks|

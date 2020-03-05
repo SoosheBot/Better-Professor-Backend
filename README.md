@@ -163,6 +163,15 @@
 |update tasks|PUT|/api/tasks/:id|
 |delete tasks|GET|/api/tasks/:id|
 
+### Data Required to add Task ###
+|NAME|TYPE|REQUIRED|DESCRIPTION|
+|------------|------------|-----------|------------|
+|due_date|number|yes|Has to be added like this: "2020-09-09"|
+|task|string|yes|This is the task message|
+|professor_id|number|yes|Assigns student's task to a professor|
+|student_id|number|yes|Assigns task to a student|
+
+
 ## MESSAGES ENDPOINTS ##
 
 |TYPE|REQUIRED|DESCRIPTION|
@@ -172,3 +181,11 @@
 |add message|POST|/api/messages|
 |update messages|PUT|/api/messages/:id|
 |delete messages|DEL|/api/messages/:id|
+
+### Data Required to Send a Message ###
+|NAME|TYPE|REQUIRED|DESCRIPTION|
+|------------|------------|-----------|------------|
+|message|string|yes|send the message|
+|task_id|number|yes|assigns message to a task|
+|professor_id|number|yes|assigns message to professor's ID|
+|student_id|number|yes|assigns message to student's ID|

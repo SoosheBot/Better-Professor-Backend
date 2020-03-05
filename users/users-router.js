@@ -42,7 +42,7 @@ router.get("/:id/messages", (req, res) => {
     });
 });
 
-router.get("/students/:id", validateUserId, (req,res) => {
+router.get("/students/:id", (req,res) => {
   const { id } = req.params;
   Users.findById(id)
   .then()

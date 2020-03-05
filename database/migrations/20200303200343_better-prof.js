@@ -22,6 +22,13 @@ exports.up = function(knex, Promise) {
         .string("email", 128)
         .notNullable()
         .unique();
+        tbl
+        .integer("professor_id")
+        .notNullable()
+        .references("id")
+        .inTable("users")
+        .onDelete("RESTRICT")
+        .onUpdate("CASCADE");
     })
     .createTable("tasks", tbl => {
       tbl.increments();

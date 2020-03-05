@@ -93,10 +93,21 @@ router.post("/", (req,res) => {
   });
 });
 
+router.post("/:id/messages", (req,res) => {
+  const messages = {...req.body};
+  Users.add(messages)
+  .then(user => {
+    res.status(201).json(messages);
+  })
+  .catch(err => {
+    res.status(500).json({ errorMessage:"Could not add message."});
+  });
+});
+
 router.post("/:id/students", (req,res) => {
   const students = {...req.body};
   Users.add(students)
-  .then(user => {
+  .then(student => {
     res.status(201).json(students);
   })
   .catch(err => {

@@ -1,45 +1,44 @@
 const db = require("../database/dbConfig");
 
 module.exports = {
-    find,
-    findBy,
-    findById,
-    add,
-    update,
-    remove
+  find,
+  findBy,
+  findById,
+  add,
+  update,
+  remove
 };
 
 function find() {
-    return db("messages");
-  }
+  return db("messages");
+}
 
-  function add(message) {
-    return db("messages")
-      .insert(message, "id")
-      .then(([id]) => find(id));
-  }
+function findBy(filter) {
+  return db("messages")
+    .select("*")
+    .where(filter);
+}
 
-  function findBy(filter) {
-    return db("messages")
-      .select("*")
-      .where(filter);
-  }
+function findById(id) {
+  return db("messages")
+    .where({ id })
+    .first();
+}
 
-  function findById(id) {
-    return db("messages")
-      .where({ id })
-      .first();
-  }
+function add(message) {
+  return db("messages")
+    .insert(message, "id")
+    .then(([id]) => find(id));
+}
 
-  function update(id, changes) {
-    return db("messages")
-      .where({ id })
-      .update(changes);
-  }
+function update(id, changes) {
+  return db("messages")
+    .where({ id })
+    .update(changes);
+}
 
-  function remove(id) {
-    return db("messages")
-      .where({ id })
-      .del();
-  }
-
+function remove(id) {
+  return db("messages")
+    .where({ id })
+    .del();
+}

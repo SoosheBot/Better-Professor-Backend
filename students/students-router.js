@@ -5,8 +5,8 @@ const { validateStudentId } = require("./students-helper");
 
 router.get("/", checkRole("admin"), (req, res) => {
   Students.find()
-    .then(students => {
-      res.status(200).json(students);
+    .then(student => {
+      res.status(200).json(student);
     })
     .catch(err => {
       console.log(err);
@@ -45,14 +45,19 @@ router.get("/:id/messages", (req, res) => {
 
 router.get("/:id/tasks", (req, res) => {
   const { id } = req.params;
-  Students.findTasks(id)
-    .then(tasks => {
-      if (tasks) {
-        res.status(200).json(tasks);
+  if (!req.params.id) {
+    res.status(404).json({
+      errorMessage: "This ID does not exist"
+    });
+  }
+  Students.findById(id)
+    .then(student => {
+      if (!student) {
+        res.status(404).json({ err: "No student with this id" });
       } else {
-        res
-          .status(400)
-          .json({ message: "Student does not currently have tasks" });
+        Students.findTasks(id).then(tasks => {
+          res.status(200).json({ student, tasks });
+        });
       }
     })
     .catch(err => {

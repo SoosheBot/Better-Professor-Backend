@@ -19,16 +19,12 @@ function find() {
   .leftJoin("tasks as t", "t.professor_id", "=", "u.id")
   .leftJoin("messages as m", "m.message_id", "=", "u.id")
   .leftJoin("students as s", "s.professor_id", "=", "u.id")
-
-  //keep this code!
-  // .select("u.username as username", "t.task as task")
-  // .leftJoin("tasks as t", "t.user_id", "=", "u.id")
   // .then(function(rows) {
   //   rows.forEach(row => {
-  //     if (!userInfo[row.username]) {
-  //       userInfo[row.username] = {username: row.username, tasks: []}
+  //     if (!userInfo[row.s.id]) {
+  //       userInfo[row.id] = {id: row.id, tasks: []}
   //     }
-  //     userInfo[row.username].tasks.push(row.task)
+  //     userInfo[row.id].tasks.push(row.task)
   //   })
   //   return Object.values(userInfo)
   // })
@@ -50,7 +46,7 @@ function findById(id) {
 function findUserMessages(userId) {
   // const userInfo = {}
   return db("users as u")
-  .select("u.lastname as lastname", "u.firstname as firstname", "m.message as message", "m.created_at as message sent", "m.updated_at as message updated")
+  .select("u.lastname as lastname", "u.firstname as firstname", "m.message as message", "m.created_at as message sent", "m.updated_at as message updated", "m.student_id as message sent to student id")
   .join("messages as m", "m.professor_id", "=", "u.id")
   .where("professor_id", userId);
   // .leftJoin("tasks as t", "t.student_id", "=", "s.id")
@@ -66,10 +62,21 @@ function findUserMessages(userId) {
 };
 
 function findUserInfo(userId) {
+  // const userInfo = {}
   return db("students as s")
-  .select("s.id as student id", "s.lastname as lastname", "s.firstname as firstname", "s.email as email", "u.firstname as professor firstname")
+  .select("s.lastname as lastname", "s.firstname as firstname", "s.email as email", "s.id as student id")
   .join("users as u", "s.professor_id", "=", "u.id")
   .where("s.professor_id", userId)
+  // .leftJoin("tasks as t", "t.student_id", "=", "s.id")
+    // .then(function(rows) {
+    //   rows.forEach(row => {
+    //     if (!userInfo[row.id]) {
+    //       userInfo[row.id] = { id: row.id, tasks: [] };
+    //     }
+    //     userInfo[row.id].tasks.push(row.task);
+    //   });
+    //   return Object.values(userInfo);
+    // });
 };
 
 async function add(user) {

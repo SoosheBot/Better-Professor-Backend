@@ -24,7 +24,7 @@ router.post("/register", checkDuplicates, (req, res) => {
       .then(saved => {
         if (user.username && user.lastname && user.firstname && user.password && user.email) {
           res.status(201).json({token: token,
-            message: `Welcome ${user.username}`,});
+            message: `Welcome Professor ${user.lastname}`,});
         } else {
           res
             .status(404)
@@ -78,7 +78,7 @@ router.post("/register/:id", checkDuplicates, (req, res) => {
       .then(saved => {
         if (user.username && user.lastname && user.firstname && user.password && user.email && user.professor_id) {
           res.status(201).json({token: token,
-            message: `Welcome ${user.username}`,});
+            message: `Welcome ${user.firstname}!`,});
         } else {
           res
             .status(404)
@@ -105,9 +105,8 @@ router.post("/login", (req, res) => {
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
-        res.status(200).json({ message: `Welcome ${user.username}!`,
-        token,
-        ...user });
+        res.status(200).json({ message: `Welcome Professor ${user.lastname}!`,
+        token });
       } else {
         res.status(401).json({ error: "Invalid login credentials, please re-enter username and password to continue" });
       }
@@ -124,9 +123,11 @@ router.post("/login/student", (req, res) => {
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password) && (professor_id, user.professor_id)) {
         const token = generateToken(user);
+        // res.status(200).json({ message: `Welcome ${user.username}!`,
+        // token,
+        // ...user }); //removed this so login only shows welcome user firstname and token
         res.status(200).json({ message: `Welcome ${user.username}!`,
-        token,
-        ...user });
+        token });
       } else {
         res.status(401).json({ error: "Invalid login credentials, please re-enter username, password and professor ID" });
       }

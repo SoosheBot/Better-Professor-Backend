@@ -16,25 +16,25 @@ module.exports = {
 function find() {
   const userInfo = {};
   return db("students as s")
-    .select(
-      "s.id as id",
+    .select(   
       "s.lastname as lastname",
       "s.firstname as firstname",
       "s.email as email",
-      "t.id as task id",
+      "s.id as student id",
       "t.task as task",
+      "t.id as task id",
       "t.due_date as due date"
     )
     .leftJoin("tasks as t", "t.student_id", "=", "s.id")
-    .then(function(rows) {
-      rows.forEach(row => {
-        if (!userInfo[row.firstname]) {
-          userInfo[row.firstname] = { firstname: row.firstname, tasks: [] };
-        }
-        userInfo[row.firstname].tasks.push(row.task);
-      });
-      return Object.values(userInfo);
-    });
+    // .then(function(rows) {
+    //   rows.forEach(row => {
+    //     if (!userInfo[row.lastname]) {
+    //       userInfo[row.lastname] = { lastname: row.lastname, tasks: [] };
+    //     }
+    //     userInfo[row.lastname].tasks.push(row.task);
+    //   });
+    //   return Object.values(userInfo);
+    // });
 }
 
 function findBy(filter) {

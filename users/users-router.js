@@ -57,20 +57,20 @@ router.get("/:id/students", validateUserId, (req,res) => {
 
 router.get("/all-students/:id", (req, res) => {
   if (!req.params.id) {
-    return res.status(404).json({
+     res.status(404).json({
       errorMessage: "This ID does not exist"
     });
   }
   Users.findById(req.params.id)
-    .then(user => {
-      if (!user) {
+    .then(professor => {
+      if (!professor) {
         return res.status(404).json({
           errorMessage: "User does not exist"
         });
       } else {
         Users.findUserInfo(req.params.id)
         .then(student => {
-          return res.status(200).json({ user, student });
+          return res.status(200).json({ professor, student });
         });
       }
     })

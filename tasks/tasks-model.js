@@ -10,16 +10,25 @@ module.exports = {
 };
 
 function find() {
-  return db("tasks as t")
-    .select(
-      "s.firstname as firstname",
-      "t.id as task id",
-      "t.task as task",
-      "t.due_date as due date", "u.id as professor id", "u.firstname as professor firstname"
-    )
-    .join("students as s", "t.student_id", "=", "s.id")
-    .join("users as u", "t.professor_id", "=", "u.id");
-}
+  const userInfo = {}
+  return db("students as s")
+  .select(
+        "s.lastname as lastname",
+        "s.firstname as firstname",
+        "t.id as task id",
+        "t.task as task",
+        "t.due_date as due date")
+    .leftJoin("tasks as t", "t.student_id", "=", "s.id")
+    // .then(function(rows) {
+    //   rows.map(row => {
+    //     if (!userInfo[row.firstname]) {
+    //       userInfo[row.firstname] = { firstname: row.firstname, tasks: [] };
+    //     }
+    //     userInfo[row.firstname].tasks.push(row.task);
+    //   });
+    //   return Object.values(userInfo);
+    // });
+  }
 
 function findBy(filter) {
   return db("tasks")

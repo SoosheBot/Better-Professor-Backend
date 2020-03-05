@@ -36,10 +36,10 @@
 - [ ] -- Note - This is our default admin and has an account already set up for easy access - please use him to login, and you won't need to register! 
 
 	{   
-		"lastname":"Franklin",
-		"firstname":"Ben",
-		"username":"KiteGuy",
-		"password":"Password1",
+		"lastname": "Franklin",
+		"firstname": "Ben",
+		"username": "KiteGuy",
+		"password": "Password1",
 		"email": "kiteguy@email.com",
 		"role": "admin"
 	}
@@ -172,3 +172,11 @@
 |add message|POST|/api/messages|
 |update messages|PUT|/api/messages/:id|
 |delete messages|DEL|/api/messages/:id|
+
+### Data Required to Send a Message ###
+|NAME|TYPE|REQUIRED|DESCRIPTION|
+|------------|------------|-----------|------------|
+|message|string|yes|send the message|
+|task_id|number|yes|assigns message to a task|
+|professor_id|number|yes|assigns message to professor's ID|
+|student_id|number|yes|assigns message to student's ID|

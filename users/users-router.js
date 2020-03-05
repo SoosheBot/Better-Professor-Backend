@@ -145,7 +145,7 @@ router.put("/:id", validateUserId, (req, res) => {
     });
 });
 
-router.put("/student/:id", validateUserId, (req, res) => {
+router.put("/students/:id", validateUserId, (req, res) => {
   const body = { ...req.body };
   const { id } = req.params;
 

@@ -36,14 +36,14 @@
 - [ ] -- Note - This is our default admin and has an account already set up for easy access - please use him to login, and you won't need to register! 
 
 
-	>{   
-	>	"lastname":"Franklin",
-	>	"firstname":"Ben",
-	>	"username":"KiteGuy",
-	>	"password":"Password1",
-	>	"email": "kiteguy@email.com",
-	>	"role": "admin"
-	>}
+	{   
+		"lastname":"Franklin",
+		"firstname":"Ben",
+		"username":"KiteGuy",
+		"password":"Password1",
+		"email": "kiteguy@email.com",
+		"role": "admin"
+	}
 
 
 
@@ -165,7 +165,7 @@
 |update tasks|PUT|/api/tasks/:id|
 |delete tasks|GET|/api/tasks/:id|
 
-### Data Required to add Task ###
+### Items Required to add Task ###
 |NAME|TYPE|REQUIRED|DESCRIPTION|
 |------------|------------|-----------|------------|
 |due_date|number|yes|Has to be added like this: "2020-09-09"|
@@ -184,7 +184,7 @@
 |update messages|PUT|/api/messages/:id|
 |delete messages|DEL|/api/messages/:id|
 
-### Data Required to Send a Message ###
+### items Required to Send a Message ###
 |NAME|TYPE|REQUIRED|DESCRIPTION|
 |------------|------------|-----------|------------|
 |message|string|yes|send the message|

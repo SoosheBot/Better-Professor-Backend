@@ -48,15 +48,26 @@ function findById(id) {
 }
 
 function findUserMessages(userId) {
+  // const userInfo = {}
   return db("users as u")
   .select("u.lastname as lastname", "u.firstname as firstname", "m.message as message", "m.created_at as message sent", "m.updated_at as message updated")
   .join("messages as m", "m.professor_id", "=", "u.id")
   .where("professor_id", userId);
+  // .leftJoin("tasks as t", "t.student_id", "=", "s.id")
+  //   .then(function(rows) {
+  //     rows.forEach(row => {
+  //       if (!userInfo[row.firstname]) {
+  //         userInfo[row.firstname] = { firstname: row.firstname, tasks: [] };
+  //       }
+  //       userInfo[row.firstname].tasks.push(row.task);
+  //     });
+  //     return Object.values(userInfo);
+  //   });
 };
 
 function findUserInfo(userId) {
   return db("students as s")
-  .select("s.id as student id", "s.lastname as lastname", "s.firstname as firstname", "s.email as email", "u.lastname as professor lastname", "u.firstname as professor firstname", "u.id as professor id")
+  .select("s.id as student id", "s.lastname as lastname", "s.firstname as firstname", "s.email as email", "u.firstname as professor firstname")
   .join("users as u", "s.professor_id", "=", "u.id")
   .where("s.professor_id", userId)
 };

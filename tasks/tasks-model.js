@@ -21,7 +21,8 @@ function find() {
 }
 
 function findBy(filter) {
-  return db("tasks").where(filter);
+  return db("tasks")
+  .where(filter);
 }
 
 function findById(id) {

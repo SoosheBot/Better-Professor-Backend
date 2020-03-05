@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 const Tasks = require("./tasks-model");
+const { validateTaskId } = require("./tasks-helper");
 
 router.get("/", (req, res) => {
   Tasks.find()
@@ -70,33 +71,5 @@ router.delete("/:id", validateTaskId, (req, res) => {
     });
 });
 
-// custom middleware
-function validateTaskId(req, res, next) {
-  Tasks.find(req.params.id)
-    .then(checkId => {
-      if (checkId) {
-        req.checkId = checkId;
-        next();
-      } else {
-        res.status(404).json({ error: "Task ID may not exist." });
-      }
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(500).json({ errorMessage: "Could not verify deadline ID" });
-    });
-}
-
-// function validateTask(req, res, next) {
-//   if (req.body) {
-//     next();
-//   } else if (!req.body.name || !req.body.deadline) {
-//     res
-//       .status(400)
-//       .json({ message: "Missing required information--name, description" });
-//   } else {
-//     res.status(404).json({ message: "Could not validate task." });
-//   }
-// }
 
 module.exports = router;

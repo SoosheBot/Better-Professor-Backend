@@ -35,14 +35,14 @@
 
 - [ ] -- Note - This is our default admin and has an account already set up for easy access - please use him to login, and you won't need to register! 
 
-{   
-	"lastname":"Franklin",
-	"firstname":"Ben",
-	"username":"KiteGuy",
-	"password":"Password1",
-	"email": "kiteguy@email.com",
-	"role": "admin"
-}
+	{   
+		"lastname":"Franklin",
+		"firstname":"Ben",
+		"username":"KiteGuy",
+		"password":"Password1",
+		"email": "kiteguy@email.com",
+		"role": "admin"
+	}
 
 
 #### Professor's successful registration returns a token, their username, id, etc. ####
@@ -75,8 +75,6 @@
 		"token": "giant string of letters and numbers",  
 		"message": "Welcome KiteGuy"
 	}
-
-
 
 
 ### STUDENT REGISTRATION ENDPOINT ###

@@ -145,9 +145,10 @@
 |delete tasks|GET|/api/tasks/:id|
 
 ## MESSAGES ENDPOINTS ##
-|TYPE|REQUIRED|DESCRIPTION
-|get messages|GET|/api/messages
-|get messages by id|GET|/api/messages/:id
-|add message|POST|/api/messages
-|update messages|PUT|/api/messages/:id
-|delete messages|DEL|/api/messages/:id
+|:--|:--|:--|
+|TYPE|REQUIRED|DESCRIPTION|
+|get messages|GET|/api/messages|
+|get messages by id|GET|/api/messages/:id|
+|add message|POST|/api/messages|
+|update messages|PUT|/api/messages/:id|
+|delete messages|DEL|/api/messages/:id|

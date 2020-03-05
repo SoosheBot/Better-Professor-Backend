@@ -55,7 +55,7 @@ router.delete("/:id", validateMessageId, (req, res) => {
   const id = req.params.id;
   Messages.remove(id)
     .then(messages => {
-      res.json(`Message ${messages} has been deleted`);
+      res.json(`Message has been deleted`);
     })
     .catch(err => {
       res.status(500).json({ message: "The message could not be removed" });

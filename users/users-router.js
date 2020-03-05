@@ -170,7 +170,8 @@ router.delete("/students/:id", checkRole("admin"), (req, res) => {
       } else {
         Students.remove(id)
           .then(students => {
-            res.json(`Student ${students} has been deleted`);
+            console.log(students)
+            res.json(`Student has been deleted`);
           })
           .catch(err => {
             res

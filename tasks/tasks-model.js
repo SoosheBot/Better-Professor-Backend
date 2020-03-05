@@ -26,8 +26,10 @@ function findById(id) {
 }
 
 function add(task) {
-  return db("tasks as t")
+  return db("students as s")
     .select("t.task as task", "t.due_date as due date", "u.id as professor id", "s.id as student id")
+    .join("tasks as t", "s.task_id", "=", "t.id")
+    .join("users as u", "s.user_id", "=", "u.id")
     .insert(task, "id")
     .then(([id]) => find(id));
 }

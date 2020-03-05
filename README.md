@@ -41,9 +41,8 @@
 		"username":"KiteGuy",
 		"password":"Password1",
 		"email": "pennysaved@email.com",
-		"role": "admin"
+		"role": "admin",
 	}
-
 
 
 #### Professor's successful registration returns a token, their username, id, etc. ####
@@ -143,7 +142,7 @@
 
 ## STUDENTS ENDPOINTS ##
 
-|TYPE|REQUIRED|DESCRIPTION|
+|DESCRIPTION|TYPE|ENDPOINT|
 |---------------------|------------|-----------|
 |get all students in database (note -- will not use this, since professors can get their specific students)|GET|/api/students|
 |get all student by id||/api/students/:id|
@@ -156,7 +155,7 @@
 
 ## TASKS ENDPOINTS ##
 
-|TYPE|REQUIRED|DESCRIPTION|
+|DESCRIPTION|TYPE|ENDPOINT|
 |------------|------------|-----------|
 |get tasks|GET|/api/tasks|
 |get tasks by id|GET|/api/tasks/:id|
@@ -175,7 +174,7 @@
 
 ## MESSAGES ENDPOINTS ##
 
-|TYPE|REQUIRED|DESCRIPTION|
+|DESCRIPTION|TYPE|ENDPOINT|
 |------------|------------|-----------|
 |get messages|GET|/api/messages|
 |get messages by id|GET|/api/messages/:id|
@@ -190,3 +189,8 @@
 |task_id|number|yes|assigns message to a task|
 |professor_id|number|yes|assigns message to professor's ID|
 |student_id|number|yes|assigns message to student's ID|
+
+## LOGOUT ENDPOINT ##
+|DESCRIPTION|TYPE|ENDPOINT|
+|------------|------------|-----------|
+|logout|GET|/api/auth/logout|

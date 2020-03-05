@@ -126,7 +126,7 @@ router.post("/login/student", (req, res) => {
         // res.status(200).json({ message: `Welcome ${user.username}!`,
         // token,
         // ...user }); //removed this so login only shows welcome user firstname and token
-        res.status(200).json({ message: `Welcome ${user.username}!`,
+        res.status(200).json({ message: `Welcome ${user.firstname}!`,
         token });
       } else {
         res.status(401).json({ error: "Invalid login credentials, please re-enter username, password and professor ID" });

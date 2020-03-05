@@ -36,13 +36,14 @@
 - [ ] -- Note - This is our default admin and has an account already set up for easy access - please use him to login, and you won't need to register! 
 
 	{   
-		"lastname": "Franklin",
-		"firstname": "Ben",
-		"username": "KiteGuy",
-		"password": "Password1",
-		"email": "kiteguy@email.com",
+		"lastname":"Franklin",
+		"firstname":"Ben",
+		"username":"KiteGuy",
+		"password":"Password1",
+		"email": "pennysaved@email.com",
 		"role": "admin"
 	}
+
 
 
 #### Professor's successful registration returns a token, their username, id, etc. ####
@@ -163,6 +164,15 @@
 |update tasks|PUT|/api/tasks/:id|
 |delete tasks|GET|/api/tasks/:id|
 
+### Items Required to add Task ###
+|NAME|TYPE|REQUIRED|DESCRIPTION|
+|------------|------------|-----------|------------|
+|due_date|number|yes|Has to be added like this: "2020-09-09"|
+|task|string|yes|This is the task message|
+|professor_id|number|yes|Assigns student's task to a professor|
+|student_id|number|yes|Assigns task to a student|
+
+
 ## MESSAGES ENDPOINTS ##
 
 |TYPE|REQUIRED|DESCRIPTION|
@@ -173,7 +183,7 @@
 |update messages|PUT|/api/messages/:id|
 |delete messages|DEL|/api/messages/:id|
 
-### Data Required to Send a Message ###
+### items Required to Send a Message ###
 |NAME|TYPE|REQUIRED|DESCRIPTION|
 |------------|------------|-----------|------------|
 |message|string|yes|send the message|

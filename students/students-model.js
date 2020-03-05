@@ -16,7 +16,7 @@ function find() {
   const userInfo = {}
   return db("students as s")
   .select("s.id as id", "s.lastname as lastname", "s.firstname as firstname", "s.email as email", "t.id as task id", "t.task as task", "t.due_date as due date", "m.message as message from professor")
-  .leftJoin("tasks as t", "t.user_id", "=", "u.id")
+  .leftJoin("tasks as t", "t.student_id", "=", "s.id")
   .leftJoin("messages as m", "s.professor_message", "=", "m.id")
 
   //keep this code!
@@ -46,11 +46,11 @@ function findById(id) {
     .first();
 }
 
-function findMessages(studentId) {
+function findMessages(profMessage) {
   return db("students as s")
   .select("s.id as id", "s.lastname as lastname", "s.firstname as firstname", "m.message as message")
   .join("messages as m", "s.professor_message", "=", "m.id")
-  .where("user_id", studentId);
+  .where("professor_message", profMessage);
 };
 
 

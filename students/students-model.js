@@ -20,10 +20,10 @@ function find() {
       "s.lastname as lastname",
       "s.firstname as firstname",
       "s.email as email",
-      "s.id as student id",
+      "s.id as student_id",
       "t.task as task",
-      "t.id as task id",
-      "t.due_date as due date"
+      "t.id as task_id",
+      "t.due_date as due_date"
     )
     .join("tasks as t", "t.student_id", "=", "s.id")
 
@@ -67,7 +67,7 @@ function findTasks(studentId) {
       "s.lastname as lastname",
       "s.firstname as firstname",
       "t.task as task",
-      "t.due_date as due date"
+      "t.due_date as due_date"
     )
     .join("tasks as t", "t.student_id", "=", "s.id")
     .where("student_id", studentId);
@@ -75,7 +75,7 @@ function findTasks(studentId) {
 
 function findStudentInfo(profId) {
   return db("students as s")
-  .select("s.id as student id", "s.lastname as lastname", "s.firstname as firstname")
+  .select("s.id as student_id", "s.lastname as lastname", "s.firstname as firstname")
   .join("users as u", "s.professor_id", "=", "u.id")
   .where("s.professor_id", profId)
 };

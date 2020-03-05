@@ -24,7 +24,7 @@ router.post("/register", checkDuplicates, (req, res) => {
       .then(saved => {
         if (user.username && user.lastname && user.firstname && user.password && user.email) {
           res.status(201).json({token: token,
-            message: `Welcome Professor ${user.lastname}`,});
+            message: `Welcome Professor ${user.lastname}`, ...user, token });
         } else {
           res
             .status(404)
@@ -78,7 +78,7 @@ router.post("/register/:id", checkDuplicates, (req, res) => {
       .then(saved => {
         if (user.username && user.lastname && user.firstname && user.password && user.email && user.professor_id) {
           res.status(201).json({token: token,
-            message: `Welcome ${user.firstname}!`,});
+            message: `Welcome ${user.firstname}!`, ...user, token });
         } else {
           res
             .status(404)
@@ -105,8 +105,7 @@ router.post("/login", (req, res) => {
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = generateToken(user);
-        res.status(200).json({ message: `Welcome Professor ${user.lastname}!`,
-        token });
+        res.status(200).json({ message: `Welcome Professor ${user.lastname}!`, ...user, token });
       } else {
         res.status(401).json({ error: "Invalid login credentials, please re-enter username and password to continue" });
       }
@@ -127,7 +126,7 @@ router.post("/login/students", (req, res) => {
         // token,
         // ...user }); //removed this so login only shows welcome user firstname and token
         res.status(200).json({ message: `Welcome ${user.firstname}!`,
-        token });
+         ...user, token });
       } else {
         res.status(401).json({ error: "Invalid login credentials, please re-enter username, password and professor ID" });
       }

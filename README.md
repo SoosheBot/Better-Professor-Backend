@@ -11,19 +11,17 @@
 
 ############################################################
 
-## API ENDPOINTS ##
-|feature|method|url|
+# API ENDPOINTS #
 
-#REGISTER AND LOGIN
+## HOW TO -REGISTER AND LOGIN ##
 
-###Note -- The professors and students have different endpoints to login, because the student array is a child of the professor array. Check your endpoints!
+- [ ] Note -- The professors and students have different endpoints to login, because the student array is a child of the professor array. Check your endpoints!
 
-# PROFESSOR REGISTRATION #
--[] -- PROFESSOR REGISTRATION ENDPOINT -- 
+## PROFESSOR REGISTRATION ## 
 |DESCRIPTION|TYPE|ENDPOINT|
 |register professor (this is different from student registration)|POST|/api/auth/register|
 
-[] Items needed to register
+-[ ] Items needed to register
 |NAME|TYPE|REQUIRED|DESCRIPTION|
 |lastname|string|yes|last name|
 |firstname|string|yes|first name|
@@ -32,7 +30,7 @@
 |email|string|yes|email (cannot be duplicate)|
 |role:admin|string|no|required to have admin privileges on site, but not required to create an account -- default is 'user' with no permissions|
 
-###Note - (This is our default admin and has an account already set up for easy access - please use him to login, and you won't need to register!): 
+###Note - (This is our default admin and has an account already set up for easy access - please use him to login, and you won't need to register!):### 
 
 {   
 	"lastname":"Franklin",
@@ -44,10 +42,10 @@
 }
 
 
--[] - Professor's successful registration returns a token, their username, id, etc. - Example:
+-[ ] - Professor's successful registration returns a token, their username, id, etc.
+
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IktpdGVHdXkiLCJ1c2VyIjoiJDJhJDEwJDhnWkJIaGZldEJ0TkRtV0FRSElGUk9KSGNXMjF2N0N6MEQ2L2E5TGxvc1RDMk5UOXpPWUl1Iiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTgzMzU5NzYwLCJleHAiOjE1ODMzNjMzNjB9.YaszdiimzJi5utAY18gLGbXM7zkPnKp4BmVvUV6rjiw",
-    
+    "token": "some garbled giant string of letters and numbers", 
     "message": "Welcome KiteGuy",
 	"id": 1,
 	"ETC"
@@ -55,11 +53,11 @@
 
 #If you already have a Professor set up, you can go straight to login:
 
-##Login Professor:
+## PROFESSOR LOGIN ##
 |DESCRIPTION|TYPE|ENDPOINT|
 |login professor (this is different from student login)|POST|/api/login|
 
-[] Items needed to login:
+-[ ] Items needed to login:
 |NAME|TYPE|REQUIRED|DESCRIPTION|
 |username|string|yes|username - must match registration|
 |password|string|yes|password - must match registration|
@@ -67,8 +65,7 @@
 
 #Professor's successful login returns a token, username, etc. - Example:
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IktpdGVHdXkiLCJ1c2VyIjoiJDJhJDEwJDhnWkJIaGZldEJ0TkRtV0FRSElGUk9KSGNXMjF2N0N6MEQ2L2E5TGxvc1RDMk5UOXpPWUl1Iiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNTgzMzU5NzYwLCJleHAiOjE1ODMzNjMzNjB9.YaszdiimzJi5utAY18gLGbXM7zkPnKp4BmVvUV6rjiw",
-    
+    "token": "giant string of letters and numbers",  
     "message": "Welcome KiteGuy"
 }
 
@@ -99,11 +96,11 @@
 }
 
 
-[] Items needed to login
+-[ ] Items needed to login
 |DESCRIPTION|TYPE|ENDPOINT|
 |login student|POST|/api/auth/login/student|
 
-[] Items needed to login
+-[ ] Items needed to login
 |NAME|TYPE|REQUIRED|DESCRIPTION|
 |username|string|yes|username - must match registration|
 |password|string|yes|password - must match registration|
@@ -115,9 +112,9 @@
     "professor_id": 1
 };
 
-#THE REST OF THE AWESOME ENDPOINTS#
+# THE REST OF THE AWESOME ENDPOINTS #
 
-|Professor's Dashboard Endpoints|
+## PROFESSOR'S ENDPOINTS ##
 |DESCRIPTION|TYPE|ENDPOINT|
 |get a professor's students|GET|/api/user/:id/students|
 |get a professor's students, but fancy (nested under the professor -- looks a bit cleaner, yields the same result as the other GET)|GET|/api/users/all-students/:id|
@@ -128,7 +125,7 @@
 |delete professor|DEL|/api/users/:id|
 
 
-##STUDENTS Dashboard Endpoints
+## STUDENTS ENDPOINTS ##
 |TYPE|REQUIRED|DESCRIPTION|
 |get all students in database (note -- will not use this, since professors can get their specific students)|GET|/api/students|
 |get all student by id||/api/students/:id|
@@ -139,7 +136,7 @@
 |delete student|DEL|/api/students/:id|
 ###Note -- in V1, we are not adding the ability for students to POST messages, they can only view their own messages.
 
-##TASKS Endpoints
+## TASKS ENDPOINTS ##
 |TYPE|REQUIRED|DESCRIPTION|
 |get tasks|GET|/api/tasks|
 |get tasks by id|GET|/api/tasks/:id|
@@ -147,7 +144,7 @@
 |update tasks|PUT|/api/tasks/:id|
 |delete tasks|GET|/api/tasks/:id|
 
-##MESSAGES Endpoints
+## MESSAGES ENDPOINTS ##
 |TYPE|REQUIRED|DESCRIPTION|
 |get messages|GET|/api/messages|
 |get messages by id|GET|/api/messages/:id|

@@ -96,14 +96,14 @@
 |email|string|yes|email (cannot be duplicate)|
 |professor_id|number|yes|required to add a student to a professor - if unsure, add to professor_id:1|
 
-{   
-	"lastname":"Singer",
-	"firstname":"Aretha",
-	"username":"GoldenVoice",
-	"password":"password1",
-	"email": "sing@email.com",
-	"professor_id": 1
-}
+	{   
+		"lastname":"Singer",
+		"firstname":"Aretha",
+		"username":"GoldenVoice",
+		"password":"password1",
+		"email": "sing@email.com",
+		"professor_id": 1
+	}
 
 ## STUDENT LOGIN ENDPOINT ##
 
@@ -119,11 +119,11 @@
 |password|string|yes|password - must match registration|
 |professor_id|number|yes|professor the student belongs to, use 1, if you don't have/know one|
 
-{
-    "username":"GoldenVoice",
-    "password":"password1",
-    "professor_id": 1
-};
+	{
+		"username":"GoldenVoice",
+		"password":"password1",
+		"professor_id": 1
+	}
 
 # THE REST OF THE AWESOME ENDPOINTS #
 

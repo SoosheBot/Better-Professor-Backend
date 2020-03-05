@@ -49,7 +49,7 @@ function findById(id) {
 
 function findUserMessages(userId) {
   return db("users as u")
-  .select("u.lastname as lastname", "u.firstname as firstname", "m.message as message")
+  .select("u.lastname as lastname", "u.firstname as firstname", "m.message as message", "m.created_at as message sent", "m.updated_at as message updated")
   .join("messages as m", "m.professor_id", "=", "u.id")
   .where("professor_id", userId);
 };

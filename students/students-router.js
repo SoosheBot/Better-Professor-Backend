@@ -26,7 +26,7 @@ router.get("/:id", (req, res) => {
 
 router.get("/:id/messages", (req, res) => {
     const { id } = req.params;
-    Users.findMessages(id)
+    Students.findMessages(id)
       .then(messages => {
         if (messages) {
           res.status(200).json(messages);

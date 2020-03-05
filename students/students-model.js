@@ -15,29 +15,25 @@ module.exports = {
 function find() {
   const userInfo = {};
   return db("students as s")
-    .select(
-      "s.id as id",
-      "s.lastname as lastname",
-      "s.firstname as firstname",
-      "s.email as email",
-      "t.id as task id",
-      "t.task as task",
-      "t.due_date as due date"
-    )
-    .leftJoin("tasks as t", "t.student_id", "=", "s.id");
-
-  //keep this code!
-  // .select("u.username as ssername", "t.task as task")
-  // .leftJoin("tasks as t", "t.user_id", "=", "u.id")
-  // .then(function(rows) {
-  //   rows.forEach(row => {
-  //     if (!userInfo[row.username]) {
-  //       userInfo[row.username] = {username: row.username, tasks: []}
-  //     }
-  //     userInfo[row.username].tasks.push(row.task)
-  //   })
-  //   return Object.values(userInfo)
-  // })
+    // .select(
+    //   "s.id as id",
+    //   "s.lastname as lastname",
+    //   "s.firstname as firstname",
+    //   "s.email as email",
+    //   "t.id as task id",
+    //   "t.task as task",
+    //   "t.due_date as due date"
+    // )
+    // .leftJoin("tasks as t", "t.student_id", "=", "s.id")
+    // .then(function(rows) {
+    //   rows.forEach(row => {
+    //     if (!userInfo[row.firstname]) {
+    //       userInfo[row.firstname] = { firstname: row.firstname, tasks: [] };
+    //     }
+    //     userInfo[row.firstname].tasks.push(row.task);
+    //   });
+    //   return Object.values(userInfo);
+    // });
 }
 
 function findBy(filter) {

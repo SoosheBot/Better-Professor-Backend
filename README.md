@@ -25,7 +25,7 @@
 -[ ] Items needed to Register
 
 |NAME|TYPE|REQUIRED|DESCRIPTION|
-|------------|------------|-----------|
+|------------|------------|-----------|------------|
 |lastname|string|yes|last name|
 |firstname|string|yes|first name|
 |username|string|yes|username (required for login, cannot be duplicate)|

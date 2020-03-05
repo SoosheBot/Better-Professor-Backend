@@ -54,10 +54,11 @@ function findUserMessages(userId) {
   .where("professor_id", userId);
 };
 
-function findUserStudents(id) {
+function findUserStudents(userId) {
   return db("students as s")
   .select("s.id as student id", "s.lastname as lastname", "s.firstname as firstname", "s.email as email", "u.firstname as professor", "u.id as professor_id")
   .join("users as u", "s.professor_id", "=", "u.id")
+  .where("s.professor_id", userId)
 };
 
 async function add(user) {

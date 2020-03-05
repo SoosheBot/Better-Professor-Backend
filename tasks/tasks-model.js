@@ -10,26 +10,28 @@ module.exports = {
 };
 
 function find() {
-  return db("tasks as t").select("s.firstname as firstname", "t.task as task", "t.due_date as due date").join("info as s", "s.task_id", "=", "t.id");
+  return db("tasks as t")
+    .select(
+      "s.firstname as firstname",
+      "t.task as task",
+      "t.due_date as due date", "u.id as professor id", "u.firstname as professor firstname"
+    )
+    .join("students as s", "t.student_id", "=", "s.id")
+    .join("users as u", "t.professor_id", "=", "u.id");
 }
 
 function findBy(filter) {
-  return db("tasks")
-    .where(filter);
+  return db("tasks").where(filter);
 }
 
 function findById(id) {
   return db("tasks")
-      .where({ id })
-      .first();
-  
+    .where({ id })
+    .first();
 }
 
 function add(task) {
-  return db("info as i")
-    .select("t.task as task", "t.due_date as due date", "u.id as professor id", "i.student_id as student id")
-    .join("tasks as t", "i.task_id", "=", "t.id")
-    .join("users as u", "i.user_id", "=", "u.id")
+  return db("tasks")
     .insert(task, "id")
     .then(([id]) => find(id));
 }

@@ -35,6 +35,7 @@
 
 - [ ] -- Note - This is our default admin and has an account already set up for easy access - please use him to login, and you won't need to register! 
 
+
 	{   
 		"lastname":"Franklin",
 		"firstname":"Ben",
@@ -43,6 +44,7 @@
 		"email": "kiteguy@email.com",
 		"role": "admin"
 	}
+
 
 
 #### Professor's successful registration returns a token, their username, id, etc. ####

@@ -61,16 +61,14 @@ function findMessages(profMessage) {
 }
 
 function findTasks(studentId) {
-  return db("students as s")
-    .select(
-      "s.id as student_id",
-      "s.lastname as lastname",
-      "s.firstname as firstname",
-      "t.id as task_id",
-      "t.task as task",
-      "t.due_date as due_date"
-    )
-    .join("tasks as t", "t.student_id", "=", "s.id")
+  return db("tasks as t")
+  .select("t.id as task_id",
+  "t.task as task",
+  "t.due_date as due_date",
+  "s.lastname as lastname",
+  "s.firstname as firstname",
+  "s.id as student_id")
+    .join("students as s", "t.student_id", "=", "s.id")
     .where("student_id", studentId);
 }
 

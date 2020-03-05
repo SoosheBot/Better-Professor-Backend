@@ -4,7 +4,7 @@ const Messages = require("./messages-model.js");
 const { validateMessageId } = require("./messages-helper");
 const { checkRole } = require("../middleware/role-validation");
 
-router.get("/", checkRole("admin"), (req, res) => {
+router.get("/", (req, res) => {
   Messages.find()
     .then(messages => {
       res.status(200).json(messages);
@@ -38,7 +38,7 @@ router.post("/", (req, res) => {
     });
 });
 
-router.put("/:id", checkRole("admin"), validateMessageId, (req, res) => {
+router.put("/:id", validateMessageId, (req, res) => {
   const body = { ...req.body };
   const { id } = req.params;
 

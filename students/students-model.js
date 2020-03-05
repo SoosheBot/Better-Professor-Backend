@@ -63,7 +63,7 @@ function findMessages(profMessage) {
 function findTasks(studentId) {
   return db("students as s")
     .select(
-      "s.id as id",
+      "s.id as student_id",
       "s.lastname as lastname",
       "s.firstname as firstname",
       "t.task as task",

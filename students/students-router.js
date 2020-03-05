@@ -58,7 +58,7 @@ router.get("/:id/messages", (req, res) => {
 
   router.get("/:id/tasks", (req, res) => {
     const { id } = req.params;
-    if (!req.params.id) {
+    if (!id) {
       res.status(404).json({
         errorMessage: "This ID does not exist"
       });
@@ -66,6 +66,7 @@ router.get("/:id/messages", (req, res) => {
     Students.findById(id)
       .then(student => {
         if (!student) {
+          console.log(student)
           res.status(404).json({ err: "No student with this id" });
         } else {
           Students.findTasks(id).then(tasks => {

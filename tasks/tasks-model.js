@@ -13,6 +13,7 @@ function find() {
   return db("tasks as t")
     .select(
       "s.firstname as firstname",
+      "t.id as task id",
       "t.task as task",
       "t.due_date as due date", "u.id as professor id", "u.firstname as professor firstname"
     )

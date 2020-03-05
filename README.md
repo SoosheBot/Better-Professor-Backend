@@ -36,14 +36,14 @@
 - [ ] -- Note - This is our default admin and has an account already set up for easy access - please use him to login, and you won't need to register! 
 
 
-	{   
-		"lastname":"Franklin",
-		"firstname":"Ben",
-		"username":"KiteGuy",
-		"password":"Password1",
-		"email": "kiteguy@email.com",
-		"role": "admin"
-	}
+	{    
+		"lastname":"Franklin", 
+		"firstname":"Ben", 
+		"username":"KiteGuy", 
+		"password":"Password1", 
+		"email": "kiteguy@email.com", 
+		"role": "admin" 
+	} 
 
 
 

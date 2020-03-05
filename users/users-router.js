@@ -43,7 +43,7 @@ router.get("/:id/messages", (req, res) => {
 });
 router.get("/:id/students", validateUserId, (req,res) => {
   const { id } = req.params;
-   Users.findUserStudents(id)
+   Users.findUserInfo(id)
    .then(students => {
      res.status(201).json(students)
    })

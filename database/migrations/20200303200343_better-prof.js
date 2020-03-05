@@ -12,7 +12,17 @@ exports.up = function(knex, Promise) {
         .unique();
       tbl.string("role").defaultTo("user");
     })
-
+    .createTable("students", tbl => {
+      tbl.increments();
+      tbl.string("lastname", 128).notNullable();
+      tbl.string("firstname", 128).notNullable();
+      tbl.string("username", 128).notNullable();
+      tbl.string("password", 128).notNullable();
+      tbl
+        .string("email", 128)
+        .notNullable()
+        .unique();
+    })
     .createTable("tasks", tbl => {
       tbl.increments();
       tbl.text("task", 128).notNullable();
@@ -21,6 +31,13 @@ exports.up = function(knex, Promise) {
         .notNullable()
         .references("id")
         .inTable("users")
+        .onDelete("RESTRICT")
+        .onUpdate("CASCADE");
+        tbl
+        .integer("student_id")
+        .notNullable()
+        .references("id")
+        .inTable("students")
         .onDelete("RESTRICT")
         .onUpdate("CASCADE");
       tbl
@@ -46,22 +63,21 @@ exports.up = function(knex, Promise) {
         .integer("task_id")
         .references("id")
         .inTable("tasks")
-        .onDelete("CASCADE")
+        .onDelete("RESTRICT")
         .onUpdate("CASCADE");
       tbl.timestamp("created_at").defaultTo(knex.fn.now());
       tbl.timestamp("updated_at").defaultTo(knex.fn.now());
     })
 
-    .createTable("students", tbl => {
+    .createTable("info", tbl => {
       tbl.increments();
-      tbl.string("lastname", 128).notNullable();
-      tbl.string("firstname", 128).notNullable();
-      tbl.string("username", 128).notNullable();
-      tbl.string("password", 128).notNullable();
       tbl
-        .string("email", 128)
-        .notNullable()
-        .unique();
+      .integer("student_id")
+      .notNullable()
+      .references("id")
+      .inTable("students")
+      .onDelete("RESTRICT")
+      .onUpdate("CASCADE");
       tbl
         .integer("task_id")
         .references("id")
@@ -92,8 +108,9 @@ exports.up = function(knex, Promise) {
 
 exports.down = function(knex, Promise) {
   return knex.schema
-    .dropTableIfExists("students")
+    .dropTableIfExists("info")
     .dropTableIfExists("messages")
     .dropTableIfExists("tasks")
+    .dropTableIfExists("students")
     .dropTableIfExists("users");
 };

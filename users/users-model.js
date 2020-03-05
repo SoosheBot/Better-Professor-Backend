@@ -6,7 +6,7 @@ module.exports = {
   findBy,
   findById,
   findUserMessages,
-  findUserStudents,
+  findUserInfo,
   add,
   update,
   remove
@@ -15,7 +15,7 @@ module.exports = {
 function find() {
   const userInfo = {}
   return db("users as u")
-  .select("u.id as id", "u.lastname as lastname", "u.firstname as firstname", "u.email as email", "m.message as message", "s.lastname as student lastname", "s.student_id as student id")
+  .select("u.id as id", "u.lastname as lastname", "u.firstname as firstname", "u.email as email", "m.message as message", "s.lastname as student lastname", "s.id as student id")
   .leftJoin("tasks as t", "t.professor_id", "=", "u.id")
   .leftJoin("messages as m", "m.message_id", "=", "u.message_id")
   .leftJoin("students as s", "s.professor_id", "=", "u.id")
@@ -54,10 +54,10 @@ function findUserMessages(userId) {
   .where("professor_id", userId);
 };
 
-function findUserStudents(userId) {
-  return db("students as s")
+function findUserInfo(userId) {
+  return db("info as i")
   .select("s.id as student id", "s.lastname as lastname", "s.firstname as firstname", "s.email as email", "u.firstname as professor", "u.id as professor_id")
-  .join("users as u", "s.professor_id", "=", "u.id")
+  .join("students as s", "s.professor_id", "=", "u.id")
   .where("s.professor_id", userId)
 };
 

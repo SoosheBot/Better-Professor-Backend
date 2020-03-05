@@ -66,6 +66,7 @@ async function add(student) {
   return findById(id);
 }
 
+
 function update(id, changes) {
   return db("students")
     .where({ id })

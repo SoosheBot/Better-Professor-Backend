@@ -34,7 +34,7 @@ router.post("/", (req, res) => {
     })
     .catch(err => {
       console.log(err)
-      res.status(500).json({ error: "Could not add message." });
+      res.status(500).json({ error: "Could not add message. The task associated with this message may not exist." });
     });
 });
 

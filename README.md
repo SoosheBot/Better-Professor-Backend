@@ -135,6 +135,8 @@
 |get a professor's students, but fancy (nested under the professor -- looks a bit cleaner, yields the same result as the other GET)|GET|/api/users/all-students/:id|
 |get professor's messages|GET|/api/users/:id/messages|
 |add student|POST|api/users/:id/students (note -- will not use this, as students can register by themselves)|
+|update student|PUT|/api/users/students/:id|
+|delete student|DEL|/api/users/students/:id|
 |add message|POST|/api/users/:id/messages|
 |update professor|PUT|/api/users/:id|
 |delete professor|DEL|/api/users/:id|
@@ -148,9 +150,9 @@
 |get all student by id||/api/students/:id|
 |get student's tasks|GET|/api/students/:id/tasks|
 |get student's messages|GET|/api/students/:id/messages|
-|add student|POST|/api/students|
-|update student|PUT|/api/students/:id|
-|delete student|DEL|/api/students/:id|
+|add student (note -- this is restricted, only users can add students, we have this endpoint for reg/login purposes )|POST|/api/students|
+
+
 ###Note -- in V1, we are not adding the ability for students to POST messages, they can only view their own messages.
 
 ## TASKS ENDPOINTS ##

@@ -145,6 +145,19 @@ router.put("/:id", validateUserId, (req, res) => {
     });
 });
 
+router.put("/student/:id", validateUserId, (req, res) => {
+  const body = { ...req.body };
+  const { id } = req.params;
+
+  Students.update(id, body)
+    .then(changed => {
+      res.status(201).json(changed);
+    })
+    .catch(err => {
+      res.status(500).json({ error: "Could not update user at this ID" });
+    });
+});
+
 router.delete("/:id", validateUserId, (req, res) => {
   const id = req.params.id;
   Users.remove(id)

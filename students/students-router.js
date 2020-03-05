@@ -33,8 +33,7 @@ router.get("/:id/messages", (req, res) => {
       errorMessage: "This ID does not exist"
     });
   }
-  Students.findById(id)
-  .then(student => {
+  Students.findById(id).then(student => {
     if (!student) {
       res.status(404).json({
         errorMessage: "Student does not exist."
@@ -73,11 +72,9 @@ router.get("/:id/messages", (req, res) => {
             if (tasks) {
               res.status(200).json({ student, tasks });
             } else {
-              res
-                .status(400)
-                .json({
-                  errorMessage: "Could not find this student's messages"
-                });
+              res.status(400).json({
+                errorMessage: "Could not find this student's messages"
+              });
             }
           });
         }

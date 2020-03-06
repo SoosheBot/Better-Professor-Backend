@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 const Messages = require("./messages-model.js");
 const { validateMessageId } = require("./messages-helper");
-const { checkRole } = require("../middleware/role-validation");
+// const { checkRole } = require("../middleware/role-validation");
 
 router.get("/", (req, res) => {
   Messages.find()

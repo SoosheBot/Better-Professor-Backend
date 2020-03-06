@@ -53,7 +53,7 @@ function findById(id) {
 
 function findMessages(profMessage) {
   return db("messages as m")
-    .select("s.id as id",
+    .select("s.id as student_id",
     "s.firstname as firstname",
     "m.message as message_from_prof", "m.created_at as message_sent", "m.updated_at as message_updated")
     .join("students as s", "m.student_id", "=", "s.id")

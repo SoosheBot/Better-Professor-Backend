@@ -11,8 +11,15 @@ describe("server", function() {
   });
 
   describe("students-router", function() {
-    it("should return 401 status when user is not logged in", async() => {
+    it("should return 401 status when student is not logged in", async() => {
         const response = await request(server).get('/api/students');
+        expect(response.status).toBe(401);
+    });
+  });
+
+  describe("users-router -- view all user's students", function() {
+    it("should return 401 status when not logged in", async() => {
+        const response = await request(server).get('/api/users/all-students');
         expect(response.status).toBe(401);
     });
   });

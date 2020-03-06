@@ -2,8 +2,11 @@ const router = require("express").Router();
 
 const Users = require("./users-model.js");
 const { validateUserId } = require("./users-helper");
+const { checkRole } = require("../middleware/role-validation");
 
-router.get("/", (req, res) => {
+const Students = require("../students/students-model");
+
+router.get("/", checkRole("admin"), (req, res) => {
   Users.find()
     .then(users => {
       res.status(200).json(users);
@@ -11,7 +14,7 @@ router.get("/", (req, res) => {
     .catch(err => res.send(err));
 });
 
-router.get("/:id", validateUserId, (req, res) => {
+router.get("/:id", checkRole("admin"), validateUserId, (req, res) => {
   const { id } = req.params;
   Users.findById(id)
     .then(user => {
@@ -42,7 +45,7 @@ router.get("/:id/messages", (req, res) => {
     });
 });
 
-router.get("/:id/students", validateUserId, (req, res) => {
+router.get("/:id/students", checkRole("admin"), validateUserId, (req, res) => {
   const { id } = req.params;
   Users.findById(id)
     .then(professor => {
@@ -69,7 +72,7 @@ router.get("/:id/students", validateUserId, (req, res) => {
     });
 });
 
-router.get("/all-students/:id", (req, res) => {
+router.get("/all-students/:id", checkRole("admin"), (req, res) => {
   if (!req.params.id) {
     res.status(404).json({
       errorMessage: "This ID does not exist"
@@ -152,5 +155,6 @@ router.delete("/:id", validateUserId, (req, res) => {
       res.status(500).json({ message: "The user could not be removed" });
     });
 });
+
 
 module.exports = router;

@@ -63,7 +63,7 @@ router.delete("/:id", validateTaskId, (req, res) => {
     .then(task => {
       res
         .status(200)
-        .json({ message: `Task ${task} at id# ${id} was deleted.` });
+        .json({ message: `Task at id ${id} was deleted.` });
     })
     .catch(err => {
       console.log(err);

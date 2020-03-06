@@ -2,11 +2,8 @@ const router = require("express").Router();
 
 const Users = require("./users-model.js");
 const { validateUserId } = require("./users-helper");
-const { checkRole } = require("../middleware/role-validation");
 
-const Students = require("../students/students-model");
-
-router.get("/", checkRole("admin"), (req, res) => {
+router.get("/", (req, res) => {
   Users.find()
     .then(users => {
       res.status(200).json(users);
@@ -14,7 +11,7 @@ router.get("/", checkRole("admin"), (req, res) => {
     .catch(err => res.send(err));
 });
 
-router.get("/:id", checkRole("admin"), validateUserId, (req, res) => {
+router.get("/:id", validateUserId, (req, res) => {
   const { id } = req.params;
   Users.findById(id)
     .then(user => {
@@ -45,7 +42,7 @@ router.get("/:id/messages", (req, res) => {
     });
 });
 
-router.get("/:id/students", checkRole("admin"), validateUserId, (req, res) => {
+router.get("/:id/students", validateUserId, (req, res) => {
   const { id } = req.params;
   Users.findById(id)
     .then(professor => {
@@ -72,7 +69,7 @@ router.get("/:id/students", checkRole("admin"), validateUserId, (req, res) => {
     });
 });
 
-router.get("/all-students/:id", checkRole("admin"), (req, res) => {
+router.get("/all-students/:id", (req, res) => {
   if (!req.params.id) {
     res.status(404).json({
       errorMessage: "This ID does not exist"

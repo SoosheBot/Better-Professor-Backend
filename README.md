@@ -134,9 +134,7 @@
 |get a professor's students|GET|/api/user/:id/students|
 |get a professor's students, but fancy (nested under the professor -- looks a bit cleaner, yields the same result as the other GET)|GET|/api/users/all-students/:id|
 |get professor's messages|GET|/api/users/:id/messages|
-|add student|POST|api/users/:id/students (note -- will not use this, as students can register by themselves)|
-|update student|PUT|/api/users/students/:id|
-|delete student|DEL|/api/users/students/:id|
+|add student|POST|api/users/:id/students|
 |add message|POST|/api/users/:id/messages|
 |update professor|PUT|/api/users/:id|
 |delete professor|DEL|/api/users/:id|
@@ -150,7 +148,20 @@
 |get all student by id||/api/students/:id|
 |get student's tasks|GET|/api/students/:id/tasks|
 |get student's messages|GET|/api/students/:id/messages|
-|add student (note -- this is restricted, only users can add students, we have this endpoint for reg/login purposes )|POST|/api/students|
+|update student|PUT|/api/students/:id/|
+|delete student|DEL|/api/students/:id/|
+|add student (note -- this is restricted to admins only, only users can add students, we have this endpoint for reg/login purposes )|POST|/api/students|
+
+### Items Required to add Student ###
+#### same as student registration, convenience! ####
+|NAME|TYPE|REQUIRED|DESCRIPTION|
+|------------|------------|-----------|------------|
+|lastname|string|yes|last name|
+|firstname|string|yes|first name|
+|username|string|yes|username (required for login, cannot be duplicate)|
+|password|string|yes|password (required for login)|
+|email|string|yes|email (cannot be duplicate)|
+|professor_id|number|yes|required to add a student to a professor - if unsure, add to professor_id:1|
 
 
 ###Note -- in V1, we are not adding the ability for students to POST messages, they can only view their own messages.
@@ -169,7 +180,7 @@
 |NAME|TYPE|REQUIRED|DESCRIPTION|
 |------------|------------|-----------|------------|
 |due_date|number|yes|Has to be added like this: "2020-09-09"|
-|task|string|yes|This is the task message|
+|task|string|yes|This is the task message, it can be very descriptive, no char limit|
 |professor_id|number|yes|Assigns student's task to a professor|
 |student_id|number|yes|Assigns task to a student|
 
@@ -184,7 +195,7 @@
 |update messages|PUT|/api/messages/:id|
 |delete messages|DEL|/api/messages/:id|
 
-### items Required to Send a Message ###
+### Items Required to Send a Message ###
 |NAME|TYPE|REQUIRED|DESCRIPTION|
 |------------|------------|-----------|------------|
 |message|string|yes|send the message|

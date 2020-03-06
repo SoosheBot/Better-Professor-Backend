@@ -18,7 +18,7 @@ server.use(logger);
 
 server.use("/api/auth", authRouter);
 server.use("/api/users", authenticate, usersRouter);
-server.use("/api/students", studentsRouter);
+server.use("/api/students", studentsRouter); //removed authenticated to work around a FE bug
 server.use("/api/tasks", tasksRouter);
 server.use("/api/messages", messagesRouter);
 

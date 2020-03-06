@@ -145,19 +145,6 @@ router.put("/:id", validateUserId, (req, res) => {
     });
 });
 
-router.put("/students/:id", validateUserId, (req, res) => {
-  const body = { ...req.body };
-  const { id } = req.params;
-
-  Students.update(id, body)
-    .then(changed => {
-      res.status(201).json(changed);
-    })
-    .catch(err => {
-      res.status(500).json({ error: "Could not update user at this ID" });
-    });
-});
-
 router.delete("/:id", validateUserId, (req, res) => {
   const id = req.params.id;
   Users.remove(id)
@@ -166,35 +153,6 @@ router.delete("/:id", validateUserId, (req, res) => {
     })
     .catch(err => {
       res.status(500).json({ message: "The user could not be removed" });
-    });
-});
-
-router.delete("/students/:id", checkRole("admin"), (req, res) => {
-  const { id } = req.params;
-  if (!id) {
-    res.status(404).json({
-      errorMessage: "This ID does not exist"
-    });
-  }
-  Students.findById(id)
-    .then(remove => {
-      if (!remove) {
-        res.status(404).json({ message: "ID does not exist" });
-      } else {
-        Students.remove(id)
-          .then(students => {
-            console.log(students)
-            res.json(`Student has been deleted`);
-          })
-          .catch(err => {
-            res
-              .status(500)
-              .json({ message: "The student could not be removed" });
-          });
-      }
-    })
-    .catch(err => {
-      res.status(500).json(err);
     });
 });
 

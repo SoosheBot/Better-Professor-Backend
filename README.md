@@ -1,7 +1,6 @@
 ## Better Professor App Backend 
 
 - The Base URL: https://a-better-professor.herokuapp.com/
-- The live project URL: https://better-professor-one.now.sh/
 
 
 

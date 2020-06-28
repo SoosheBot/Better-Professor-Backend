@@ -4,10 +4,6 @@
 
 - [ ] The Project Vision: https://www.notion.so/A-Better-Professor-Product-Vision-710c5f2e4cc346df8f6e4c1a81c16bbd
 
-- [ ] Trello Board with Daily Milestones (teams are responsible for maintaining their daily milestones): https://trello.com/b/apD6yvDU/better-professor-app
-
-- [ ] Grading Rubric - https://www.notion.so/Build-Week-Project-Rubrics-c0783f6d9b7e435f9ce47e8cd2d0ee3b
-
 
 ############################################################
 

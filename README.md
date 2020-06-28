@@ -1,8 +1,8 @@
 ## Better Professor App Backend 
 
-- [ ] The Base URL: https://a-better-professor.herokuapp.com/
+- The Base URL: https://a-better-professor.herokuapp.com/
+- The live project URL: https://better-professor-one.now.sh/
 
-- [ ] The Project Vision: https://www.notion.so/A-Better-Professor-Product-Vision-710c5f2e4cc346df8f6e4c1a81c16bbd
 
 
 ############################################################
